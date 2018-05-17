@@ -1,0 +1,112 @@
+\usepackage{amssymb,amsmath}
+
+\usepackage{graphicx}
+\usepackage{zed-csp}
+%\usepackage{csp}
+%\usepackage{algorithm}
+%\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{url}
+\usepackage{cite}
+\usepackage{tabularx}
+%\usepackage{cases}
+
+% The line below was added as a workaround for spacing ``f'' in mathit. \mathit can now be replaced by \Lmathit to get better spacing. 
+\DeclareMathAlphabet{\Lmathit}{\encodingdefault}{\familydefault}{m}{it}
+
+\interdisplaylinepenalty=2500
+
+\newfloat{algorithm}{tbp}{lop}
+\floatstyle{ruled}
+
+\newtheorem{lemma}{Lemma}%
+\newtheorem{definition}{Definition}%
+\newtheorem{conjecture}{Conjecture}%
+\newtheorem{theorem}{Theorem}%
+\newtheorem{proposition}[theorem]{Proposition}
+
+% include if zed-csp is not included.
+% \newcommand{\hide}{\setminus}
+% \newcommand{\spot}{\bullet}
+
+%include if zed-csp IS included.
+\renewcommand{\inv}{\mathit{inval}}
+%otherwise
+%\newcommand{\inv}{\mathit{inval}}
+
+\newcommand{\prov}{\mathit{prov}}
+\newcommand{\dep}{\mathit{dep}}
+\newcommand{\pr}{\mathit{pr}}
+\newcommand{\obf}{\mathit{abs}}
+\newcommand{\pol}{\mathit{pol}}
+
+\newcommand{\pg}{\mathit{PG}}
+\newcommand{\en}{\mathit{En}}
+\newcommand{\act}{\mathit{Act}}
+\newcommand{\ag}{\mathit{Ag}}
+
+\newcommand{\used}{\Lmathit{used}}
+\newcommand{\wgby}{\Lmathit{genBy}}
+\newcommand{\influence}{\Lmathit{wasInfluencedBy}}
+\newcommand{\wdf}{\Lmathit{wasDerivedFrom}}
+\newcommand{\waw}{\Lmathit{waw}}
+\newcommand{\attrTo}{\Lmathit{wat}}
+\newcommand{\wat}{\Lmathit{wat}}
+\newcommand{\delegate}{\Lmathit{abo}}
+\newcommand{\wasInfBy}{\Lmathit{wasInformedBy}}
+\newcommand{\start}{\Lmathit{start}}
+\newcommand{\ed}{\Lmathit{end}}
+
+
+\newcommand{\Ev}{\mathit{Ev}}
+\newcommand{\preorder}{\preceq}
+
+\newcommand{\evmap}{\mathit{evmap}}
+
+
+\newcommand{\node}{\mathit{Node}}
+\newcommand{\type}{\mathit{type}}
+\newcommand{\elabel}{\mathit{label}}
+
+\newcommand{\guEA}{\pg_{gu/ea}}  % gen-usage over enties, activities
+\newcommand{\guiEA}{\pg_{gui/ea}}
+\newcommand{\guaEAG}{\pg_{gu+/eaAg}}  % gen-usage and more over enties, activities plus Agents
+
+%% operators
+\newcommand{\group}{\mathit{Group}}
+\newcommand{\aggroup}{\mathit{agGroup}}
+\newcommand{\sgroup}{\mathit{Group_{str}}}
+\newcommand{\clos}{\mathit{pclos}}
+\newcommand{\repl}{\mathit{replace}}
+\newcommand{\agrepl}{\mathit{agreplace}}
+\newcommand{\rewire}{\mathit{rewire}}
+\newcommand{\extend}{\mathit{extend}}
+\newcommand{\pclos}{\mathit{pclos}}
+\newcommand{\rem}{\mathit{remove}}
+\newcommand{\agremove}{\mathit{AgRemove}}
+\newcommand{\orphanremove}{\mathit{OrphanRemove}}
+\newcommand{\allorphanremove}{\mathit{AllOrphanRemove}}
+\newcommand{\remIsolated}{\mathit{remIsolated}}
+
+\newcommand{\dclos}{\mathit{dclos}}
+
+\newcommand{\POL}{\mathit{\cal P}}
+
+%\newcommand{\mnote}[1] {\marginpar{\scriptsize \raggedright #1 }}
+\newcommand{\mnote}[1] {  \framebox{\begin{minipage}[t]{0.9\linewidth}
+ \scriptsize \raggedright #1 \normalsize
+    \end{minipage}
+ }}
+
+\newenvironment{mydrop}{\begin{array}[t]{@{}l@{}}}{\end{array}}%
+
+
+
+\usepackage{color}
+\usepackage{pdfpages}
+\usepackage{ifthen}
+\newcommand{\showComments}{yes} % {yes}
+\newcommand{\note}[2]{
+    \ifthenelse{\equal{\showComments}{yes}}{\textcolor{#1}{#2}}{}
+}
+\newcommand{\jwb}[1]{\note{blue}{JWB: #1}}

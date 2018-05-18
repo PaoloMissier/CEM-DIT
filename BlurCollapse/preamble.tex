@@ -98,6 +98,44 @@
     \end{minipage}
  }}
 
+
+%%% Optional notes to highlight the changes in the reviewed document
+% \optchange to indicated changed text.
+% \optadded to indicate newly text.
+% \optremoved to indicate text removed.
+% \optnote to write a note which is shown only if changes are on
+\newif\ifwithchanges
+
+% Turn on/off change highlighting by un/commenting this toggle
+\withchangestrue
+
+\newcommand{\optchange}[1]{%
+	\ifwithchanges
+	{\leavevmode\color{red}#1}%
+	\else
+	#1%
+	\fi}
+
+\newcommand{\optadded}[1]{%
+	\ifwithchanges
+	{\leavevmode\color{darkgreen}#1}%
+	\else
+	#1%
+	\fi}
+
+\newcommand{\optremoved}[1]{%
+	\ifwithchanges
+	{\color{red}\sout{#1}}%
+	\fi}
+
+\newcommand{\optnote}[1]{%
+	\ifwithchanges
+	{\footnotesize\itshape\color{red}\{#1\}}%
+	\fi}
+%
+%%% End of optional note definition
+
+
 \newenvironment{mydrop}{\begin{array}[t]{@{}l@{}}}{\end{array}}%
 
 

@@ -36,17 +36,100 @@ Provenance \sep Provenance metadata \sep provenance abstraction
 
 \maketitle
 
-\mnote{main contributions:
-\begin{itemize}
-	\item two graph rewriting operators for abstracting over provenance graphs, formalised and with proof that the rewriting preserves PROV validity
-	\item algebraic properties of the operators (commutative??)
-	\item small PROV extension to introduce new relationships when the existing ones are generalised i.e. to ``influence'', that is the new relationship types qualify ``influence''
+
+\section{Introduction and motivation}
+
+\mnote{Running examples:  we may need two, one for each operator.
 	
-	\item demonstration of how the operators support a variety of abstraction policies and how we cna use a variety of graph metrics to measure the effect of applying a specific policy to a graph
-	\item empirical evaluation of the rewriting i.e. using (1) a variety of synthetic graphs, generated using ProvGen, (2) a variety of policies chosen as representative examples and (3) a variety of provenance network metrics
+	PM: suggest picking p-graphs that are plausible when viewed as the trace of a program, ie using abstract function names for activities.
+}
+	
+\mnote{main contributions:
+	\begin{itemize}
+		\item two graph rewriting operators for abstracting over provenance graphs, formalised and with proof that the rewriting preserves PROV validity
+		\item algebraic properties of the operators (commutative??)
+		\item small PROV extension to introduce new relationships when the existing ones are generalised i.e. to ``influence'', that is the new relationship types qualify ``influence''
+		
+		\item demonstration of how the operators support a variety of abstraction policies and how we cna use a variety of graph metrics to measure the effect of applying a specific policy to a graph
+		\item empirical evaluation of the rewriting i.e. using (1) a variety of synthetic graphs, generated using ProvGen, (2) a variety of policies chosen as representative examples and (3) a variety of provenance network metrics
+	\end{itemize}
+	
+}
+	
+	
+\section{The Blur and Collapse operators}
+	
+	
+	\mnote{HOW ABOUT CUTTING RELATIONSHIPS}
+	
+	\subsection{Formal definitions}
+\mnote{we decided:
+	
+	\begin{itemize}
+		\item two separate formal definitions, one for each op.
+		\item blur does not follow from collapse
+		\item blur +/- does not imply blur (CHECK)
+		\item collapse limited to a-a  (supported by intuition on what it means to collapse. collapsing e-e means you merge inputs and outputs which does not make much sense)
+  		\item collapse requires using the PROV top-level ``influence'' relationships (only between two activities) --> show an example. This is well supported by intuition: when $a$ uses the intermediate data produced by $a_1$ and consumed by $a_2$, and we collapse $a_1, a_2$ into $a'$, then $a$ becomes related to $a'$. There influence has a natural interpretation.
+  			
+	\end{itemize}
+}
+
+  \subsection{Composing Blur operations}
+  
+  	\begin{itemize}
+	\item blur is compositional, not commutative
+	\item thus we define a explicit semantics for dealing with a set of Blur operations --> \textit{union semantics}
 \end{itemize}
 
+
+  \subsection{Composing Collapse operations}
+
+\mnote{  
+  	\begin{itemize}
+  	  \item collapse is compositional, probably commutative  --> \textbf{proof??}
+  	  \item if this is the case, then no need for union semantics
+  	\end{itemize}
+  	}
+  	
+  \subsection{Composing Blur and Collapse operations}  
+		
+	\mnote\textbf{{?? not worked out.} }
+
+\section{Abstraction policies}
+
+\mnote{We want to show how different families of abstraction policies can be specified and enforced using these two operators and their composition.}
+
+\subsection{Policy definition}
+
+\mnote{What is the most abstract definition of an abstraction policy?
+	
+it consists of two elements:
+
+  	\begin{itemize}
+	\item specifying the nodes that are arguments to the operators (and the radius in the case of blur). This specification is either explicit (mentioning specific nodes) or intensional, ie through conditions that predicate on properties of the nodes, eg sensitivity, utility.
+	
+	\item apply the set of operations. If collapse only then probably commutative (order irrelevant), blur: defined by union semantics for blur. if a mix: not clear.
+	
+  \end{itemize}
 }
+
+\subsection{Policy Examples}
+	
+		\mnote{1. sensitivity threshold on single node (see old paper). 2. average sensitivity within a set of neighbouring nodes.. 3....}
+		
+	\mnote{apply each policy to our running example and show the resulting graph}
+
+\section{Empirical evaluation}
+
+\mnote{the aim of the evaluation is to show how the framework allows for the easy specification of policies and comparing their effects on a collection of test graphs, using a variety of provenance network metrics}
+
+\mnote{introduce network metrics: sensitivity, utility, plus provenance metrics as proposed by Moreau 2018}
+
+\mnote{experimental testbed consists of a set of PROV graphs generated using provGen}
+
+\mnote{apply each policy to each graph, measure metrics before /  after, compare as charts / tables}
+
 
 \section*{Acknowledgements}
 

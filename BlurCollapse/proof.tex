@@ -1,0 +1,217 @@
+\subsection{The function $\col$}
+
+$\col$ collapses the path between two nodes, and replaces it with a new node. All edges into or out of the path are relabeled according to the function $\relabel$.
+\mnote{ definiotn for relabel; note can promote to sets. }
+
+  
+\begin{definition}[$\col$]
+  \label{def:col}
+  For nodes $x$, $y$ in a graph $G = (V,E)$, and a new node $v_{N}$ not in $V$,  $\col(x,y,G)$ is defined provided there is a path between nodes $x$ and $y$. Let $P$ be the set of all nodes on the path from $x$ to $y$. Let $r(l)$ stand for the function $\relabel(l)$. Then $\col(x,y,G) =  (V',E')$, where 
+  \begin{eqnarray*}
+  V' & = & (V\hide P) \union \{v_N\}     \\
+  E' & = & E\hide (
+                   \{(v',v,l)|(v',v,l) \in in(v), v\in P\}
+                   \union
+                   \{(v,v',l)|(v,v',l) \in out(v), v\in P\}
+                  )\\
+  && \union\ \{(v',v_{N},r(l))|(v',v,l) \in in(v), v\in P\}\\
+  && \union\ \{(v_{N},v',r(l))|(v,v',l) \in out(v), v\in P\}\\
+  \end{eqnarray*}
+
+\end{definition}
+
+To show that  the order of application of two $\col$ functions does not matter, (ie. that $\col$ commutes with itself)  we need to show that for any nodes $w,x,y,z$ in a graph $G$, $\col(y,z,\col(w,x,G)) = \col(w,x,\col(y,z,G))$. 
+
+
+We begin with some definitions.
+
+$P_1$ is defined as $\Path(w,x)$.
+
+$P_2$ is defined as $\Path(y,z)$.
+
+$\{v_i\} = \Path(x,w) \inter \Path(y,z)$. Note that in general this is a set of nodes. 
+
+ If the new node resulting from $\col(y,z,G)$ is $v_{N1}$,
+
+$E_1$ is the set of nodes after $\col(w,x,G)$ has been carried out.
+
+$E_2$ is the set of nodes after $\col(y,z,G)$ has been carried out.
+
+$P'_1$ is the path between $w$ and $x$ \textbf{after} $\col(y,z,G)$ has been carried out, resulting in the new node $v_{N1}$. It is defined $P'_1 = (P_1\hide\{v_i\})\union\{v_{N1}\}$.  
+
+Similarly,  $P'_2$ is the path between $y$ and $z$ \textbf{after} $\col(w,x,G)$ has been carried out, resulting in the new node $v_{N2}$.  It is defined as $P'_2 = (P_2\hide\{v_i\})\union\{v_{N2}\}$.  
+
+
+Approach to proof:
+
+We  calculate the nodes and edges of  $\col(y,z,\col(w,x,G))$,  then $\col(w,x,\col(y,z,G))$, showing that they both result in the same final graph. For readability, we introduce simplifying definitions through the proof. 
+
+Edges:
+
+Following the definitions recorded above, $\col(w,x,G)$ results in graph $G_1=(V_1,E_1)$, where
+
+\begin{eqnarray*}
+  E_1 & = & E\hide (
+                   \{(v',v,l)|(v',v,l) \in in(v), v\in P_1\}
+                   \union
+                   \{(v,v',l)|(v,v',l) \in out(v), v\in P_1\}
+                  )\\
+  && \union\ \{(v',v_{N},r(l))|(v',v,l) \in in(v), v\in P_1\}\\
+  && \union\ \{(v_{N},v',r(l))|(v,v',l) \in out(v), v\in P_1\}\\
+\end{eqnarray*}
+
+\noindent
+We now introduce the simplifying definitions:
+\[
+ in(P_1)   = \{(v',v,l)|(v',v,l) \in in(v), v\in P_1\} \\ 
+ out(P_1)  = \{(v,v',l)|(v,v',l) \in out(v), v\in P_1\}\\
+ in(v_{N1}) = \{(v',v_{N1},r(l))|(v',v,l) \in in(v), v\in P_1\} \\
+ out(v_{N1})= \{(v_{N1},v',r(l))|(v,v',l) \in out(v), v\in P_1\} \\
+\]
+With a slight abuse of notation, $in(\{v_{N1}\})$ (resp. $out(\{v_{N1}\})$)  is written $in(v_{N1})$ (resp. $out(v_{N1})$). These simplifies the definition of $E_1$ to 
+
+\[
+  E_1  = ( E\hide(in(P_1) \union out(P_1)) ) \union ( in(v_{N1}) \union out(v_{N1}) )
+  \]
+  
+
+$P_1$ and $P_2$ intersect (on the nodes $\{v_i\}$), so we record the modification in $P_2$ \textbf{after} $\col(w,x,G)$ has been carried out as
+
+It is defined as $P'_2 = (P_2\hide\{v_i\})\union\{v_{N1}\}$.  If $v_f$ is the replacement abstract node, then
+
+
+\begin{eqnarray*}
+  E_{12} =  & = & E_1\hide (
+                   \{(v',v,l)|(v',v,l) \in in(v), v\in P'_2\}
+                   \union
+                   \{(v,v',l)|(v,v',l) \in out(v), v\in P'_2\}
+                  )\\
+  && \union\ \{(v',v_f,r(l))|(v',v,l) \in in(v), v\in P'_2\}\\
+  && \union\ \{(v_f,v',r(l))|(v,v',l) \in out(v), v\in P'_2\}\\
+\end{eqnarray*}
+
+We  introduce some more simplifying definitions:
+\[
+in(P'_2) = \{(v',v,l)|(v',v,l) \in in(v), v\in P'_2\}\\
+out(P'_2) = \{(v,v',l)|(v,v',l) \in out(v), v\in P'_2\}\\
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(v), v\in P'_2\}\\
+out(v_f) = \{(v_f,v',r(l))|(v,v',l) \in out(v), v\in P'_2\}\\
+\]
+
+allowing us to re-write the defintion of $E_{12}$ as
+\[
+  E_{12}  =  (E_1\hide ( in(P'_2) \union out(P'_2)))  \union\ (in(v_f) \union out(v_f))
+\]
+  
+
+and then (by substitution of the $E_1$) as
+
+
+\[
+E_{12}  =  \left( \left(
+\begin{array}{l}  E\hide(in(P_1) \union out(P_1)) \\  \union \\ (in(v_{N1}) \union out(v_{N1}) ) \\
+\end{array} \right)
+   \hide ( in(P'_2) \union out(P'_2)) \right) \\
+\hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (in(v_f) \union out(v_f))\\ 
+
+\]
+
+and then, by substitution of $P'_2$
+
+\[
+E_{12}  =  \left( \left(
+  \begin{array}{l}
+    E\hide(in(P_1) \union out(P_1)) \\  \union \\ (in(v_{N1}) \union out(v_{N1}) ) \\
+  \end{array} \right)
+   \hide
+   \left( \begin{array}{l}
+     in((P_2\hide\{v_i\})\union\{v_{N1}\}) \\\union\\ out((P_2\hide\{v_i\})\union\{v_{N1}\})
+   \end{array}
+   \right) \right) \\
+   \hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (in(v_f) \union out(v_f))\\ 
+\]
+
+\noindent
+then, since $(P_2\hide\{v_i\}) \inter \{v_{N1}\} = \emptyset$, by distributing $in$ and $out$ over $\union$, we get  
+
+\[
+E_{12}  =  \left( \left(
+  \begin{array}{l}
+    E\hide(in(P_1) \union out(P_1)) \\  \union \\ (in(v_{N1}) \union out(v_{N1}) ) \\
+  \end{array} \right)
+   \hide
+   \left( \begin{array}{l}
+     in(P_2\hide\{v_i\})\union in(\{v_{N1}\})) \\\union\\ out(P_2\hide\{v_i\})\union out(\{v_{N1}\})
+   \end{array}
+   \right) \right) \\
+   \hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (in(v_f) \union out(v_f))\\ 
+\]
+
+We can therefore remove $out(\{v_{N1}\})$ and $out(\{v_{N1}\})$ from both sides of the set hiding operator, leaving 
+
+\[
+E_{12}  =  \left( \left(
+  \begin{array}{l}
+    E\hide(in(P_1) \union out(P_1)) \\  
+  \end{array} \right)
+   \hide
+   \left( \begin{array}{l}
+     in(P_2\hide\{v_i\}) \\\union\\ out(P_2\hide\{v_i\})
+   \end{array}
+   \right) \right) \\
+   \hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (in(v_f) \union out(v_f))\\ 
+\]
+and, since $\{v_i\}$ is the set of intersection nodes, and therefore $\{v_i\} \subseteq P_1$, we can write
+
+\[
+E_{12}  =  
+   E\hide
+  (
+    in(P_1) \union out(P_1) \union in(P_2) \union out(P_2)
+  ) \\
+   \hphantom{E_{12}  = \;\;}   \union\ \\
+\hphantom{E_{12}  = \;\;}   (in(v_f) \union out(v_f))\\ 
+\]
+
+now, need to revisit the defintion of $v_f$. and compare to $v_g$...
+
+Below, we expand the definition of $in(v_f)$. $out(v_f)$ an exercise!
+
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(v), v\in P'_2\}
+\]
+by defition of $P'_2$,
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(v), v\in((P_2\hide\{v_i\})\union\{v_{N1}\})\}
+\]
+and,  simplification, 
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in((P_2\hide\{v_i\}) \union \{v_{N1}\})\}
+\]
+and, by set manipulation, 
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2\hide\{v_i\}) \union  \{(v',v_{N1},r(l))|(v',v,l)\in in(v), v\in P_1\}\}
+\]
+which, by definition of $in(P_1)$, we can write as
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2\hide\{v_i\}) \union  r(in(P_1))\}
+\]
+where $r(in(P))$ is the relabeling operator $r$ promoted to sets. 
+
+Which, since $r$ is idempotent ($r(r(l)) = r(l)$), we can write as
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2\hide\{v_i\}) \union  in(P_1)\}
+\]
+and since $\{v_i\} \subseteq P_1$, 
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2) \union  in(P_1)\}
+\]
+
+\mnote{still need to repeat this for $E_{21}$ and show two results are equal. This proof might be best in a TR version}
+
+\pagebreak
+

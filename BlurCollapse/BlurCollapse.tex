@@ -76,6 +76,61 @@ Provenance \sep Provenance metadata \sep provenance abstraction
 	\end{itemize}
 }
 
+
+We give below the definition of the collapse operator $\col$. 
+  
+\begin{definition}[$\col$]  \label{def:col}
+  For nodes $x$, $y$ in a graph $G = (V,E)$, and a new node $v_{N1}$ not in $V$,  $\col(x,y,G)$ is defined provided there is a path between nodes $x$ and $y$. Let $P$ be the set of all nodes on the path from $x$ to $y$. Let $r(l)$ stand for the function $\relabel(l)$. Then $\col(x,y,G) =  (V',E')$, where 
+  \begin{eqnarray*}
+  V' & = & (V\hide P) \union \{v_{N1}\}     \\
+  E' & = & E\hide (
+                   \{(v',v,l)|(v',v,l) \in in(v), v\in P\}
+                   \union
+                   \{(v,v',l)|(v,v',l) \in out(v), v\in P\}
+                  )\\
+  && \union\ \{(v',v_{N1},r(l))|(v',v,l) \in in(v), v\in P\}\\
+  && \union\ \{(v_{N1},v',r(l))|(v,v',l) \in out(v), v\in P\}\\
+  \end{eqnarray*}
+\end{definition}
+If $type(v)$ returns the type of a node $v$, the function $relabel$ (abbreviated above as $r$) is defined as 
+\begin{definition}[$relabel$] \label{def:relabel}
+  For an edge $(v,v',l)$, 
+  \[
+   (v,v',relabel(l)) = \left\{
+   \begin{array}{l}
+      l,    {\emph{if}}\; type(v) \neq type(v') \\
+      infl, \emph{otherwise}
+   \end{array}   \right.
+  \]
+\end{definition}
+\noindent
+$relabel$ is promoted in the obvious way to sets of edges.
+
+
+Some initial definitions.
+
+The \emph{length} of a path $P$ is given by $\len(P)$, and is the number of edges between the two ends of the path.
+
+If $n \in \nat$, then $\blurset(n,v) = \{v'|\len(path(v,v')) \leq n\}$.
+
+We give now a definition for the $\blur$ operator.
+
+\begin{definition}[$\blur$] \label{def:blur}
+  If $G = (V,E)$ with $v \in V$, then $\blur(n,v) = (V',E')$, where
+  \begin{eqnarray*}
+  V' &=& (V\hide \blurset(n,v)) \union\ \{n_b\}\\
+  E' &=& E\hide \{(v_1,v_2)| v_1 \in \blurset(n,v) ~\emph{or}~ v_2 \in \blurset(n,v)\}\\
+  &&\union\ \{(n_b,v')|(v_1,v') \in E ~\emph{and}~ v_1 \in \blurset(n,v)\} \\
+  &&\union\ \{(v',n_b)|(v',v_1) \in E ~\emph{and}~ v_1 \in \blurset(n,v)\} \\
+  \end{eqnarray*}
+\end{definition}
+
+
+
+
+
+
+
   \subsection{Composing Blur operations}
   
   	\begin{itemize}

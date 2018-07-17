@@ -1,15 +1,10 @@
 \subsection{The function $\col$}
-\mnote{still to do:
-\begin{itemize}
-%  \item calc edges of $E_{21}$ and show equal to $E_{12}$.
-  \item so $(G_{12} = G_{21})$. 
-\end{itemize}
-}
+
+We begin with definitions of the function $\col$, then show that $\col$ is communtative. 
 
 
 
-
-$\col$ collapses the path between two nodes, and replaces it with a new node. All edges into or out of the path are replaced by edges into or out of the new node, and  relabeled according to the function $\relabel$.
+$\col$ collapses the path between two nodes, and replaces it with a new node. All edges into or out of the path are replaced by edges into or out of the new node, and  relabeled according to the function $\relabel$ (Definition~\ref{def:relabel}).
   
 \begin{definition}[$\col$]  \label{def:col}
   For nodes $x$, $y$ in a graph $G = (V,E)$, and a new node $v_{N1}$ not in $V$,  $\col(x,y,G)$ is defined provided there is a path between nodes $x$ and $y$. Let $P$ be the set of all nodes on the path from $x$ to $y$. Let $r(l)$ stand for the function $\relabel(l)$. Then $\col(x,y,G) =  (V',E')$, where 
@@ -64,7 +59,8 @@ $\{v_i\} = \Path(x,w) \inter \Path(y,z)$. Note that in general $\{v_i\}$ is a se
 %Similarly,  $P'_2$ is the path between $y$ and $z$ \textbf{after} $\col(w,x,G)$ has been carried out, resulting in the new node $v_{N2}$.  It is defined as $P'_2 = (P_2\hide\{v_i\})\union\{v_{N2}\}$.  
 
 
-{\bf Approach}
+{\bf Approach to proof}
+\vspace{10pt}
 
 We  calculate the edges and nodes of  $\col(y,z,\col(w,x,G))$,  then $\col(w,x,\col(y,z,G))$, showing that they both result in the same final graph. For readability, we introduce simplifying definitions throughout the proof. 
 
@@ -107,16 +103,15 @@ $P_1$ and $P_2$ intersect (on the nodes $\{v_i\}$), so we record the modificatio
                    \{(v,v',l)|(v,v',l) \in out(v), v\in P'_2\}
                   )\\
   && \union\ \{(v',v_f,r(l))|(v',v,l) \in in(v), v\in P'_2\}\\
-  && \union\ \{(v_f,v',r(l))|(v,v',l) \in out(v), v\in P'_2\}\\
+  && \union\ \{(v_f,v',r(l))|(v,v',l) \in out(v), v\in P'_2\}
 \end{eqnarray*}
-
 \noindent
 We  introduce some further simplifying abbreviations:
 \[
 in(P'_2) = \{(v',v,l)|(v',v,l) \in in(v), v\in P'_2\}\\
 out(P'_2) = \{(v,v',l)|(v,v',l) \in out(v), v\in P'_2\}\\
 in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(v), v\in P'_2\}\\
-out(v_f) = \{(v_f,v',r(l))|(v,v',l) \in out(v), v\in P'_2\}\\
+out(v_f) = \{(v_f,v',r(l))|(v,v',l) \in out(v), v\in P'_2\}
 \]
 \noindent
 allowing us to re-write the definition of $E_{12}$ as
@@ -248,7 +243,7 @@ It is thus clear that $in(v_f)=in(v_g)$.
 
 \subsection{equality of nodes}
 
- So,    we now need to show that for any nodes $w,x,y,z$ in a graph $G$, the nodes in the graph resulting from $\col(y,z,\col(w,x,G))$ are the same as the nodes resulting from $\col(w,x,\col(y,z,G))$. 
+ We now need to show that for any nodes $w,x,y,z$ in a graph $G$, the nodes in the graph resulting from $\col(y,z,\col(w,x,G))$ are the same as the nodes resulting from $\col(w,x,\col(y,z,G))$. 
 
 Recall from Definition~\ref{def:col} that if $x$ and $y$ are nodes, and $P$ is the set of all nodes on the path from $x$ to $y$, then  $\col(x,y,G) =  (V',E')$, where 
   \begin{eqnarray*}
@@ -281,7 +276,7 @@ V_1\hide ((P_2\hide \{v_i\}) \union \{v_{N1}\}) \union \{v_f\}\\
 
 A similar argument holds for $V_{21}$, showing $V_{21} = (V\hide (P_2 \union P_1)) \union \{v_g\}$ and so $V_{21}=V_{12}$ (up to $\alpha$-equivalence).
 
+Thus $\col(y,z,\col(w,x,G)) = \col(w,x,\col(y,z,G))$, as required. 
 
 
-\pagebreak
 

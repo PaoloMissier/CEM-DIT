@@ -1,6 +1,6 @@
 \subsection{The function $\col$}
 
-We begin with definitions of the function $\col$, then show that $\col$ is communtative. 
+We begin with definitions of the function $\col$, then show that the order of application of $\col$ is unimportant. 
 
 
 
@@ -35,7 +35,7 @@ $relabel$ is promoted in the obvious way to sets of edges.
 
 \subsection{Proof}
 
-To show that  the order of application of two $\col$ functions does not matter, (ie. that $\col$ commutes with itself)  we need to show that for any nodes $w,x,y,z$ in a graph $G$, $\col(y,z,\col(w,x,G)) = \col(w,x,\col(y,z,G))$. 
+To show that  the order of application of two $\col$ functions does not matter,   we need to show that for any nodes $w,x,y,z$ in a graph $G$, $\col(y,z,\col(w,x,G)) = \col(w,x,\col(y,z,G))$. 
 
 
 We begin with some abbreviations.
@@ -277,6 +277,4 @@ V_1\hide ((P_2\hide \{v_i\}) \union \{v_{N1}\}) \union \{v_f\}\\
 A similar argument holds for $V_{21}$, showing $V_{21} = (V\hide (P_2 \union P_1)) \union \{v_g\}$ and so $V_{21}=V_{12}$ (up to $\alpha$-equivalence).
 
 Thus $\col(y,z,\col(w,x,G)) = \col(w,x,\col(y,z,G))$, as required. 
-
-
 

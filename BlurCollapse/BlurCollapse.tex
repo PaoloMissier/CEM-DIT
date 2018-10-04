@@ -78,8 +78,12 @@ Provenance \sep Provenance metadata \sep provenance abstraction
 	\end{itemize}
 }
 
+\subsection{Initial definitions}
+
 \jwb{begin with definition of graphs, and any others we need from previous paper: in(v), out(v) and in and out of a set of nodes. }
 \jwb{also definitions of $\wgby$ and $\used$ and $\infl$}
+
+If it exists in a graph $G$, the $\Path$ from $x$ to $y$ is given by $\Path(x,y,G)$. The \emph{length} of the path from $x$ to $y$ is given by $\len(\Path(x,y,G))$, and is defined as the number of edges between the $x$ and $y$. 
 
 \subsection{Collapse}
 
@@ -119,36 +123,108 @@ If $type(v)$ returns the type of a node $v$, the function $relabel$ (abbreviated
 \noindent
 $relabel$ is promoted in the obvious way to sets of edges.
 
+\subsection{Variations on blur}
 
-Some initial definitions.
+\jwb{have to retain all values (in all levels?) as part of the definition of the blurs, in order that the operators can be reversed}
 
-The \emph{length} of a path $P$ is given by $\len(P)$, and is the number of edges between the two ends of the path.
+The $\blur$ operator has two versions: directed and non-directed. The definition for directed blur uses the definition for a directed blurset, given below.
 
-If $n \in \nat$, then $\blurset(n,v) = \{v'|\len(path(v,v')) \leq n\}$.
-
-We give now a definition for the $\blur$ operator.
-
-\begin{definition}[$\blur$] \label{def:blur}
-  If $G = (V,E)$ with $v \in V$, then $\blur(n,v) = (V',E')$, where
+\begin{definition}[{\it Directed} $\blurset$] \label{def:directed-blurset}
+  For $n \in \nat$,
   \begin{eqnarray*}
-  V' &=& (V\hide \blurset(n,v)) \union\ \{n_b\}\\
-  E' &=& E\hide \{(v_1,v_2)| v_1 \in \blurset(n,v) ~\emph{or}~ v_2 \in \blurset(n,v)\}\\
-  &&\union\ \{(n_b,v')|(v_1,v') \in E ~\emph{and}~ v_1 \in \blurset(n,v)\} \\
-  &&\union\ \{(v',n_b)|(v',v_1) \in E ~\emph{and}~ v_1 \in \blurset(n,v)\} \\
+    \dblurset(n,v,G) & = & \{v'|\len(\Path(v,v',G)) \leq n\}\union \\
+                     &   & \{v'|\len(\Path(v',v,G)) \leq n\}.
+  \end{eqnarray*}
+\end{definition}
+
+
+\begin{definition}[{\it Directed} $\blur$] \label{def:directed-blur}
+  If $G = (V,E)$ with $v \in V$, and $n_b$ is a new node (\jwb{of type?}) then $\dblur(n,v,G) = (V',E')$, where
+  \begin{eqnarray*}
+  V' &=& (V\hide \dblurset(n,v,G)) \union\ \{n_b\}\\
+  E' &=& E\hide \{(v_1,v_2,l)| v_1 \in \dblurset(n,v,G) ~\emph{or}~ v_2 \in \dblurset(n,v,G)\}\\
+  &&\union\ \{(n_b,v',l)|(v_1,v',l) \in E ~\emph{and}~ v_1 \in \dblurset(n,v,G) ~\emph{and}~ v' \nin \dblurset(n,v,G) \}\\
+  &&\union\ \{(v',n_b,l)|(v',v_1,l) \in E ~\emph{and}~ v_1 \in \dblurset(n,v,G)  ~\emph{and}~ v' \nin \dblurset(n,v,G) \} \\
+  \end{eqnarray*}
+\end{definition}
+
+Undirected blur includes nodes which are linked, but do not lie on a direct path. 
+%
+To define this, we begin with by extracting an undirected graph, in which the directional information has been removed from the edges, from the directed one. In a direct graph $(V,E)$, an edge $(v_1,v_2,l)$ is an edge beginning at $v_1$ and ending at $v_2$ (with the label $l$). In the undirected version of the graph labelling is removed, and all edges are replaced by undirected edges, so $(v_1,v_2)$ is now a non-directed edge between $v_1$ and $v_2$ and has no directionality. 
+
+%If  $v_1$ and $v_2$ are connected in the undirected graph, we define a $
+
+
+
+\begin{definition}[{\it Undirected} $\blurset$] \label{def:undirected-blurset}
+  If $uG$ is the undirected version of a graph $G$, $v \in G$, and $n \in \nat$,
+  \begin{eqnarray*}
+    \udblurset(n,v,G) & = & \{v'|\len(\Path(v,v',uG)) \leq n\}\union \\
+                     &   & \{v'|\len(\Path(v',v,uG)) \leq n\}.
+  \end{eqnarray*}
+\end{definition}
+
+\begin{definition}[{\it Undirected} $\blur$] \label{def:undirected-blur}
+  If $G = (V,E)$ with $v \in V$, and $n_b$ is a new node (\jwb{of type?}), then $\udblur(n,v,G) = (V',E')$, where
+  \begin{eqnarray*}
+  V' &=& (V\hide \udblurset(n,v,G)) \union\ \{n_b\}\\
+  E' &=& E\hide \{(v_1,v_2,l)| v_1 \in \udblurset(n,v,G) ~\emph{or}~ v_2 \in \udblurset(n,v,G)\}\\
+  &&\union\ \{(n_b,v',l)|(v_1,v',l) \in E ~\emph{and}~ v_1 \in \udblurset(n,v,G)  ~\emph{and} v' \nin \udblurset(n,v,G) \} \\
+  &&\union\ \{(v',n_b,l)|(v',v_1,l) \in E ~\emph{and}~ v_1 \in \udblurset(n,v,G)  ~\emph{and} v' \nin \udblurset(n,v,G) \} \\
   \end{eqnarray*}
 \end{definition}
 
 
 
+\subsection{Sibling collapse}
+
+This set of operators collapse siblings into a single node. We begin with some definitions.
+
+The \emph{source} of a node is the set of all nodes which are directly linked via a single edge into the root node.  Recall providence graphs point into the past. Sources are defined using the definition of $out$ edges. 
+
+\begin{definition}[$\source$] \label{def:source}
+  Given a graph $G = (V,E)$ and a node $v \in V$,
+  \[
+  \source(v) = \Union\{v_s|(v,v_s,l) \in out(v)\}.
+  \]
+\end{definition}
+
+Conversely, the $\sink$ of a node is all nodes which are the end points of edges from the root node.  It is defined using the definition of $in$ edges.
+
+\begin{definition}[$\sink$] \label{def:sink}
+  Given a graph $G = (V,E)$ and a node $v \in V$,
+  \[
+  \source(v) = \Union\{v_s|(v_s,v,l) \in in(v)\}.
+  \]
+\end{definition}
+
+Two nodes are $\fullsiblings$ if their source sets and sink sets are all identical.  
+
+\begin{definition}[$\fullsiblings$] \label{def:fullsiblings}
+  Given a graph $G = (V,E)$ and two nodes $v,w \in V$, $v$ and $w$ are $\fullsiblings$ if $\source(v) = \source(w)$ and $\sink(v) = \sink(w)$. 
+\end{definition}
+
+Two nodes are $\halfsiblings$ if their source sets (sink sets) share a common element.  
+
+\begin{definition}[$\halfsiblings$] \label{def:fullsiblings}
+  Given a graph $G = (V,E)$ and two nodes $v,w \in V$, $v$ and $w$ are $\halfsiblings$ if $\source(v) \inter \source(w) \ne \emptyset$ and $\sink(v) \inter \sink(w) \ne \emptyset$. 
+\end{definition}
+
+These definitions can be extended to more than two siblings. 
+
+\jwb{Sibling abstraction is defined as:}
+
+\begin{definition}
+  Given a graph $G = (V,E)$ and two nodes $v,w \in V$, $v$ and $w$ are $\halfsiblings$ i
+\end{definition}
 
 
 
-
-  \subsection{Composing Blur operations}
+\subsection{Composing Blur operations}
   
   	\begin{itemize}
-	\item blur is compositional, not commutative
-	\item thus we define a explicit semantics for dealing with a set of Blur operations --> \textit{union semantics}
+	\item \jwb{compositionality,  commutativity don't apply; not binary operators}
+	\item thus we define a explicit semantics for dealing with a set of Blur operations -  \textit{union semantics}
 \end{itemize}
 
 

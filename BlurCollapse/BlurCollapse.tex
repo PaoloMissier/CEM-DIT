@@ -47,13 +47,15 @@ Provenance \sep Provenance metadata \sep provenance abstraction
 	
 \mnote{main contributions:
 	\begin{itemize}
-		\item two graph rewriting operators for abstracting over provenance graphs, formalised and with proof that the rewriting preserves PROV validity
+	\item three graph rewriting operators for abstracting over provenance graphs, \jwb{blur (two versions of blur, collapse, sibling collapse)}
+          formalised and with proof that the rewriting preserves PROV validity
 		\item algebraic properties of the operators (commutative??)
 		\item small PROV extension to introduce new relationships when the existing ones are generalised i.e. to ``influence'', that is the new relationship types qualify ``influence''
-		
-		\item demonstration of how the operators support a variety of abstraction policies and how we cna use a variety of graph metrics to measure the effect of applying a specific policy to a graph
-		\item empirical evaluation of the rewriting i.e. using (1) a variety of synthetic graphs, generated using ProvGen, (2) a variety of policies chosen as representative examples and (3) a variety of provenance network metrics
-	\end{itemize}
+               \item use Janetta's tool to show these available in an implementation
+                  \item (AMBITION) demonstrate these useful as comprehension tools (so not obfuscation..) to the urban observatory as alternate interfaces to theor data for the general public and experts. 
+%		\item demonstration of how the operators support a variety of abstraction policies and how we cna use a variety of graph metrics to measure the effect of applying a specific policy to a graph
+%		\item empirical evaluation of the rewriting i.e. using (1) a variety of synthetic graphs, generated using ProvGen, (2) a variety of policies chosen as representative examples and (3) a variety of provenance network metrics
+ 	\end{itemize}
 	
 }
 	
@@ -67,29 +69,40 @@ Provenance \sep Provenance metadata \sep provenance abstraction
 \mnote{we decided:
 	
 	\begin{itemize}
-		\item two separate formal definitions, one for each op.
+		\item three/four separate formal definitions, one for each op.
 		\item blur does not follow from collapse
 		\item blur +/- does not imply blur (CHECK)
 		\item collapse limited to a-a  (supported by intuition on what it means to collapse. collapsing e-e means you merge inputs and outputs which does not make much sense)
   		\item collapse requires using the PROV top-level ``influence'' relationships (only between two activities) --> show an example. This is well supported by intuition: when $a$ uses the intermediate data produced by $a_1$ and consumed by $a_2$, and we collapse $a_1, a_2$ into $a'$, then $a$ becomes related to $a'$. There influence has a natural interpretation.
-  			
+  		  \item \jwb{siblings is a kind of ``horizontal'' collapse.}
 	\end{itemize}
 }
 
+\jwb{begin with definition of graphs, and any others we need from previous paper: in(v), out(v) and in and out of a set of nodes. }
+\jwb{also definitions of $\wgby$ and $\used$ and $\infl$}
 
-We give below the definition of the collapse operator $\col$. 
-  
+\subsection{Collapse}
+
+We give now the definition of the collapse operator $\col$, adjusted to take  all possible paths into account.
+%
+Informally, the collapse operator takes a graph, and two activities at different temporal points in that graph (is it right to say one logically precedes the other?) and removes both them and all paths between them, replacing all with a single new activity. 
+
+
 \begin{definition}[$\col$]  \label{def:col}
-  For nodes $x$, $y$ in a graph $G = (V,E)$, and a new node $v_{N1}$ not in $V$,  $\col(x,y,G)$ is defined provided there is a path between nodes $x$ and $y$. Let $P$ be the set of all nodes on the path from $x$ to $y$. Let $r(l)$ stand for the function $\relabel(l)$. Then $\col(x,y,G) =  (V',E')$, where 
+\jwb{note we've agreed that collapse should be a-a only, but that's not built into this definition yet}.  For nodes $x$, $y$ in a graph $G = (V,E)$ such that $x \le y$, and a new node $v_{N1}$ not in $V$,  $\col(x,y,G)$ is defined provided there is a path between nodes $x$ and $y$. Let $S$ be the set of all nodes on all paths from $x$ to $y$.
+  %
+  Formally, $S=\Union \{s|x \le s \land s \le y\}$.
+  %
+  Let $r(l)$ stand for the function $\relabel(l)$. Then $\col(x,y,G) =  G'$, such that $G'=(V',E')$, where 
   \begin{eqnarray*}
-  V' & = & (V\hide P) \union \{v_{N1}\}     \\
-  E' & = & E\hide (
-                   \{(v',v,l)|(v',v,l) \in in(v), v\in P\}
-                   \union
-                   \{(v,v',l)|(v,v',l) \in out(v), v\in P\}
+  V' & = & (V\hide S) \union \{v_{N1}\}     \\
+  E' & = &  E\hide (
+                   \{(v',v,l)| (v',v,l) \in E, v',v \in S\}
+%                   \union
+%                   \{(v,v',l)| v,v' \in P\}
                   )\\
-  && \union\ \{(v',v_{N1},r(l))|(v',v,l) \in in(v), v\in P\}\\
-  && \union\ \{(v_{N1},v',r(l))|(v,v',l) \in out(v), v\in P\}\\
+  && \union\ \{(v',v_{N1},r(l))|(v',v,l) \in E, v\in S, v'\nin S\}\\
+                   && \union\ \{(v_{N1},v',r(l))|(v,v',l) \in E, v\in S, v' \nin S\}\\
   \end{eqnarray*}
 \end{definition}
 If $type(v)$ returns the type of a node $v$, the function $relabel$ (abbreviated above as $r$) is defined as 

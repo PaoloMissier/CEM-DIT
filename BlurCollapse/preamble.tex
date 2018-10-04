@@ -56,7 +56,7 @@
 \newcommand{\wasInfBy}{\Lmathit{wasInformedBy}}
 \newcommand{\start}{\Lmathit{start}}
 \newcommand{\ed}{\Lmathit{end}}
-
+\newcommand{\infl}{\Lmathit{influ}}
 
 \newcommand{\Ev}{\mathit{Ev}}
 \newcommand{\preorder}{\preceq}
@@ -151,7 +151,6 @@
 \newenvironment{mydrop}{\begin{array}[t]{@{}l@{}}}{\end{array}}%
 
 
-
 \usepackage{color}
 \usepackage{pdfpages}
 \usepackage{ifthen}
@@ -159,4 +158,6 @@
 \newcommand{\note}[2]{
     \ifthenelse{\equal{\showComments}{yes}}{\textcolor{#1}{#2}}{}
 }
-\newcommand{\jwb}[1]{\note{blue}{JWB: #1}}
+\newcommand{\jwb}[1]{\note{blue}{#1}}
+
+

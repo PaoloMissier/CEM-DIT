@@ -40,26 +40,29 @@ Provenance \sep Provenance metadata \sep provenance abstraction
 
 \section{Introduction and motivation}
 
-\mnote{Running examples:  we may need two, one for each operator.
+\mnote{Running examples:  we may need two/three, one for each operator.
 	
 	PM: suggest picking p-graphs that are plausible when viewed as the trace of a program, ie using abstract function names for activities.
 }
 	
 \mnote{main contributions:
 	\begin{itemize}
-	\item three graph rewriting operators for abstracting over provenance graphs, \jwb{blur (two versions of blur, collapse, sibling collapse)}
+	\item three graph rewriting operators for abstracting over provenance graphs, \jwb{two versions of blur, collapse, two versions of sibling collapse)}
           formalised and with proof that the rewriting preserves PROV validity
 		\item algebraic properties of the operators (commutative??)
 		\item small PROV extension to introduce new relationships when the existing ones are generalised i.e. to ``influence'', that is the new relationship types qualify ``influence''
                \item use Janetta's tool to show these available in an implementation
-                  \item (AMBITION) demonstrate these useful as comprehension tools (so not obfuscation..) to the urban observatory as alternate interfaces to theor data for the general public and experts. 
+                  \item (AMBITION) demonstrate these useful as comprehension tools (so not obfuscation..) to the urban observatory as alternate interfaces to their data for the general public and experts. 
 %		\item demonstration of how the operators support a variety of abstraction policies and how we cna use a variety of graph metrics to measure the effect of applying a specific policy to a graph
 %		\item empirical evaluation of the rewriting i.e. using (1) a variety of synthetic graphs, generated using ProvGen, (2) a variety of policies chosen as representative examples and (3) a variety of provenance network metrics
  	\end{itemize}
 	
 }
 	
-	
+\section{Background on PROV}
+
+\input{prov-summary}
+
 \section{The Blur and Collapse operators}
 	
 	
@@ -84,6 +87,23 @@ Provenance \sep Provenance metadata \sep provenance abstraction
 \jwb{also definitions of $\wgby$ and $\used$ and $\infl$}
 
 If it exists in a graph $G$, the $\Path$ from $x$ to $y$ is given by $\Path(x,y,G)$. The \emph{length} of the path from $x$ to $y$ is given by $\len(\Path(x,y,G))$, and is defined as the number of edges between the $x$ and $y$. 
+
+
+\begin{definition}[$\In$] \label{def:in}
+  Given a graph $G=(V,E)$ and a node $v\in V$, the set of edges leading into $v$ is denoted $\In(v)$ and defined
+  \[
+  \in(v) = \{(v,v',l)|(v,v',l) \in E\}
+  \]
+\end{definition}
+
+
+\begin{definition}[$\out$] \label{def:out}
+  Given a graph $G=(V,E)$ and a node $v\in V$, the set of edges leading out of $v$ is denoted $\out(v)$ and defined
+  \[
+  \out(v) = \{(v',v,l)|(v',v,l) \in E\}
+  \]
+\end{definition}
+
 
 \subsection{Collapse}
 
@@ -125,7 +145,7 @@ $relabel$ is promoted in the obvious way to sets of edges.
 
 \subsection{Variations on blur}
 
-\jwb{have to retain all values (in all levels?) as part of the definition of the blurs, in order that the operators can be reversed}
+%\jwb{have to retain all values (in all levels?) as part of the definition of the blurs, in order that the operators can be reversed}
 
 The $\blur$ operator has two versions: directed and non-directed. The definition for directed blur uses the definition for a directed blurset, given below.
 
@@ -137,20 +157,32 @@ The $\blur$ operator has two versions: directed and non-directed. The definition
   \end{eqnarray*}
 \end{definition}
 
+In order to allow the provenance graph to be rebuilt, the $blur$ operator needs to retain an \emph{abstraction mapping} $AM$. An unabstracted provenance graph is assumed to have a empty abstraction mapping. 
 
 \begin{definition}[{\it Directed} $\blur$] \label{def:directed-blur}
-  If $G = (V,E)$ with $v \in V$, and $n_b$ is a new node (\jwb{of type?}) then $\dblur(n,v,G) = (V',E')$, where
+  If $G = (V,E)$ with $v \in V$, and $n_b$ is a new node then $\dblur(n,v,G,AM) = (V',E'),AM'$, where
   \begin{eqnarray*}
   V' &=& (V\hide \dblurset(n,v,G)) \union\ \{n_b\}\\
   E' &=& E\hide \{(v_1,v_2,l)| v_1 \in \dblurset(n,v,G) ~\emph{or}~ v_2 \in \dblurset(n,v,G)\}\\
   &&\union\ \{(n_b,v',l)|(v_1,v',l) \in E ~\emph{and}~ v_1 \in \dblurset(n,v,G) ~\emph{and}~ v' \nin \dblurset(n,v,G) \}\\
   &&\union\ \{(v',n_b,l)|(v',v_1,l) \in E ~\emph{and}~ v_1 \in \dblurset(n,v,G)  ~\emph{and}~ v' \nin \dblurset(n,v,G) \} \\
+  AM' & = & AM \union \{dblurset(n,v,G) \mapsto n_b\}\\  
   \end{eqnarray*}
 \end{definition}
 
+The type of the new node can be either $en$ or $act$, and is given by the following equation. 
+\[
+type(n_b) = type(n), ~\emph{if}~~ n/2 = 0\\
+type(n_b) \ne type(n), otherwise.
+\]
+
+
+
 Undirected blur includes nodes which are linked, but do not lie on a direct path. 
 %
-To define this, we begin with by extracting an undirected graph, in which the directional information has been removed from the edges, from the directed one. In a direct graph $(V,E)$, an edge $(v_1,v_2,l)$ is an edge beginning at $v_1$ and ending at $v_2$ (with the label $l$). In the undirected version of the graph labelling is removed, and all edges are replaced by undirected edges, so $(v_1,v_2)$ is now a non-directed edge between $v_1$ and $v_2$ and has no directionality. 
+To define this, we begin with by extracting an undirected graph, in which the directional information has been removed from the edges, from the directed one. In a direct graph $(V,E)$, an edge $(v_1,v_2,l)$ is an edge beginning at $v_1$ and ending at $v_2$ (with the label $l$). In the undirected version of the graph labelling is removed, and all edges are replaced by undirected edges, so $(v_1,v_2)$ is now a non-directed edge between $v_1$ and $v_2$ and has no directionality.
+
+We also need to retain the abstracting mapping $AM$. 
 
 %If  $v_1$ and $v_2$ are connected in the undirected graph, we define a $
 
@@ -165,12 +197,13 @@ To define this, we begin with by extracting an undirected graph, in which the di
 \end{definition}
 
 \begin{definition}[{\it Undirected} $\blur$] \label{def:undirected-blur}
-  If $G = (V,E)$ with $v \in V$, and $n_b$ is a new node (\jwb{of type?}), then $\udblur(n,v,G) = (V',E')$, where
+  If $G = (V,E)$ with $v \in V$, and $n_b$ is a new node, then $\udblur(n,v,G,AM) = (V',E'),AM'$ where
   \begin{eqnarray*}
   V' &=& (V\hide \udblurset(n,v,G)) \union\ \{n_b\}\\
   E' &=& E\hide \{(v_1,v_2,l)| v_1 \in \udblurset(n,v,G) ~\emph{or}~ v_2 \in \udblurset(n,v,G)\}\\
   &&\union\ \{(n_b,v',l)|(v_1,v',l) \in E ~\emph{and}~ v_1 \in \udblurset(n,v,G)  ~\emph{and} v' \nin \udblurset(n,v,G) \} \\
   &&\union\ \{(v',n_b,l)|(v',v_1,l) \in E ~\emph{and}~ v_1 \in \udblurset(n,v,G)  ~\emph{and} v' \nin \udblurset(n,v,G) \} \\
+  AM' & = & AM \union \{udblurset(n,v,G) \mapsto n_b\}
   \end{eqnarray*}
 \end{definition}
 
@@ -214,8 +247,13 @@ These definitions can be extended to more than two siblings.
 
 \jwb{Sibling abstraction is defined as:}
 
-\begin{definition}
-  Given a graph $G = (V,E)$ and two nodes $v,w \in V$, $v$ and $w$ are $\halfsiblings$ i
+\begin{definition}[\sibabs]\label{def:sibling-abstraction}
+  Given a graph $G = (V,E)$ and two nodes $w,x \in V$, if $w$ and $x$ are  $\fullsiblings(\halfsiblings)$ then sibling abstraction is defined as $\fullsiblings(w,x,G)$ is defined as $(V',E'),AM$ where
+%  \begin{eqnarray}
+%    V' &=& V \ \{w,x\} \union \{n_a\} \\
+%    E' &=& E\hide \{(x,y,l)| x \in \{w,x\} ~\emph{or}~ y \in \{w,x\}\\
+%    & & \union \{(n_a,v',l)|  \in \{w,x\} 
+%  \end{eqnarray}
 \end{definition}
 
 

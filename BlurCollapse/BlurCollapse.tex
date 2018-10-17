@@ -36,8 +36,6 @@ Provenance \sep Provenance metadata \sep provenance abstraction
 
 \maketitle
 
-
-
 \section{Introduction and motivation}
 
 \mnote{Running examples:  we may need two/three, one for each operator.
@@ -83,8 +81,8 @@ Provenance \sep Provenance metadata \sep provenance abstraction
 
 \subsection{Initial definitions}
 
-\jwb{begin with definition of graphs, and any others we need from previous paper: in(v), out(v) and in and out of a set of nodes. }
-\jwb{also definitions of $\wgby$ and $\used$ and $\infl$}
+%\jwb{begin with definition of graphs, and any others we need from previous paper: in(v), out(v) and in and out of a set of nodes. }
+%\jwb{also definitions of $\wgby$ and $\used$ and $\infl$}
 
 If it exists in a graph $G$, the $\Path$ from $x$ to $y$ is given by $\Path(x,y,G)$. The \emph{length} of the path from $x$ to $y$ is given by $\len(\Path(x,y,G))$, and is defined as the number of edges between the $x$ and $y$. 
 
@@ -92,7 +90,7 @@ If it exists in a graph $G$, the $\Path$ from $x$ to $y$ is given by $\Path(x,y,
 \begin{definition}[$\In$] \label{def:in}
   Given a graph $G=(V,E)$ and a node $v\in V$, the set of edges leading into $v$ is denoted $\In(v)$ and defined
   \[
-  \in(v) = \{(v,v',l)|(v,v',l) \in E\}
+  \In(v) = \{(v,v',l)|(v,v',l) \in E\}
   \]
 \end{definition}
 
@@ -239,7 +237,7 @@ Two nodes are $\fullsiblings$ if their source sets and sink sets are all identic
 
 Two nodes are $\halfsiblings$ if their source sets (sink sets) share a common element.  
 
-\begin{definition}[$\halfsiblings$] \label{def:fullsiblings}
+\begin{definition}[$\halfsiblings$] \label{def:halfsiblings}
   Given a graph $G = (V,E)$ and two nodes $v,w \in V$, $v$ and $w$ are $\halfsiblings$ if $\source(v) \inter \source(w) \ne \emptyset$ and $\sink(v) \inter \sink(w) \ne \emptyset$. 
 \end{definition}
 
@@ -328,8 +326,8 @@ The support of the ONRG and the EPSRC in funding this research is gratefully ack
 
 \section*{References}
 
-%\bibliographystyle{plain}
-%\bibliography{prov-abstraction-foundations,p3s-JB}
+\bibliographystyle{plain}
+\bibliography{prov-abstraction-foundations,p3s-JB}
 
 %\appendix
 

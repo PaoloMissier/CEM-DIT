@@ -246,12 +246,13 @@ These definitions can be extended to more than two siblings.
 \jwb{Sibling abstraction is defined as:}
 
 \begin{definition}[\sibabs]\label{def:sibling-abstraction}
-  Given a graph $G = (V,E)$ and two nodes $w,x \in V$, if $w$ and $x$ are  $\fullsiblings(\halfsiblings)$ then sibling abstraction is defined as $\fullsiblings(w,x,G)$ is defined as $(V',E'),AM$ where
-%  \begin{eqnarray}
-%    V' &=& V \ \{w,x\} \union \{n_a\} \\
-%    E' &=& E\hide \{(x,y,l)| x \in \{w,x\} ~\emph{or}~ y \in \{w,x\}\\
-%    & & \union \{(n_a,v',l)|  \in \{w,x\} 
-%  \end{eqnarray}
+  Given a graph $G = (V,E)$ and two nodes $w,x \in V$, and a new node $n_a \nin V$, if $w$ and $x$ are  $\fullsiblings(\halfsiblings)$ then sibling abstraction is defined as $\fullsiblingsabstraction(w,x,G)$ is defined as $(V',E'),AM$ where
+  \begin{eqnarray*}
+    V' &=& V \hide \{w,x\} \union \{n_a\} \\
+    E' &=& E\hide \{\{(s,y,l)|  y \in \{w,x\}\} \union \{(y,s,l)| y \in \{w,x\}\}\} \\
+    & & \union \{(s,n_a,l)| (s,y,l) \in E\} \\
+     & & \union \{(n_a,s,l)| (y,s,l) \in E\} 
+  \end{eqnarray*}
 \end{definition}
 
 

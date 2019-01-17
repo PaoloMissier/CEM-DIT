@@ -1,0 +1,315 @@
+
+
+\section{Consistency of constraints for e-grouping}
+\label{sec:consistency-constraints-e-grouping}
+
+In this section we prove that the event definitions we have given for e-grouping in Section~\ref{sec:abstract-events-for-e-grouping} do not render any of the constraints C1-C7 in Section~\ref{sec:prov-constraints} unsatisfiable.
+
+Let $G=(V,E) \in \guEA$, be the original graph,  $V^* \subset V$ be the set of nodes that are replaced by the $Group$ operator, and let  $e_{new} \in \en$ be the new entity node introduced through e-grouping as per Def.~\ref{eq:t-grouping}. 
+
+In some cases the abstraction changes a timing of a node without changing the identity of the node.  In these cases we refer to the original start time as $\start(a)$ and the new start time as $start'(a)$. 
+
+The constraints follow.
+
+\noindent{\bf C1: entity-activity-disjoint}
+
+
+The only new node introduced has type $En$ by definition, so C1 is still satisfied: $Act \inter En = \emptyset$.
+
+\noindent{\bf C2: generation-generation-ordering}
+
+To show this, we must show that for all activities $a_1,a_2$ (outside of $V^*$)  in the original graph that generate some entities in $V^*$, it is the case that  $\wgby(e_{new},a_1)$ and $\wgby(e_{new},a_2)$ are simultaneous. I.e.
+
+\[
+\forall \wgby(e_{new},a_1), \wgby(e_{new},a_2) \in \wgby'_{out} \spot \\
+
+\qquad ev(\wgby'(e_{new},a_1)) = ev(\wgby'(e_{new},a_2))
+\]
+
+But by Definition~\ref{def:abstract-gen-e}, each for generation event  $g' \in \wgby'_{out}$, it is the case that $ev(g') = max \{ ev(g) | g \in \wgby_{out} \}$, and thus in particular $ev(\wgby'_{out}(e_{new},a_1)) = ev(\wgby'_{out}(e_{new},a_2))$, as required.
+
+All other generation events in the original graph either sit wholly within $V^*$, and are therefore abstracted away, or wholly outside, and the generation times remain unchanged. 
+
+\noindent{\bf C3: generation-precedes-usage}
+
+For all activities $a$ in the graph for which $\wgby(e_{new},a)$, we must show that the generation time assigned to the event $\wgby(e_{new},a)$ precedes any use made of the new entity $e_{new}$.
+
+By Definition~\ref{def:abstract-gen-e}, $ev(\wgby(e_{new},a)) = max\{ev(g)|g\in \wgby_{out}\}$.
+
+By Definition~\ref{def:abstract-usage-e}, usage time is set to $max\{ev(\wgby(e_{new},a), min \{ ev(u) | u \in \used_{in} \}$ and thus generation precedes, or is simultaneous with, usage.
+
+So, for any generating activity $a$ and using activity $b$,  $ev(\wgby(e_{new},a)) \leq ev(\used(b,e_{new}))$.
+ 
+
+
+\noindent{\bf C5: usage-precedes-invalidation}
+
+Demonstrating C5 first will simplify the demonstration of C4. 
+%
+For any $a$ in $\wgby'_{in}$, the time of usage of entity $e_{new}$ is given by Definition~\ref{def:abstract-usage-e} to be 
+\[
+ev(\used(a,e_{new})) = max\{g'_{max},u'_{min}\}
+\]
+For any invalidating activity $b$, the time of invalidation is given by
+\[
+ev(\inv(b,e_{new})) = max\{g'_{max},u'_{max},i'_{min}\}
+\]
+
+
+and, since $u'_{min} \leq u'_{max}$, 
+\[
+max\{g'_{max},u'_{min}\} \leq max\{g'_{max},u'_{max}\}
+\]
+and since $max\{x\} \leq max\{x,y\}$, 
+\[
+max\{g'_{max},u'_{max}\} \leq max\{g'_{max},u'_{max},i'_{min}\} 
+\]
+and so it follows that 
+\[
+ ev(\used(a,e_{new})) \leq ev(\inv(b,e_{new})) 
+\]
+as required.
+
+\noindent{\bf C4: generation-precedes-invalidation}
+
+For entity $e_{new}$, we have shown (C3) that for any activities $a$ and $b$ that generate and use $e_{new}$ respectively, 
+\[
+ev(\wgby(e_{new},a)) \leq ev(\used(b,e_{new}))
+\]
+and (C4) that, for any activities $b$, $c$ that use and invalidate entity $e_{new}$ respectively,  
+\[
+ev(\used(b,e_{new})) \leq ev(\inv(c,e_{new}))
+\]
+and so it follows that, for any activities $a$ and $c$ that generate and invalidate $e_{new}$ respectively,  
+\[
+ev(wgby(e_{new},a)) \leq ev(\inv(c,e_{new}))
+\]
+as required. 
+
+\noindent{\bf C6: usage-within-activity}  In e-grouping, we risk violating this constraint by moving the time at which activities use entities.
+
+We need to show that for any $a$ which uses $e_{new}$ $\start'(a) \leq ev(\used(a,e_{new}))$ and that $ev(\used(a,e_{new}))  \leq end'(a)$.
+
+First, observe (by Definition~\ref{def:abstract-start-e}), that
+\[
+\start'(a) = min\{\start(a),ev(\wgby(e_{new},a))\}
+\]
+By C3 (generation-precedes-usage) we have that, for any generating activity $a$ and using activity $b$,  $ev(\wgby(e_{new},a)) \leq ev(\used(b,e_{new}))$, and so for any using activity $b$, 
+\[
+\start'(a) \leq min\{\start(a),ev(\used(b,e_{new}))\}
+\]
+and in particular $\start'(a)$ precedes any usage made by $a$ of $e_{new}$:
+\[
+\start'(a) \leq min\{\start(a),ev(\used(a,e_{new}))\}
+\]
+and so
+\[
+\start'(a) \leq min\{ev(\used(a,e_{new}))\}
+\]
+
+Second, observe from Definition~\ref{def:abstract-end-e} that the new end time is set to be the later of the original end time $\ed(a)$ and the latest of any uses made by $a$ of $e_{new}$, given by $max\{ev(\used(a,e_{new}))\}$. 
+\[
+\ed'(a) = max\{\ed(a), max\{ev(\used(a,e_{new}))\}\}
+\]
+
+Thus, 
+\[
+\ed'(a) \geq  max\{ev(\used(a,e_{new}))\}
+\]
+and so
+\[
+max\{ev(\used(a,e_{new}))\} \leq \ed'(a)
+\]
+Therefore, since clearly 
+\[
+min\{ev(\used(a,e_{new}))\} \leq max\{ev(\used(a,e_{new}))\}
+\]
+ it follows that for any $a$ that uses $e_{new}$,
+\[
+\start'(a) \leq \\
+\quad min\{ev(\used(a,e_{new}))\} \leq \\
+\qquad max\{ev(\used(a,e_{new}))\} \leq \\
+\quad \qquad \ed'(a)
+\]
+as required. 
+
+\noindent{\bf C7: generation-within-activity}
+
+For a generating activity $a$ of $e_{new}$, the generation of $e_{new}$ cannot precede the new start of $a$ ($\start'(a)$) and must precede the new end of $a$ ($\ed'(a)$).
+\[
+\start'(a) \leq ev(\wgby(e_{new},a)) \leq \ed'(a)
+\]
+
+By Definition~\ref{def:abstract-start-e}, we have that the new start time of the $a$ is set to be the lesser of the original start time and $ev(\wgby(e_{new},a))$, thus ensuring that
+\[
+\start'(a) \leq ev(\wgby(e_{new},a))
+\]
+as required.
+
+By Definition~\ref{def:abstract-end-e} we have that the new end time of $a$ is set to the greater of the old end time $end(a)$ and all the new use times $max\{ev(\used(a,e))\}$ of $a$ by any event $e$. 
+\[
+\ed'(a) = max\{\ed(a), max\{ev(\used(a,e))\}\}
+\]
+
+and so in particular
+\[
+\ed'(a) \geq max\{ev(\used(a,e_{new}))\}
+\]
+
+By Constraint C3, the generation of an event precedes any usage of that event, so in particular this is true for all usages of $e_{new}$ by $a$. 
+\[
+ ev(\used(a,e_{new})) \geq max\{ev(\wgby(e_{new},a)) \}
+\]
+
+and so
+\[
+\ed'(a) \geq max\{ev(\wgby(e_{new},a)) \}
+\]
+
+
+%\jwb{ use new for $x'$ and original for $x$. }
+
+
+\section{Consistency of constraints for a-grouping}
+\label{sec:consistency-constraints-a-grouping}
+
+In this section we prove that the event definitions we have given for a-grouping in Section~\ref{sec:abstract-events-for-a-grouping} do not render any of the constraints C1-C7 in Section~\ref{sec:prov-constraints} unsatisfiable.
+
+Let $G=(V,E) \in \guEA$, be the original graph,  $V^* \subset V$ be the set of nodes that are replaced by the $Group$ operator, and let  $a_{new} \in \act$ be the new activity node introduced through a-grouping as per Def.~\ref{eq:t-grouping}. 
+
+The constraints follow.
+
+\noindent
+    {\bf C1: entity-activity-disjoint}
+
+The only new node introduced has type $Act$ by definition, so C1 is still satisfied: $Act \inter En = \emptyset$.
+
+\noindent
+{\bf C2: generation-generation-ordering}
+
+To show this, we must show that for any entity $e$ (outside of $V^*$)  that is generated by activity (say $a$) in $V^*$ and another activity (say $b$) not in $V^*$, it is the case that  $\wgby(e,a)$ and $\wgby(e,b)$ are simultaneous, i.e.
+\[
+ev(\wgby(e,a_{new})) = ev(\wgby(e,b))
+\]
+
+But, since a-ordering does not change the generation times of any entities, this follows immediately. 
+
+\noindent
+    {\bf C3: generation-precedes-usage}
+
+For an entity $e$ not in $V^*$ that is generated by some activity in $a$ in $V^*$, 
+\[
+ev(\wgby(e,a_{new})) = ev(\wgby(e,a))
+\]
+Since in the original graph generation precedes usage, consider an activity $b$ that uses $e$. Note that generation-usage cycles are excluded by a-grouping, so $b$ is not in $V^*$. We know that 
+\[
+ev(\wgby(e,a)) \leq ev(\used(b,e))
+\]
+and so it follows that for any activity  that uses $e$,
+\[
+ev(\wgby(e,a_{new})) \leq ev(\used(\_,e))
+\]
+as required.  
+
+For an entity $e$ not in $V^*$ that is used by some activity in $a$ in $V^*$, we know that in the original graph, generation of $e$ by some activity precedes \emph{all} usages of $e$, i.e.
+\[
+ev(\wgby(e,\_) \leq  min\{ev(\used(b,e))) | b \in V^*\}
+\]
+
+It follows from C3 that for arbitrary usage of $e$ in the original graph, 
+\[
+ev(\wgby(e,\_)) \leq \{\text{by C3}\} \\ 
+\quad  min\{ev(\used(b,e))) | b \in V^*\} \leq \{\text{by arithmetic}\} \\
+\quad \quad max\{  \start(a_{new}),min\{ev(\used(a,e))) | a \in V^*\}\} \\
+\quad \qquad = \{\text{by Definition~\ref{def:abstract-usage-a}}\} \\
+\quad \qquad \qquad \quad ev(\used(a_{new},e))
+\]
+
+\noindent{\bf C5: usage-precedes-invalidation}
+
+For an entity $e$ not in $V^*$ that is invalidated by some activity $a$ in $V^*$, 
+\[
+ev(\inv(e,a_{new})) = ev(\inv(e,a))
+\]
+and since in the original graph usage precedes invalidation, for any activity that uses  $e$, 
+\[
+ ev(\used(\_,e)) \leq ev(\inv(e,a)) 
+\]
+It follows that for any activity that uses $e$,  
+\[
+ ev(\used(\_,e)) \leq ev(\inv(e,a_{new})) 
+\]
+as required.
+
+\noindent{\bf C4 generation-precedes-invalidation}
+
+For entities $e$ not in $V^*$, neither generation nor invalidation times have changed, so it follows that in the abstracted graph generation continues to precede invalidation.
+
+\noindent{\bf C6 usage-within-activity}
+
+We are required to prove that for any usage events of some entity $e$ by the new activity node $a_{new}$ it is the case that $\start(a_{new}) \leq ev(\used(a_{new},e))$ and that $ev(\used(a_{new},e))  \leq \ed(a_{new})$.
+
+First, let $b$ be a node in $V^*$ that used $e$. Since
+\[
+ev(\start(a_{new}))  = min\{\start(a) | a \in V^*\}
+\]
+by Definition~\ref{def:abstract-start-and-end-a}, it follows that
+\[
+ev(\start(a_{new})) \\
+\quad \leq  max\{\start(b) | b \in V^*\} \\
+\quad\quad  \leq max\{   max\{\start(b) | b \in V^*\}, \\
+\quad\quad\quad\quad\quad   min\{ev(\used(a,e) | a \in V^*\}\} \\
+\quad \quad\quad\quad\quad\quad = ev(\used(a_{new},e))
+\]
+
+We next need to show that $ev(\used(a_{new},e)) \leq \ed(a_{new})$
+
+Since by definition, 
+\begin{align*}
+  ev(\used(a_{new},e)) = max\{ & \start(a_{new}) , \\
+                            & min\{ev(\used(a,e))) | a \in V^*\}\}
+\end{align*}
+and since for all activities, the start time precedes the end time, it is clear that
+\[
+min\{\start(a) | a \in V^*\} \leq  max\{\ed(a) | a \in V^*\}
+\]
+and so
+\[
+ev(\used(a_{new},e)) \leq \\
+\quad \start(a_{new}) = \{\text{by Definition~\ref{def:abstract-start-and-end-a}}\} \\
+\qquad min\{\start(a) | a \in V^*\} \leq \{\text{by above}\} \\
+\qquad\quad max\{\ed(a) | a \in V^*\} = \{\text{by Definition~\ref{def:abstract-start-and-end-a}}\} \\
+\qquad \qquad \ed(a_{new})
+\]
+
+
+
+\noindent{\bf C7 generation-within-activity}
+
+First, we show that all generation events are subsequent to the start event. 
+%
+Let $b$ be a node in $V^*$ that used $e$. Since
+\[
+ev(\start(a_{new}))  = min\{\start(a) | a \in V^*\}
+\]
+
+it follows that
+
+\[
+ev(\start(a_{new}))  = \{\text{by Definition~\ref{def:abstract-start-and-end-a}}\} \\ 
+\quad  min\{\start(a) | a \in V^*\} \leq \{\text{by original graph, C7}\} \\
+\qquad min(ev\{\wgby(e,a)|a \in V^*\} ) \\
+\qquad \quad= \{\text{since generation is simultaneous}\}\\
+\qquad\qquad ev(\wgby(e,a)) = \{\text{by Definition~\ref{def:abstract-gen-a}}\}\\
+\qquad\qquad\quad   ev(\wgby(e,a_{new}))
+\]
+
+Secondly, we show that all generation events precede the end of the activity. Let $e$ be an entity generated by some activity $a$ in $V^*$. 
+
+\[
+ev(\wgby(e,a_{new})) = \{\text{by Definition~\ref{def:abstract-gen-a}}\} \\
+\quad ev(\wgby(e,a) \leq \{\text{by C7, original graph}\} \\
+\qquad \ed(a) \leq \{\text{arithmetic}\} \\
+\qquad \quad max\{\ed(b)|b\in V^*\} =  \{\text{by Definition~\ref{def:abstract-start-and-end-a}}\} \\
+\qquad\qquad \ed(e_{new})
+\]

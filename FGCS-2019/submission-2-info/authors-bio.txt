@@ -1,0 +1,22 @@
+Jeremy Bryans is a Research Fellow in Automotive Cybersecurity in the Institute for Future Transport and Cities at Coventry University. He specialises in the use of formal methods. He is the Coventry PI on CEM-DIT - a project developing an automated system to support decision makers during emergency responses. He recently finished a project developing a security mechanism to automatically analyse behaviour on internal vehicle networks. Previously he worked at Newcastle Univeristy, where he was involved in large EU research projects on model-based techniques for developing and maintaining Systems of Systems (SoS) and Cyber-Physical Systems, and designed and led a project on the sustainability of smart grid communications infrastructure. Prior to that he designed and led a EPSRC/DSTL-funded project on the secure transmission of provenance metadata in dynamic coalitions. He is a member of the BCS (MBCS), INCOSE (The International Council on Systems Engineering) and a guest member of Newcastle University.
+
+He has been on the program committee of several conferences, and reviews for multiple journals and organisations. He has over 50 publications.
+
+--
+
+Paolo is a Reader in Large-Scale Information Management with the School of Computing at Newcastle University, with 20+ years experience in CS research, development, and research management. The broad goal of his research is to understand the role of metadata, most notably data provenance, in making sense of the underlying data as well as improving and optimising the processes that produce and extract added value from the data (i.e. through “big data” analytics).  He is interested in the role of provenance in making experimental science more reproducible, in helping track scientific data assets as a way to incentivise scientists to share their data in an Open Science setting, and on the automatic creation of views over provenance to facilitate limited-trust data exchange.
+
+--
+
+Carl has been a Research Associate in the School of Computing Science for 10 years and his main research area is the co-modelling and co-simulation of Cyber-Physical Systems.  In the recently completed INTO-CPS (EU, H2020) project, he developed methods and tools supporting Design Space Exploration (DSE) and requirements traceability.   This work followed on from his development of both DSE and fault modelling methods in the DESTECS (EU, FP7) project and the DSE work in the MERLIN rail (EU, FP7) project.
+ 
+Carl also has interests in the area of data provenance and dependability, having helped develop tooling for the abstraction of provenance meta-data in the Trusting Dynamic Coalitions (MOD)  project and a tool for experimenting with the use of dependability meta-data in the SSEI (MOD) project.
+ 
+Before becoming an RA, Carl’s PhD focussed on the design time detection of architectural mismatch when composing web-services, this was supervised by Dr. Cristina Gacek.  Previous to his PhD, Carl obtained a BEng in Mechanical and Manufacturing Systems Engineering after which worked as an Industrial Engineer for a Tier-1 automotive supplier, being responsible for the programming of their industrial robots and their mission critical synchronous delivery system.
+
+
+--
+
+Dr Vasa Curcin is a Senior Lecturer in Health Informatics, leading the Biomedical Informatics Group at School of Population Health and Environmental Sciences  and is also seconded at 40% to the Department of Informatics at King’s College London. He received his PhD from Imperial College London in 2009 and joined KCL in 2014. He has published over 100 papers in refereed journals, conferences and workshops. He is Associate Editor for Wiley Learning Health Systems Journal and Sage Digital Health Journal.
+
+His research focuses on the theoretical informatics foundations and resulting software infrastructures for the Learning Health Systems, specifically in the areas of clinical trials and decision support systems, together with the role of data provenance in delivering reproducibility and auditability to scientific tasks. 

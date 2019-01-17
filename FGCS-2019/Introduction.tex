@@ -1,0 +1,101 @@
+% -*- Mode: LaTeX; Mode: Flyspell -*-
+\section{Introduction}
+
+The provenance of data is a form of structured metadata that records the activities involved in data production. In addition to activities, a \textit{provenance trace} may include input  or intermediate data products, as well as references to agents, humans as well as software systems, who were responsible for carrying out those activities.
+%
+In multi-party collaboration settings that involve data sharing, as well as in third party auditing of data and processes, there is a broad expectation that 
+shipping the available provenance to collaborators, or more generally publishing it along with the data, may help data consumers form judgements regarding the reliability of the data itself.
+%
+%
+The recent standardisation of a data model for exchanging provenance in an interoperable way, namely the PROV model from the W3C~\citep{w3c-prov-dm}, makes this assumption realistic.
+%
+With the emergence of provenance as a valuable complement to data in such a setting, two separate but related issues arise, namely that of interpretation of complex provenance by humans,  and that of controlling the selective disclosure of potentially sensitive provenance content.
+  
+%
+First, regarding \textit{complexity}, we observe that while provenance is a rich form of metadata, it is often the reflection of articulated processes involving many intermediate data products and many inter-related activities. 
+%
+Such complexity is at odds with the need for humans to understand the meaning of the data, common for instance in e-science. 
+While provenance is an important element of scholarly communication, it needs to be understandable by non-technical users, i.e., scientists. 
+%
+Indeed in e-science, the idea of abstracting provenance to make it understandable is not entirely new.
+%
+The Zoom system~\citep{DBLP:conf/icde/BitonBDH08}, discussed in more detail below, is an example of a system for computing views over provenance, which is designed to simplify human understanding of provenance traces.
+%
+
+Second, regarding \textit{selective disclosure}, we are motivated by the emerging notion of \textit{dynamic coalitions}~\citep{BFJM06}.
+%
+These are ad hoc collaborative partnerships that are created 
+to pursue a common goal, in scenarios such as multi-agency emergency/threat responses, as well as the exchange of intelligence information. 
+%
+Despite the need to share data of a possibly sensitive nature, these coalitions are characterized by a lack of established interaction protocols and by limited trust amongst the partners. 
+%
+Our working assumption is that, in this setting, provenance can be used as a form of evidence in support of the data that is being exchanged. 
+%
+In these scenarios, full disclosure of provenance data may not be possible, e.g. due either to confidentiality policies, Intellectual Property restrictions associated with individual components, or data protection regulations. These restrictions introduce the need to hide certain parts of the provenance traces. 
+%
+In this paper we develop a model and algorithm for performing  abstraction over provenance metadata. These provide the theoretical underpinning, defined on top of PROV, for applications that require provenance exchange while obfuscating some of its content.
+
+\subsection{Motivating scenario: provenance of intelligence information}
+%
+
+\begin{figure}
+\centering
+\includegraphics[scale=.35]{figures/intelligence-scenario.png} 
+\caption{Simple two-way partnership involving one sender (IR) and one receiver (PA)}
+\label{fig:scenario}
+\end{figure}
+
+Imagine a setting where one or more public agencies engage in a business relationship with an independent intelligence provider. 
+%
+In Fig.~\ref{fig:scenario} these are the Public Agencies (PA) box and the Incident Room Analysts (IR) box, respectively.
+%
+IR has a business incentive to provide analysis of potential threats to PA that is as accurate as possible, while PA has an interest in acquiring and acting upon intelligence reports issued by IR.
+%
+Realistically, however, PA will want to mitigate the risk of acting upon information provided by IR, which is potentially unreliable. At the same time, IR has a business incentive to supply PA with additional evidence that facilitates PA's risk assessment.
+%
+
+%
+The  key assumption that motivates our work is that the provenance of the intelligence report is relevant in contributing, at least in part, the required evidence. This may contain a wealth of details regarding how the report was produced, including the raw input data used for the analysis, the analytical tools and their configuration parameters, as well as the identity of the analysts involved, and their position within the business organization.  
+
+%
+An example of provenance containing such information is shown in Fig.~\ref{fig:graph-example}.
+%
+As depicted in the figure, provenance can be represented as a graph whose nodes represent either \textit{entites} (ovals in the figure), i.e., data, documents, etc., \textit{activities} (rectangles), which represent the execution of some process over a period of time, or \textit{entites} (pentagons), which represent  humans or computing systems. Directed edges represent various types of relationships, the most common being ``activity $a$ used entity $e$'', ``entity $e$ was generated by activity $a$'', ``activity $a$ was associated with agent $ag$'' (i.e., $ag$ was responsible for $a$), and more.
+%
+Provenance graphs are introduced more formally in Sec.~\ref{sec:prov-core}.
+
+\begin{figure*}
+\begin{center}
+\includegraphics[width=\textwidth]{figures/IR-agents-delegation.pdf}
+\caption{Example provenance graph for the reference scenario (Fig.~\ref{fig:scenario})}
+\label{fig:graph-example}
+\end{center}
+\end{figure*}
+
+%
+While both IR and PA are interested in sending and receiving such provenance information, some of it may be sensitive and proprietary. 
+%
+Input datasets may include a combination of public social media streams, shown in the figure, and private databases. Likewise, analytical tools may include proprietary algorithms.
+%
+In a setting where mutual trust is limited, the contrast between the need to exchange provenance as a form of evidence on one side, and the need to protect confidential information that can be found in the provenance on the other, generates a tension amongst the partners.
+
+%
+We believe that such tension can be resolved by providing IR, the \textit{provenance owner}, with ways to control the disclosure of provenance to third parties. This consists of (i) a model of abstraction over provenance, whereby some of its elements are grouped together and replaced with a new, abstract element, and (ii) a policy model that the provenance owner can use to specify the  elements which are to be abstracted.
+%
+% These are used by the provenance owner to support a process of \emph{negotiation} with the third parties, 
+
+The work presented here is focused exclusively on (i), while (ii)  is the subject of a separate report, focused on a user tool for the specification and enforcement of provenance abstraction policies~\citep{MBGCD14}.  
+%
+%
+%For completeness, however, we provide a brief overview of the tool  and an example of an abstraction policy  in Sec.~\ref{sec:summary}. % Sec~\ref{sec:further} concludes.
+
+
+
+\input{overview}
+
+
+%
+%The remainder of the paper is structured as follows. After a review of related work, in Sec.~\ref{sec:prov-core} we introduce the fragment of the PROV model that defines the scope of our work, followed by an overview of the approach and summary of contributions (Sec.~\ref{sec:overview}).
+%%
+%The core technical material is in Sec.~\ref{sec:grouping}, where we define abstraction over provenance in terms of a \textit{grouping} operator, present its functional specification, and show that grouping maps a graph into a new graph that conforms to the same relational schema.
+

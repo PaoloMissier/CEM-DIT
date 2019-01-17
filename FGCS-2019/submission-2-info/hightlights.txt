@@ -1,0 +1,8 @@
+
+
+* Provides a way of partially obfuscating provenance using an operator that maps from a PROV document to a new abstract version such that if the first document satisfies a constraint C then the abstract version also satisfies C, and the dependencies that appear in the abstract version are justified by those in the original document.
+
+* Provides a proof of the above properties.
+
+* Provides a proof of closure with respect to composition.
+

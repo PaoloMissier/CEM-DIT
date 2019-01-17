@@ -1,0 +1,34 @@
+\subsection{Events in $\guEA$}
+
+\label{sec:events}
+
+Central to PROV is the notion that provenance is marked by events, which form a partially ordered set, i.e., it may be possible to establish whether or not one event precedes another. 
+%
+Events are assumed to occur instantaneously, and mark the lifetime boundaries of Entities (generation, invalidation), Activities (start, end), and Agents (start, end), as well as some of the interactions amongst those elements, such as generation and usage of an entity by an activity, attribution of an entity to an agent, and more. More specifically, the PROV-CONSTRAINTS document~\cite{w3c-prov-constraints} defines the following types of events (quoted verbatim from Sec. 2.2):
+
+
+\begin{itemize} %
+%\begin{description}
+
+\item\textbf{An activity start event} is the instantaneous event that marks the instant an activity starts.
+
+\item\textbf{An activity end event} is the instantaneous event that marks the instant an activity ends.
+
+\item\textbf{An entity generation event} is the instantaneous event that marks the final instant of an entity's creation timespan, after which it is available for use. The entity did not exist before this event.
+
+\item\textbf{An entity usage event}  is the instantaneous event that marks the first instant of an entity's consumption timespan by an activity. The described usage had not started before this instant, although the activity could potentially have used the same entity at a different time.
+
+\item\textbf{An entity invalidation event} is the instantaneous event that marks the initial instant of the destruction, invalidation, or cessation of an entity, after which the entity is no longer available for use. The entity no longer exists after this event.
+
+\end{itemize}
+%\end{description}
+
+To formally express events, we introduce a set $\Ev$ of event symbols, with a pre-order\footnote{Recall that a pre-order is a binary relation with reflexivity and transitivity, but no symmetry or anti-symmetry.} $\preorder \subset \Ev \times \Ev$, and the following set of partial functions that associate events to elements and relations in a provenance instance:
+\begin{align*}
+start: \act \rightarrow \Ev \\
+end: \act \rightarrow \Ev \\
+ev: \wgby \cup \used \cup \inv \rightarrow \Ev
+\end{align*}	
+As an example, in the graph of Fig.~\ref{fig:baseline-ug-ae} the generation relation $\wgby(e_4, a_1)$ has an associated generation event $ev(\wgby(e_4, a_1))$, whilst $a_1$ has start and / or end events, written $start(a_1)$ and $end(a_1)$, respectively. Also, if $e_4$ has been invalidated by some $a$ (not in the figure), an invalidation event $ev(\inv(e_4,a))$ occurs, and possibly one or more usage events: $ev(\used(a_2, e_4))$. 
+
+Temporal constraints involving events and expressed by means of their pre-order relation $\preorder$ play a key role in the definition of \textit{valid} provenance instances, as described next.

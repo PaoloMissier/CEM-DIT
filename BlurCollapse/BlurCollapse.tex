@@ -72,9 +72,9 @@ Provenance \sep Provenance metadata \sep provenance abstraction
 	\begin{itemize}
 		\item three/four separate formal definitions, one for each op.
 		\item blur does not follow from collapse
-		\item blur +/- does not imply blur (CHECK)
+		\item blur +/- does not imply blur ; leaving out blur+/-
 		\item collapse limited to a-a  (supported by intuition on what it means to collapse. collapsing e-e means you merge inputs and outputs which does not make much sense)
-  		\item collapse requires using the PROV top-level ``influence'' relationships (only between two activities) --> show an example. This is well supported by intuition: when $a$ uses the intermediate data produced by $a_1$ and consumed by $a_2$, and we collapse $a_1, a_2$ into $a'$, then $a$ becomes related to $a'$. There influence has a natural interpretation.
+  		\item collapse requires using the PROV top-level ``influence'' relationships (only between two activities) -- show an example. This is well supported by intuition: when $a$ uses the intermediate data produced by $a_1$ and consumed by $a_2$, and we collapse $a_1, a_2$ into $a'$, then $a$ becomes related to $a'$. There influence has a natural interpretation.
   		  \item \jwb{siblings is a kind of ``horizontal'' collapse.}
 	\end{itemize}
 }
@@ -105,7 +105,7 @@ If it exists in a graph $G$, the $\Path$ from $x$ to $y$ is given by $\Path(x,y,
 
 \subsection{Collapse}
 
-We give now the definition of the collapse operator $\col$, adjusted to take  all possible paths into account.
+We give now the definition of the collapse operator $\col$. $\col$ takes  all possible paths into account.
 %
 Informally, the collapse operator takes a graph, and two activities at different temporal points in that graph (is it right to say one logically precedes the other?) and removes both them and all paths between them, replacing all with a single new activity. 
 
@@ -115,7 +115,7 @@ Informally, the collapse operator takes a graph, and two activities at different
   %
   Formally, $S=\Union \{s|x \le s \land s \le y\}$.
   %
-  Let $r(l)$ stand for the function $\relabel(l)$. Then $\col(x,y,G) =  G'$, such that $G'=(V',E')$, where 
+  Let $r(l)$ stand for the function $\relabel(l)$ (Definition~\ref{def:relabel}.). Then $\col(x,y,G) =  G'$, such that $G'=(V',E')$, where 
   \begin{eqnarray*}
   V' & = & (V\hide S) \union \{v_{N1}\}     \\
   E' & = &  E\hide (
@@ -148,17 +148,17 @@ $relabel$ is promoted in the obvious way to sets of edges.
 The $\blur$ operator has two versions: directed and non-directed. The definition for directed blur uses the definition for a directed blurset, given below.
 
 \begin{definition}[{\it Directed} $\blurset$] \label{def:directed-blurset}
-  For $n \in \nat$,
+  Given a graph $G$, a node $v\in G$, and $n \in \nat$, $\dblurset$ is defined as
   \begin{eqnarray*}
     \dblurset(n,v,G) & = & \{v'|\len(\Path(v,v',G)) \leq n\}\union \\
                      &   & \{v'|\len(\Path(v',v,G)) \leq n\}.
   \end{eqnarray*}
 \end{definition}
 
-In order to allow the provenance graph to be rebuilt, the $blur$ operator needs to retain an \emph{abstraction mapping} $AM$. An unabstracted provenance graph is assumed to have a empty abstraction mapping. 
+In order to allow the provenance graph to be rebuilt, the $blur$ operator needs to retain an \emph{abstraction mapping} $AM$. An unabstracted provenance graph is assumed to have a empty abstraction mapping ($AM=\emptyset$). 
 
 \begin{definition}[{\it Directed} $\blur$] \label{def:directed-blur}
-  If $G = (V,E)$ with $v \in V$, and $n_b$ is a new node then $\dblur(n,v,G,AM) = (V',E'),AM'$, where
+  If $G = (V,E)$ with $v \in V$, and $n_b$ is a new node then $\dblur(n,v,G,AM) = (V',E'),AM'$ where
   \begin{eqnarray*}
   V' &=& (V\hide \dblurset(n,v,G)) \union\ \{n_b\}\\
   E' &=& E\hide \{(v_1,v_2,l)| v_1 \in \dblurset(n,v,G) ~\emph{or}~ v_2 \in \dblurset(n,v,G)\}\\
@@ -170,7 +170,7 @@ In order to allow the provenance graph to be rebuilt, the $blur$ operator needs 
 
 The type of the new node can be either $en$ or $act$, and is given by the following equation. 
 \[
-type(n_b) = type(n), ~\emph{if}~~ n/2 = 0\\
+type(n_b) = type(n), ~\emph{if}~~ n~~ \emph{is  even}\\
 type(n_b) \ne type(n), otherwise.
 \]
 
@@ -246,12 +246,13 @@ These definitions can be extended to more than two siblings.
 \jwb{Sibling abstraction is defined as:}
 
 \begin{definition}[\sibabs]\label{def:sibling-abstraction}
-  Given a graph $G = (V,E)$ and two nodes $w,x \in V$, if $w$ and $x$ are  $\fullsiblings(\halfsiblings)$ then sibling abstraction is defined as $\fullsiblings(w,x,G)$ is defined as $(V',E'),AM$ where
-%  \begin{eqnarray}
-%    V' &=& V \ \{w,x\} \union \{n_a\} \\
-%    E' &=& E\hide \{(x,y,l)| x \in \{w,x\} ~\emph{or}~ y \in \{w,x\}\\
-%    & & \union \{(n_a,v',l)|  \in \{w,x\} 
-%  \end{eqnarray}
+  Given a graph $G = (V,E)$ and two nodes $w,x \in V$, and a new node $n_a \nin V$, if $w$ and $x$ are  $\fullsiblings(\halfsiblings)$ then sibling abstraction is defined as $\fullsiblingsabstraction(w,x,G)$ is defined as $(V',E'),AM$ where
+  \begin{eqnarray*}
+    V' &=& V \hide \{w,x\} \union \{n_a\} \\
+    E' &=& E\hide \{\{(s,y,l)|  y \in \{w,x\}\} \union \{(y,s,l)| y \in \{w,x\}\}\} \\
+    & & \union \{(s,n_a,l)| (s,y,l) \in E\} \\
+     & & \union \{(n_a,s,l)| (y,s,l) \in E\} 
+  \end{eqnarray*}
 \end{definition}
 
 

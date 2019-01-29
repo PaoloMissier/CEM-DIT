@@ -63,14 +63,14 @@ In this case, the existing definition of t-grouping (Def.~\ref{eq:t-grouping}) e
 %
 T-grouping involves three operators: $\clos$, $\extend$, and $\repl$.
 %
-Since $\clos(V_{gr}, V)$ operates only on $\delegate$ relations, it follows that its result is also homogeneous, i.e., $\clos(V_{gr}, V) \subset \ag$. Also, there is no need to restore type validity by extending the closure, i.e., $\extend$ is the identity: $\extend(\clos(V_{gr}, V), V, \ag) = \clos(V_{gr}, V)$.
+Since $\clos(V_{gr}, \jwb{G})$ operates only on $\delegate$ relations, it follows that its result is also homogeneous, i.e., $\clos(V_{gr}, \jwb{G}) \subset \ag$. Also, there is no need to restore type validity by extending the closure, i.e., $\extend$ is the identity: $\extend(\clos(V_{gr},  \jwb{G}), V, \ag) = \clos(V_{gr},  \jwb{G})$.
 %
 Finally, it is easy to see that our original definition of group replace (Def.~\ref{def:group-replace}) is general enough to accommodate the ``rewiring'' of the new abstract agent node. 
 %
 We illustrate this informally using the patterns of Fig.~\ref{fig:d-chains-abstracted}.
 %
 
-In pattern (a), $V_{gr} = \{ ag_1, ag_4 \}$, and $\clos(V_{gr}, V) =  \{ ag_1, ag_2, ag_3, ag_4 \}$.
+In pattern (a), $V_{gr} = \{ ag_1, ag_4 \}$, and $\clos(V_{gr},  \jwb{G}) =  \{ ag_1, ag_2, ag_3, ag_4 \}$.
 %
 In this case, the closure includes all the intermediate agents in the delegation chain between $ag_1$ and $ag_4$.
 %
@@ -86,7 +86,7 @@ Replacement trivially transforms $G$ into the single abstract agent $ag_N$.
 
 In pattern (b), $V_{gr} = \{ ag_2, ag_5, ag_4 \}$.
 %
-Note that not all agent nodes in $V_{gr}$ are related, either directly or through a path. This is not a problem, as we have $V_{clos} = \clos(V_{gr}, V) =   \{ ag_2, ag_5, ag_4, ag_3 \}$. Replacement applies as follows, where $\vartheta_{int}(V_{clos})$ is the set of relations beginning and ending inside $V_{clos}$:
+Note that not all agent nodes in $V_{gr}$ are related, either directly or through a path. This is not a problem, as we have $V_{clos} = \clos(V_{gr},  \jwb{G}) =   \{ ag_2, ag_5, ag_4, ag_3 \}$. Replacement applies as follows, where $\vartheta_{int}(V_{clos})$ is the set of relations beginning and ending inside $V_{clos}$:
 \begin{eqnarray*}
 \vartheta_{int}(V_{clos}) & = & \{ \delegate(ag_2, ag_3), \delegate(ag_3, ag_5) \} \\
 \vartheta_{in}(V_{clos}) & = & \{ \wat(e, ag_2), \delegate(ag_1, ag_4) \} \\
@@ -169,7 +169,7 @@ Instead, in pattern (a) we simply remove the incorrect $\waw$ relations followin
 \begin{figure}
 \centering
 \includegraphics[scale=.5]{figures/agents-relations-patterns}
-\caption{$\waw$ and $\wat$ edges involving nodes in $\clos(V_{gr}, V)$ may need to removed following e-grouping and a-grouping, respectively.}  \label{fig:agents-relations-patterns}
+\caption{$\waw$ and $\wat$ edges involving nodes in $\clos(V_{gr},G)$ may need to removed following e-grouping and a-grouping, respectively.}  \label{fig:agents-relations-patterns}
 \end{figure}
 
 %
@@ -260,7 +260,7 @@ The following variation on Definition~\ref{def:eq:outcut} ensures these deletion
 
 The third and more general case, where \mbox{$V_{gr} \subset \en ~\cup~ \act ~\cup~ \ag$}, presents one further  difficulty. Consider performing e-grouping on the pattern of Fig.~\ref{agents-baseline-obo-problem} (left), with \mbox{$V_{gr} = \{ e_4, ag_5 \}$}.
 %
-We have \mbox{$\clos(V_{gr}) = \{ e_4, ag_5, ag_3 \}$}, resulting in the abstraction on the right.
+We have \mbox{$\clos(V_{gr}, \jwb{G}) = \{ e_4, ag_5, ag_3 \}$}, resulting in the abstraction on the right.
 %
 Clearly, the former $\delegate(ag_4, ag_3)$ relation should not be mapped in the final graph. 
 %

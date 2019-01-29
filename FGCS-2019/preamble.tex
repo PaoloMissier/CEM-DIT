@@ -105,8 +105,11 @@
 \usepackage{color}
 \usepackage{pdfpages}
 \usepackage{ifthen}
+\newcommand{\showColour}{yes} % {yes}
 \newcommand{\showComments}{yes} % {yes}
-\newcommand{\note}[2]{
-    \ifthenelse{\equal{\showComments}{yes}}{\textcolor{#1}{#2}}{}
-}
-\newcommand{\jwb}[1]{\note{blue}{JWB: #1}}
+\newcommand{\note}[2]{\ifthenelse{\equal{\showColour}{yes}}{\textcolor{#1}{#2}}{#2}}
+\newcommand{\jwb}[1]{\note{blue}{#1}}
+
+\newcommand{\com}[2]{\ifthenelse{\equal{\showComments}{yes}}{\textcolor{#1}{#2}}{}}
+\newcommand{\comment}[1]{\com{red}{#1}}
+

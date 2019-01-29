@@ -1,11 +1,5 @@
 \section{Grouping Provenance graph nodes}  \label{sec:grouping}
 
-\comment{check type of inputs for $\clos$ -- $V/G$ }
-
-\comment{discuss  implications of relaxing the assumption about connectivity in Section~\ref{sec:closure}.}
-
-
-
 As mentioned in Sec.~\ref{sec:contributions}, our goal is to define graph editing operators that selectively remove information from a graph $G \in \guEA$, yielding a new graph $G' \in \guEA$.
 %
 The first of these, namely the removal of labels or annotations associated with a node or an edge, is straightforward. 
@@ -14,22 +8,18 @@ Regarding the removal of a node, we note that simply reconnecting the remaining 
 %
 A simple example is a graph defined by: $\{\used(a, e_1)$, $\wgby(e_2, a) \}$ where activity $a$ is removed. This results simply in two disconnected nodes $e_1$, $e_2$, because no relationship can be inferred between them from the original graph.
 
-
 Rather than delving into the possible consequences of such node and edge elision, we are going to focus exclusively on the $\group$ graph transformation operator as the prime way to achieve abstraction over provenance graphs.
 %
-$\group$ takes a graph $G = (V, E) \in \guEA$ and a subset $V_{gr} \subset V$ of its nodes \jwb{that the user wishes to obfuscate} and produces a modified graph $G' \in \guEA$. The nodes in $V_{gr}$ are ``grouped'' together and replaced by a new single node.
+$\group$ takes a graph $G = (V, E) \in \guEA$ and a subset $V_{gr} \subset V$ of its nodes and produces a modified graph $G' \in \guEA$. The nodes in $V_{gr}$ are ``grouped'' together and replaced by a new single node.
 %
-  
 \[ \group : \guEA \times \mathbb{P}(V) \rightarrow \guEA \]
-  
 %Here we define $\group$ over $\guEA$ graphs. This will be extended to abstraction over Agents in Sec.~\ref{sec:agents-abstraction}.
 
 %The $\group$ operator has the following signature:
 
+
 %
 As the operator is closed under composition, further abstraction can be achieved by repeated grouping, either on multiple disjoint sets $V_{gr}$, or on sets that include abstract nodes (abstraction of abstraction).
-
-
 
 %
 To get a quick intuition of the  problems faced in the definition of the grouping operator, consider the transformation in Fig.~\ref{fig:non-convex-ex-1}, where nodes $V_{gr} = \{e_1, e_3, e_4, e_5\}$ are simply replaced with new node $e'$ in the example graph of Fig.~\ref{fig:baseline-ug-ae}, and all edges in and out of nodes in $V_{gr}$ are just ``rewired'' in and out of $e'$. 
@@ -50,7 +40,7 @@ Thus, the resulting graph is not a valid PROV graph. Note that the former of the
 \subsection{Closure and homogeneous grouping}
 \label{sec:closure}
 
-The example suggests that the \jwb{issue} is caused by nodes $a_1$ and $a_3$, which both lie on the paths between two of the nodes in $V_{gr}$. Intuitively, set $V_{gr}$ is not ``convex'', that is, there are paths in $G$ that lead out of $V_{gr}$ and then back in again. This observation suggests the introduction of a preliminary closure operation \textit{pclos}, which ensures acyclicity by capturing \jwb{and including these paths}. It is defined as follows.
+The example suggests that the cycle is caused by nodes $a_1$ and $a_3$, which both lie on the paths between two of the nodes in $V_{gr}$. Intuitively, set $V_{gr}$ is not ``convex'', that is, there are paths in $G$ that lead out of $V_{gr}$ and then back in again. This observation suggests the introduction of a preliminary closure operation \textit{pclos}, which ensures acyclicity by capturing paths. It is defined as follows.
 
 %%%%
 %% closure
@@ -59,34 +49,31 @@ The example suggests that the \jwb{issue} is caused by nodes $a_1$ and $a_3$, wh
 \begin{definition}[Path Closure]
 \label{def:clos}
 Let $G = (V,E) \in \guEA$ be a provenance graph, and let $V_{gr} \subset V$.  
-For each pair  $v_i, v_j \in V_{gr}$ such that there \jwb{one or more directed paths} $v_i \leadsto v_j$ in $G$, let $V_{ij} \subset V$ be the set of all nodes in \jwb{all paths $v_i \leadsto v_j$}.
+For each pair  $v_i, v_j \in V_{gr}$ such that there is a directed path $v_i \leadsto v_j$ in $G$, let $V_{ij} \subset V$ be the set of all nodes in the path.
 The Path Closure of $V_{gr}$ in $G$ is
-\[\clos(V_{gr}, \jwb{G})  =  \bigcup_{v_i, v_j \in V_{gr}} V_{ij} \]
+\[\clos(V_{gr}, V)  =  \bigcup_{v_i, v_j \in V_{gr}} V_{ij} \]
 \end{definition}
-\jwb{At this point, we make the assumption that, if $G$ is viewed as an \emph{undirected} graph, $\clos(V_{gr}, G)$ results in a single \emph{connected component} of the undirected graph. We explore the implications of relaxing this assumption later in the paper.} 
 
 
 \begin{figure*}
 \centering
 \includegraphics[scale=.5]{figures/convex-ex-1.pdf} 
-\caption{Path closure and replacement with extension on a set of entity nodes.} \label{fig:convex-ex-1}
+\caption{Path Closure and replacement with extension on a set of Entity nodes.} \label{fig:convex-ex-1}
 \end{figure*}
 
-Fig.~\ref{fig:convex-ex-1} shows a continuation of the previous example. This time the replacement is performed on $\clos(\{e_1, e_3, e_4, e_5\},G) = \{e_1, e_3, e_4, e_5, a_1, a_3\}$, \jwb{(in Fig.}~\ref{fig:convex-ex-1}(b)),  resulting in graph \jwb{in Fig.~\ref{fig:convex-ex-1}(c).}
+Fig.~\ref{fig:convex-ex-1} shows a continuation of the previous example. This time the replacement is performed on $\clos(\{e_1, e_3, e_4, e_5\},G) = \{e_1, e_3, e_4, e_5, a_1, a_3\}$, ~\ref{fig:convex-ex-1}(b) resulting in graph ~\ref{fig:convex-ex-1}(c).
 %
-However, while this solves the cycle problem, the graph is no longer bipartite, \jwb{because} the new edges $e' \rightarrow e_2$ and $e' \rightarrow e_6$ connect nodes of the same type.
+However, while this solves the cycle problem, the graph is no longer bipartite, due to the new edges $e' \rightarrow e_2$ and $e' \rightarrow e_6$, which connect nodes of the same type.
 %
-In this example, we can construct a new group of nodes, $\{ e', e_2, e_6\}$, on the graph that results from the first replacement, and replace it with a new node $e''$. The resulting graph \jwb{Fig.~\ref{fig:convex-ex-1}(d)} is a valid $\guEA$ graph.
+In this example, we can construct a new group of nodes, $\{ e', e_2, e_6\}$, on the graph that results from the first replacement, and replace it with a new node $e''$. The resulting graph (d) is a valid $\guEA$ graph.
 
 %
-The same result can be obtained by first \textit{extending} the closure in \jwb{Fig.~\ref{fig:convex-ex-1}(b)} to include e-nodes $e_2$, $e_6$, and then replacing the resulting set with $e''$ (this is indicated by the ``extend and replace'' arrow from \jwb{Fig.~\ref{fig:convex-ex-1}(b)} to \jwb{Fig.~\ref{fig:convex-ex-1}(d) as} shown).
+The same result can be obtained by first \textit{extending} the closure in (b) to include e-nodes $e_2$, $e_6$, and then replacing the resulting set with $e''$ (this is indicated by the ``extend and replace'' arrow from (b) to (d) shown in the figure).
 %
 Following this approach, we are going to define grouping as a composition of three functions: \textit{closure}, defined above, \textit{extension}, and \textit{replacement}, as follows.
 
 %
 The \textit{extension} of a set $V_{gr} \subset V$ relative to type $t \in \{ \en, \act \}$ is $V_{gr}$ augmented with all its adjacent nodes, in either direction, of type $t$. Formally:
-
-\comment{Consider replacing $v$ and $v'$ with $v_i$ and $v_o$ to indicate membership (or not) of $V_{gr}$.}
 
 %%%%
 %% extension
@@ -98,40 +85,20 @@ Let $G = (V,E) \in \guEA$, $t \in \{ \en, \act \}$.
 \begin{array}{l}
 \extend(V_{gr}, G ,t) =  \\
 \quad V_{gr} \;\cup \\ 
-\quad    \{ v' | (v \leftarrow v') \in E \wedge v \in V_{gr} \wedge \type(v') = t \} \;\cup \\
-\quad   \{ v | (v' \leftarrow v) \in E \wedge v \in V_{gr} \wedge \jwb{\type(v) = t} \}  \\
-\end{array}
-\]
-\comment{The nodes we include must have the type $t$. It isn't possible to include a node of type other than t.}
-
-\comment{To make this more clear, we could include $v'\nin V_{gr}$ in the definition of $extend$. This would also make this definition more compatible with the definitions of incut and outcut.}
-\end{definition}
-
-\vspace*{10pt}
-\begin{definition}[$\extend2$]
-Let $G = (V,E) \in \guEA$, $t \in \{ \en, \act \}$. $v_h$ and $v_t$ are the head and tail nodes of a relationship.
-\[
-\begin{array}{l}
-\extend(V_{gr}, G ,t) =  \\
-\quad V_{gr} \;\cup \\ 
-\quad    \{ v_h | (v_h \leftarrow v_t) \in E \wedge v_t \in V_{gr} \wedge \type(v_h) = t \} \;\cup \\
-\quad   \{ v_t | (v_h \leftarrow v_t) \in E \wedge v_h \in V_{gr} \wedge \jwb{\type(v_h) = t} \}  \\
+\quad    \{ v' | (v, v') \in E \wedge v \in V_{gr} \wedge \type(v') = t) \} \;\cup \\
+\quad   \{ v | (v', v) \in E \wedge v \in V_{gr} \wedge \type(v') = t) \}  \\
 \end{array}
 \]
 
-
-
-
 \end{definition}
-
-
 %
-In our example, $\extend(\{e_1, e_3, e_4, e_5, a_1, a_3\}, G, \en) = \{e_1, e_3, e_4, e_5, a_1, a_3, e_2, e_6\}$.  Note that all sink nodes in $\extend(V_{gr}, G, t)$ are of type $t$ by construction.\footnote{A sink node is any node in the extended set with a link to a node not in the set.}
+In our example, $\extend(\{e_1, e_3, e_4, e_5, a_1, a_3\}, G, \en) = \{e_1, e_3, e_4, e_5, a_1, a_3, e_2, e_6\}$.  Note that all sink nodes in $\extend(V_{gr}, G, t)$ are of type $t$ by construction\footnote{A sink node is any node in the extended set with a link to a node not in the set.}.
 
 
 Next, we consider replacing the collected nodes with a new abstract node.
 %
-Let $G=(V,E)$, $V^* \subset V$ be obtained using $\extend$, and let $v_{new}$ be a new node symbol that does not appear in $V$, created using $\pclos$ then $\extend$. 
+Let $G=(V,E)$, $V^* \subset V$ be obtained using $\extend$, and let $v_{new}$ be a new node symbol that does not appear in $V$, created using $\pclos$ then $\extend$.
+\footnote{$V^*$ is a replacement for $V'_{gr}$}.
 Function $\repl$ replaces $V^*$ with $v_{new}$ in $V$, and connects $v_{new}$ to the rest of the graph, as follows.
 
 Let $\vartheta_{out}(V^*)$ denote the \textit{outcut} of $G$ associated with $V^*$:
@@ -143,21 +110,17 @@ Symmetrically, let $\vartheta_{in}(V^*)$ denote the \textit{incut}  of $G$ assoc
 Finally, let $\vartheta_{int}(V^*) = \{ (v \leftarrow v') \in E | v, v' \in V^* \}$ denote internal arcs, that connect two nodes inside $V^*$:
 \[ \vartheta_{int}(V^*) = \{  (v\leftarrow v') |  v, v' \in V^*\}\]
 
-
-\comment{Function $\repl$ replaces each arc $(v \leftarrow v') \in \vartheta_{out}(V^*)$ with a new arc $(v \leftarrow v_{new})$ of the same type, and replaces each arc $(v \leftarrow v') \in \vartheta_{in}(V^*)$ with a new arc $(v_{new} \leftarrow v)$ of the same type. Arcs in $\vartheta_{int}(V^*)$ simply disappear along with the nodes in $V^*$.}
 %
-
-
-It is easy to verify that the resulting graph is type-correct.
-\comment{There is no resulting graph at this point}
-Indeed, all sink nodes in \jwb{$V^*$}  are of the \jwb{same type $t$,} as noted above, and so is $v_{new}$ by construction. Thus, sink nodes are replaced by a node $v_{new}$ of the same type. Since the arcs have the same type as those they replace, it follows that $\repl$ preserves type correctness.
+Function $\repl$ replaces each arc $(v \leftarrow v') \in \vartheta_{out}(V^*)$ with a new arc $(v \leftarrow v_{new})$ of the same type, and replaces each arc $(v \leftarrow v') \in \vartheta_{in}(V^*)$ with a new arc $(v_{new} \leftarrow v)$ of the same type. Arcs in $\vartheta_{int}(V^*)$ simply disappear along with the nodes in $V^*$.
+%
+It is easy to verify that the resulting graph is type-correct. Indeed, all sink nodes in $V_{gr}'$ are of type $t \in \{\act,\en\}$ as noted above, and so is $v_{new}$ by construction. Thus, sink nodes are replaced by a node $v_{new}$ of the same type. Since the arcs have the same type as those they replace, it follows that $\repl$ preserves type correctness.
 %
 
 \begin{definition}
   Let $ty \in \{\used,  \wgby\}$. Then:
   \begin{align*}
-\vartheta_{out}'(V^*) = \{ & \jwb{(}v \xleftarrow{ty}  v_{new} \jwb{)}|  v \xleftarrow{ty} v' \in \vartheta_{out}(V^*)  \}  \\
-\vartheta_{in}'(V^*) = \{ & \jwb{(}v_{new} \xleftarrow{ty} v \jwb{)} | v' \xleftarrow{ty} v \in \vartheta_{in}(V^*)  \}   
+\vartheta_{out}'(V^*) = \{ & v \xleftarrow{ty}  v_{new} |  v \xleftarrow{ty} v' \in \vartheta_{out}(V^*)  \}  \\
+\vartheta_{in}'(V^*) = \{ & v_{new} \xleftarrow{ty} v | v' \xleftarrow{ty} v \in \vartheta_{in}(V^*)  \}   
 \end{align*}
 \label{def:eq:outcut}
 \end{definition}
@@ -204,12 +167,12 @@ Let $G=(V,E) \in \guEA$, $V_{gr} \in V$ be a type-homogeneous set, and let $v_{n
 \group_{hom} &  (G, V_{gr}, v_{new}) = \\
  & \repl(  \\
  & \extend( \\
- & \clos(V_{gr},\jwb{G}), V, \type(V_{gr})), v_{new},  G ) 
+ & \clos(V_{gr},V), V, \type(V_{gr})), v_{new},  G ) 
 \end{align*}
 \label{def:homo-group}
 \end{definition}
 
-As an illustration, in our running example in Figure~\ref{fig:convex-ex-1} we have: %Ive altered this example: see latex for orig.
+As an illustration, in our running example in Figure~\ref{fig:convex-ex-1} we have: Ive altered this example: see latex for orig.
 \begin{align*}
 V_{gr} &= \{e_1, e_3, e_4, e_5\} \\
 V_{cl} & = \clos(V_{gr},G) = \{e_1, e_3, e_4, e_5, a_1, a_3\} \\
@@ -217,10 +180,6 @@ V' & = \extend(V_{cl}, \en) = V_{cl} \cup  \{e_2, e_6 \} \\
 \group_e(G, V_{gr}, v_{new}) & = \repl(V', v_{new}, G) \\
 & = (\{a_1,a_2,a_3,e''\}, \{ (a_2, e''), (a_4, e''), (e'',a_5) \})
 \end{align*}
-
-\comment{Here is a good place to relax assumption made in definition 2, and talk about ordering of two overlapping group events. } 
-
-\comment{Two overlapping group events can produce the same result only if they both reusult in the same node type. }  
 
 
 
@@ -255,7 +214,7 @@ Let $G=(V,E) \in \guEA$, $V_{gr} \in V$, $t \in \{\en, \act\}$, and let  $v_{new
 Then:
 \begin{align*} 
 \group & (G, V_{gr}, v_{new}, t) = \\
-& \repl( \extend(\clos(V_{gr},\jwb{G}), V, t), v_{new},  G )
+& \repl( \extend(\clos(V_{gr},V), V, t), v_{new},  G )
 \end{align*}
 \label{eq:t-grouping}
 \end{definition}

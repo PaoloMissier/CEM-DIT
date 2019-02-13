@@ -2,6 +2,8 @@
 
 \section{Abstraction with Agents}  \label{sec:agents-abstraction}
 
+\comment{outer border should be ``boundary'' in this section. }
+
 Having laid the foundations for abstraction on the core $\guEA$ model, extending grouping to a model that also includes agents, the third pillar of the PROV model, is quite straightforward. Agents may be humans or software systems. 
 %
 Specifically, we now consider the node type $\ag$ and the following additional relation types from the PROV schema of Sec.~\ref{sec:prov-core}:
@@ -44,7 +46,7 @@ This is illustrated in Fig.~\ref{fig:agents-baseline}, where the agent nodes and
 This observation suggests we can break down the analysis of grouping with agents into the following three parts.
 %
 \begin{enumerate}
-\item $V_{gr} \subset \ag$. This is the case for ag-grouping, which only involves the outer layer of the graph. Since agents are only related to each other through delegation: $\delegate(ag_1 , ag_2)$, grouping in this case is akin to \textit{homogeneous grouping} from Sec.~\ref{sec:closure}, i.e., no nodes of other types are ever involved, and $v_{new} \in \ag$.
+\item $V_{gr} \subset \ag$. This is the case for ag-grouping, which only involves the outer layer of the graph. Since agents are only related to each other through delegation: $\delegate(ag_1 , ag_2)$, grouping in this case is akin to \textit{homogeneous grouping} from Sec.~\ref{sec:closure}, i.e., no nodes of other types are ever involved, and $v_{new} \in \ag$. \comment{this is NOT what type-homogeneity means. Nodes of other types ARE (or at least can) involved there, because of $\pclos$. }
 
 \item $V_{gr} \subset \en \cup \act$ as in Sec.~\ref{sec:grouping}. This is the case of t-grouping (Def.~\ref{def:t-grouping}), where the nodes involved in the abstraction are in the inner layer, but they may be related to agent nodes via $\waw$ and $\wat$ relations.
 

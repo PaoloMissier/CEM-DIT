@@ -1,0 +1,306 @@
+\subsection{The function $\repl$}
+
+We begin with definition of the function $\repl$.
+\vspace*{10pt}
+\begin{definition}[replace]
+\label{def:group-replace}
+
+\[ \repl (V^*, v_{new}, G) = (V', E'), \mbox{ where: } \]
+\begin{eqnarray*}
+V' & = & V  \setminus V^*  \cup \{v_{new}\}\\
+E' & = & E  \setminus (\vartheta_{out}(V^*) \cup \vartheta_{in}(V^*) \cup \vartheta_{int}(V^*))  \\
+   & & \qquad \cup\  \vartheta_{out}'(V^*)  \cup \vartheta_{in}'(V^*)
+\end{eqnarray*}
+\end{definition}
+
+
+We need to show that the order in which $\repl$ is carried out is irrelevant, i.e., if $v_n$ and $v_m$ are the new nodes, we need to show that
+  \[
+  \repl(V_1,v_n,\repl(V_2,v_m,G)) =   \repl(V_2,v_m,\repl(V_1,v_n,G))
+  \]
+  
+
+
+  
+% \begin{definition}[$\col$]  \label{def:col}
+%   For nodes $x$, $y$ in a graph $G = (V,E)$, and a new node $v_{N1}$ not in $V$,  $\col(x,y,G)$ is defined provided there is a path between nodes $x$ and $y$. Let $P$ be the set of all nodes on the path from $x$ to $y$. Let $r(l)$ stand for the function $\relabel(l)$. Then $\col(x,y,G) =  (V',E')$, where 
+%   \begin{eqnarray*}
+%   V' & = & (V\hide P) \union \{v_{N1}\}     \\
+%   E' & = & E\hide (
+%                    \{(v',v,l)|(v',v,l) \in in(v), v\in P\}
+%                    \union
+%                    \{(v,v',l)|(v,v',l) \in out(v), v\in P\}
+%                   )\\
+%   && \union\ \{(v',v_{N1},r(l))|(v',v,l) \in in(v), v\in P\}\\
+%   && \union\ \{(v_{N1},v',r(l))|(v,v',l) \in out(v), v\in P\}\\
+%   \end{eqnarray*}
+% \end{definition}
+% If $type(v)$ returns the type of a node $v$, the function $relabel$ (abbreviated above as $r$) is defined as 
+% \begin{definition}[$relabel$] \label{def:relabel}
+%   For an edge $(v,v',l)$, 
+%   \[
+%    (v,v',relabel(l)) = \left\{
+%    \begin{array}{l}
+%       l,    {\emph{if}}\; type(v) \neq type(v') \\
+%       infl, \emph{otherwise}
+%    \end{array}   \right.
+%   \]
+% \end{definition}
+% \noindent
+% $relabel$ is promoted in the obvious way to sets of edges.
+  
+  
+\subsection{Proof}
+
+To show that  the order of application of the two $\repl$ functions does not matter,   we need to show that    $\repl(V_b,v_m,\repl(V_a,v_n,G)) = \repl(V_a,v_n,\repl(V_b,v_m,G))$.
+  
+
+{\bf Approach to proof}
+\vspace{10pt}
+
+We  calculate the edges and nodes of
+$\repl(V_b,v_m,\repl(V_a,v_n,G))$, then
+$\repl(V_a,v_n,\repl(V_b,v_m,G))$, 
+showing that they both result in the same final graph.
+%For readability, we introduce simplifying definitions throughout the proof. 
+
+
+We begin by calculating the edges of $\repl(V_a,v_n,G)$.
+
+Following the definitions recorded above, $\repl(V_a,v_n,G)$ results in graph $G_1=(V_1,E_1)$, where
+
+\begin{eqnarray*}
+  V_1 & = & V\hide V_a \union \{v_n\}\\
+  E_1 & = & E\hide ( \INN(V_a) \union \OUT(V_a) \union \INT(V_a)) \\
+  && \union\ \{(v',v_{n})|(v',v) \in \INN(V_a) \}\\
+  && \union\ \{(v_{n},v')|(v,v') \in \OUT(V_a) \}\\
+\end{eqnarray*}
+
+where (we define)
+\[
+\INN(v_n) = \{(v',v_n)|(v',v) \in \INN(V_a) \}\\
+\OUT(v_n) = \{(v_n,v')|(v,v') \in \OUT(V_a) \}
+\]
+
+% XXXXXXX
+% 
+% \noindent
+% We now introduce the simplifying definitions:
+%\[
+%  in(P_1)   = \{(v',v,l)|(v',v,l) \in in(v), v\in P_1\} \\ 
+%  out(P_1)  = \{(v,v',l)|(v,v',l) \in out(v), v\in P_1\}\\
+%  \INN(v_{N1}) = \{(v',v_{N1},r(l))|(v',v,l) \in in(v), v\in V_a\} \\
+%  out(v_{N1})= \{(v_{N1},v',r(l))|(v,v',l) \in out(v), v\in P_1\} \\
+% \]
+% \noindent
+%With a slight abuse of notation, $\INN(\{v_{N1}\})$ (resp. $\OUT(\{v_{N1}\}), \INT(\{v_{N1}\})$)  is written $\INN(v_{N1})$ (resp. $\OUT(v_{N1}), \INT(\{v_{N1}\})$). These simplifies the definition of $E_1$ to 
+%\[
+ % E_1  = ( E\hide(\INN(P_1) \union \OUT(P_1)) \union \INT(P_1)) \union ( \INN(v_{N1}) \union \OUT(v_{N1}) )
+%\]
+\noindent  
+Let $I = V_a \inter V_b$.  We record the modification in $V_b$ \textbf{after} $\repl(V_a,v_n,G)$ has been carried out as $V'_b = (V_b\hide I)\union\{v_{n}\}$.
+If $v_f$ is the final replacement abstract node following both applications of $\repl$ then
+
+\begin{eqnarray*}
+  V_{12} & = & V_1 \hide V'_b \union \{v_m\} \\
+  E_{12} &  = & E_1\hide ( \INN(V'_b) \union \OUT(V'_b) \union \INT(V'_b) )\\
+  && \union\ \{(v',v_{f})|(v',v) \in \INN(V'_b) \}\\
+  && \union\ \{(v_{f},v')|(v,v') \in \OUT(V'_b) \}\\
+\end{eqnarray*}
+\noindent
+where (we define) 
+
+\[
+% in(P'_2) = \{(v',v,l)|(v',v,l) \in in(v), v\in P'_2\}\\
+% out(P'_2) = \{(v,v',l)|(v,v',l) \in out(v), v\in P'_2\}\\
+ \INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V'_b) \}\\
+ \OUT(v_f) = \{(v_f,v')|(v,v') \in \OUT(V'_b) \}
+ \]
+
+  
+
+\noindent
+and then (by substitution of the $E_1$) we get
+
+\[
+E_{12}  =  \left( \left(
+\begin{array}{l}  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a)) \\  \union \\ (\INN(v_n) \union \OUT(v_n) ) \\
+\end{array} \right)
+   \hide ( \INN(V'_b) \union \OUT(V'_b) \union \INT(V'_b) ) \right) \\
+\hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
+\]
+
+
+
+\noindent
+and then, by substitution of the $V'_b$ (recall $V'_b$ is the modifaction made to $V'_b$ by the first $\repl$ operation: $V'_b = (V_b\hide I)\union\{v_{n}\}$)
+
+\[
+E_{12}  =  \left( \left(
+\begin{array}{l}  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a)) \\  \union \\ (\INN(v_n) \union \OUT(v_n) ) \\
+\end{array} \right)
+\hide    \left( \begin{array}{l}
+  ( \INN((V_b\hide I)\union\{v_{n}\})~ \union\ \\ \OUT((V_b\hide I)\union\{v_{n}\})~ \union\ \\ \INT((V_b\hide I)\union\{v_n\}) ) 
+         \end{array}
+         \right) \right) \\
+\hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
+\]
+
+\noindent
+then, since $(V_b\hide\ I) \inter \{v_{n}\} = \emptyset$, by distributing $\INN$ and $\OUT$  over $\union$, we get (notice $\INT(v_n) = \emptyset$, since $v_n$ is a single node).
+
+\[
+E_{12}  =  \left( \left(
+\begin{array}{l}
+  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a)) \\  \union \\ (\INN(v_n) \union \OUT(v_n) ) \\
+\end{array} \right)
+   \hide
+   \left( \begin{array}{l}
+     \INN(V_b\hide I)\union \INN(v_n) ~\union\ \\
+     \OUT(V_b\hide I)\union \OUT(v_n)  \\
+     \INT(V_b\hide I)) 
+   \end{array}
+   \right) \right) \\
+   \hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
+\]
+
+\noindent
+We can therefore remove $\INN(\{v_n\})$ and $\OUT(\{v_n\})$ from both sides of the set hiding operator, leaving 
+
+\[
+E_{12}  =  \left( \left(
+  \begin{array}{l}
+  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a)) ) \\
+  \end{array} \right)
+   \hide
+   \left( \begin{array}{l}
+     \INN(V_b\hide I) ~\union\ \\
+     \OUT(V_b\hide I) ~\union\ \\
+          \INT(V_b\hide I)) 
+%     \INT(V_b\hide I)\union \INT(\{v_n\}) 
+   \end{array}
+   \right) \right) \\
+   \hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
+\]
+
+
+\noindent
+and, since $I = V_a \inter V_b$,  and therefore $I \subseteq V_a$, we can write
+
+\[
+E_{12}  = 
+  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a) \union    \INN(V_b) ~\union\ \OUT(V_b)   ~\union\   \INT(V_b\hide I))  \\
+   \hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
+\]
+
+
+
+
+
+Next, we expand the definition of $\INN(v_f)$. Recall \comment{hit the buffers here; continue later}
+
+
+\[
+ \INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V'_b) \}\\
+\]
+\noindent
+so, by definition of $V'_b$ ($V'_b = (V_b\hide I)\union\{v_{n}\}$)
+\[
+ \INN(v_f) = \{(v',v_f)|(v',v) \in \INN((V_b\hide I)\union\{v_{n}\}) \}\\
+ \]
+   and..
+
+
+  %\[
+ %\INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V_b\hide I)\union \INN\{v_{n}\}) \}\\
+ %\]
+
+   so, since ($\INN(v_n) = \{(v',v_n)|(v',v) \in \INN(V_a) \}$)
+   
+\[
+ \INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V_b\hide I)\union  \{(v',v_n)|(v',v) \in \INN(V_a) \} \}\\
+\]
+\noindent
+and,  since $I = V_a \inter V_b$, 
+\[
+ \INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V_b)\union  \{(v',v_n)|(v',v) \in \INN(V_a) \} \}\\
+\]
+
+XXXXXXX
+
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in((P_2\hide\{v_i\}) \union \{v_{N1}\})\}
+\]
+\noindent
+and, by set manipulation, 
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2\hide\{v_i\}) \union  \{(v',v_{N1},r(l))|(v',v,l)\in in(v), v\in P_1\}\}
+\]
+\noindent
+which, by definition of $in(P_1)$, we can write as
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2\hide\{v_i\}) \union  r(in(P_1))\}
+\]
+\noindent
+where $r(in(P))$ is the relabeling operator $r$ promoted to sets.  Which, since $r$ is idempotent ($r(r(l)) = r(l)$), we can write as
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2\hide\{v_i\}) \union  in(P_1)\}
+\]
+\noindent
+and since $\{v_i\} \subseteq P_1$, 
+\[
+in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2) \union  in(P_1)\}
+\]
+
+%\input{extra}
+
+
+\comment{We now need to show that $v_f=v_g$ under $\alpha$-equivalence. \comment{haven't said what $v_g$ is yet} We do this by showing that $in(v_f)=in(v_g)$. The demonstration that $out(v_f)=out(v_g)$ proceeds in a similar fashion. }
+
+
+
+It is thus clear that $in(v_f)=in(v_g)$. 
+
+
+\subsection{equality of nodes}
+
+ We now need to show that for any nodes $w,x,y,z$ in a graph $G$, the nodes in the graph resulting from $\col(y,z,\col(w,x,G))$ are the same as the nodes resulting from $\col(w,x,\col(y,z,G))$. 
+
+Recall from Definition~\ref{def:col} that if $x$ and $y$ are nodes, and $P$ is the set of all nodes on the path from $x$ to $y$, then  $\col(x,y,G) =  (V',E')$, where 
+  \begin{eqnarray*}
+  V' & = & (V\hide P) \union \{v_{N1}\}     \\
+  \end{eqnarray*}
+
+
+Let $P_1$ be defined as $\Path(w,x)$ and $P_2$  as $\Path(y,z)$ and $\{v_i\} = \Path(x,w) \inter \Path(y,z)$.
+
+Consider first $\col(y,z,\col(w,x,G))$, and let $v_{N1}$ be the intermediate node, and $v_f$ be the final node. 
+
+Then by Definition~\ref{def:col}, $V_1 = (V\hide P_1) \union \{v_{N1}\}$. $P_2$ is modified, and $P'_2= P_2\hide \{v_i\} \union \{v_{N1}\}$ and the final set of nodes $V''$ is given by $V_{12} = V_1\hide P'_2 \union \{v_f\}$. 
+
+So
+\[
+V_{12} \\
+=\\
+V_1\hide P'_2 \union \{v_f\} \\
+=\\
+V_1\hide ((P_2\hide \{v_i\}) \union \{v_{N1}\}) \union \{v_f\}\\
+=\\
+((V\hide P_1) \union \{v_{N1}\})\hide ((P_2\hide \{v_i\}) \union \{v_{N1}\}) \union \{v_f\}\\
+=(\textrm{removing}\; v_{N1}\; \textrm{from both sides of the hiding operator})\\
+((V\hide P_1))\hide ((P_2\hide \{v_i\}) ) \union \{v_f\}\\ 
+= (\textrm{since}\; \{v_i\} \subseteq P_1 \inter P_2)\\
+((V\hide P_1))\hide ((P_2) ) \union \{v_f\}\\ 
+=\\
+(V\hide (P_1 \union P_2)) \union \{v_f\}\\ 
+\]
+
+A similar argument holds for $V_{21}$, showing $V_{21} = (V\hide (P_2 \union P_1)) \union \{v_g\}$ and so $V_{21}=V_{12}$ (up to $\alpha$-equivalence).
+
+Thus $\col(y,z,\col(w,x,G)) = \col(w,x,\col(y,z,G))$, as required. 
+

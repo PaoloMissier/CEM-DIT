@@ -1,5 +1,6 @@
 \subsection{The function $\repl$}
 
+
 We begin with definition of the function $\repl$.
 \vspace*{10pt}
 \begin{definition}[replace]
@@ -15,59 +16,29 @@ E' & = & E  \setminus (\vartheta_{out}(V^*) \cup \vartheta_{in}(V^*) \cup \varth
 
 
 We need to show that the order in which $\repl$ is carried out is irrelevant, i.e., if $v_n$ and $v_m$ are the new nodes, we need to show that
-  \[
-  \repl(V_1,v_n,\repl(V_2,v_m,G)) =   \repl(V_2,v_m,\repl(V_1,v_n,G))
+\[
+\repl(V_b,v_m,\repl(V_a,v_n,G)) = \repl(V_a,v_n,\repl(V_b,v_m,G))
   \]
   
 
 
   
-% \begin{definition}[$\col$]  \label{def:col}
-%   For nodes $x$, $y$ in a graph $G = (V,E)$, and a new node $v_{N1}$ not in $V$,  $\col(x,y,G)$ is defined provided there is a path between nodes $x$ and $y$. Let $P$ be the set of all nodes on the path from $x$ to $y$. Let $r(l)$ stand for the function $\relabel(l)$. Then $\col(x,y,G) =  (V',E')$, where 
-%   \begin{eqnarray*}
-%   V' & = & (V\hide P) \union \{v_{N1}\}     \\
-%   E' & = & E\hide (
-%                    \{(v',v,l)|(v',v,l) \in in(v), v\in P\}
-%                    \union
-%                    \{(v,v',l)|(v,v',l) \in out(v), v\in P\}
-%                   )\\
-%   && \union\ \{(v',v_{N1},r(l))|(v',v,l) \in in(v), v\in P\}\\
-%   && \union\ \{(v_{N1},v',r(l))|(v,v',l) \in out(v), v\in P\}\\
-%   \end{eqnarray*}
-% \end{definition}
-% If $type(v)$ returns the type of a node $v$, the function $relabel$ (abbreviated above as $r$) is defined as 
-% \begin{definition}[$relabel$] \label{def:relabel}
-%   For an edge $(v,v',l)$, 
-%   \[
-%    (v,v',relabel(l)) = \left\{
-%    \begin{array}{l}
-%       l,    {\emph{if}}\; type(v) \neq type(v') \\
-%       infl, \emph{otherwise}
-%    \end{array}   \right.
-%   \]
-% \end{definition}
-% \noindent
-% $relabel$ is promoted in the obvious way to sets of edges.
-  
-  
-\subsection{Proof}
+%\subsection{Proof}
 
-To show that  the order of application of the two $\repl$ functions does not matter,   we need to show that    $\repl(V_b,v_m,\repl(V_a,v_n,G)) = \repl(V_a,v_n,\repl(V_b,v_m,G))$.
+To show that  the order of application of the two $\repl$ functions does not matter,   we need to show that given a graph $G=(V,E)$,    $\repl(V_b,v_m,\repl(V_a,v_n,G)) = \repl(V_a,v_n,\repl(V_b,v_m,G))$.
   
-
+\vspace{10pt}
 {\bf Approach to proof}
 \vspace{10pt}
 
 We  calculate the edges and nodes of
-$\repl(V_b,v_m,\repl(V_a,v_n,G))$, then
+$\repl(V_b,v_m,\repl(V_a,v_n,G))$, then the edges and nodes of
 $\repl(V_a,v_n,\repl(V_b,v_m,G))$, 
 showing that they both result in the same final graph.
-%For readability, we introduce simplifying definitions throughout the proof. 
-
-
+%
 We begin by calculating the edges of $\repl(V_a,v_n,G)$.
 
-Following the definitions recorded above, $\repl(V_a,v_n,G)$ results in graph $G_1=(V_1,E_1)$, where
+Following the definition of $\repl$ reproduced above, $\repl(V_a,v_n,G)$ results in graph $G_1=(V_1,E_1)$, where
 
 \begin{eqnarray*}
   V_1 & = & V\hide V_a \union \{v_n\}\\
@@ -76,39 +47,24 @@ Following the definitions recorded above, $\repl(V_a,v_n,G)$ results in graph $G
   && \union\ \{(v_{n},v')|(v,v') \in \OUT(V_a) \}\\
 \end{eqnarray*}
 
-where (we define)
+where we define
 \[
 \INN(v_n) = \{(v',v_n)|(v',v) \in \INN(V_a) \}\\
 \OUT(v_n) = \{(v_n,v')|(v,v') \in \OUT(V_a) \}
 \]
 
-% XXXXXXX
-% 
-% \noindent
-% We now introduce the simplifying definitions:
-%\[
-%  in(P_1)   = \{(v',v,l)|(v',v,l) \in in(v), v\in P_1\} \\ 
-%  out(P_1)  = \{(v,v',l)|(v,v',l) \in out(v), v\in P_1\}\\
-%  \INN(v_{N1}) = \{(v',v_{N1},r(l))|(v',v,l) \in in(v), v\in V_a\} \\
-%  out(v_{N1})= \{(v_{N1},v',r(l))|(v,v',l) \in out(v), v\in P_1\} \\
-% \]
-% \noindent
-%With a slight abuse of notation, $\INN(\{v_{N1}\})$ (resp. $\OUT(\{v_{N1}\}), \INT(\{v_{N1}\})$)  is written $\INN(v_{N1})$ (resp. $\OUT(v_{N1}), \INT(\{v_{N1}\})$). These simplifies the definition of $E_1$ to 
-%\[
- % E_1  = ( E\hide(\INN(P_1) \union \OUT(P_1)) \union \INT(P_1)) \union ( \INN(v_{N1}) \union \OUT(v_{N1}) )
-%\]
 \noindent  
 Let $I = V_a \inter V_b$.  We record the modification in $V_b$ \textbf{after} $\repl(V_a,v_n,G)$ has been carried out as $V'_b = (V_b\hide I)\union\{v_{n}\}$.
-If $v_f$ is the final replacement abstract node following both applications of $\repl$ then
+If, following both applications of $\repl$,  $v_f$ is the final replacement abstract node, $V_{12}$ is the final set of nodes and $E_{12}$ is the final set of edges, then
 
 \begin{eqnarray*}
   V_{12} & = & V_1 \hide V'_b \union \{v_m\} \\
   E_{12} &  = & E_1\hide ( \INN(V'_b) \union \OUT(V'_b) \union \INT(V'_b) )\\
   && \union\ \{(v',v_{f})|(v',v) \in \INN(V'_b) \}\\
-  && \union\ \{(v_{f},v')|(v,v') \in \OUT(V'_b) \}\\
+  && \union\ \{(v_{f},v')|(v,v') \in \OUT(V'_b) \}
 \end{eqnarray*}
 \noindent
-where (we define) 
+where we define 
 
 \[
 % in(P'_2) = \{(v',v,l)|(v',v,l) \in in(v), v\in P'_2\}\\
@@ -119,8 +75,8 @@ where (we define)
 
   
 
-\noindent
-and then (by substitution of the $E_1$) we get
+ \noindent
+ At this point we evaluate $E_{12}$ separately, then $V_{12}$.  By substitution of the $E_1$, we get: 
 
 \[
 E_{12}  =  \left( \left(
@@ -128,13 +84,10 @@ E_{12}  =  \left( \left(
 \end{array} \right)
    \hide ( \INN(V'_b) \union \OUT(V'_b) \union \INT(V'_b) ) \right) \\
 \hphantom{E_{12}  = \;\; }   \union\ \\
-\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))
 \]
-
-
-
 \noindent
-and then, by substitution of the $V'_b$ (recall $V'_b$ is the modifaction made to $V'_b$ by the first $\repl$ operation: $V'_b = (V_b\hide I)\union\{v_{n}\}$)
+and then, by substitution of the $V'_b$ (recall $V'_b$ is the modification made to $V'_b$ by the first $\repl$ operation: $V'_b = (V_b\hide I)\union\{v_{n}\}$):
 
 \[
 E_{12}  =  \left( \left(
@@ -149,7 +102,7 @@ E_{12}  =  \left( \left(
 \]
 
 \noindent
-then, since $(V_b\hide\ I) \inter \{v_{n}\} = \emptyset$, by distributing $\INN$ and $\OUT$  over $\union$, we get (notice $\INT(v_n) = \emptyset$, since $v_n$ is a single node).
+then, since $(V_b\hide I) \inter \{v_{n}\} = \emptyset$, we can distribute $\INN$ and $\OUT$  over $\union$. Furthermore,  $\INT(v_n) = \emptyset$, since $v_n$ is a single node.
 
 \[
 E_{12}  =  \left( \left(
@@ -202,7 +155,7 @@ E_{12}  =
 
 
 
-Next, we expand the definition of $\INN(v_f)$. Recall \comment{hit the buffers here; continue later}
+Next, we expand the definition of $\INN(v_f)$. Recall \comment{hit the buffers here; continue later}  \comment{wrong tack: instead tur $\INN(V_b\hide I)$ into $\INN(V_b)$. Then do the same with $E_{21}$. 
 
 
 \[

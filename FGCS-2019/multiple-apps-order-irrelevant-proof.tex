@@ -1,8 +1,7 @@
-\subsection{The function $\repl$}
+\section{Multiple applications of $\repl$.}
+\label{app:multiple}
 
-
-We begin with definition of the function $\repl$.
-\vspace*{10pt}
+We begin by recalling the definition of the function $\repl$.
 \begin{definition}[replace]
 \label{def:group-replace}
 
@@ -25,7 +24,7 @@ We need to show that the order in which $\repl$ is carried out is irrelevant, i.
   
 %\subsection{Proof}
 
-To show that  the order of application of the two $\repl$ functions does not matter,   we need to show that given a graph $G=(V,E)$,    $\repl(V_b,v_m,\repl(V_a,v_n,G)) = \repl(V_a,v_n,\repl(V_b,v_m,G))$.
+%To show that  the order of application of the two $\repl$ functions does not matter,   we need to show that given a graph $G=(V,E)$,    $\repl(V_b,v_m,\repl(V_a,v_n,G)) = \repl(V_a,v_n,\repl(V_b,v_m,G))$.
   
 \vspace{10pt}
 {\bf Approach to proof}
@@ -36,8 +35,51 @@ $\repl(V_b,v_m,\repl(V_a,v_n,G))$, then the edges and nodes of
 $\repl(V_a,v_n,\repl(V_b,v_m,G))$, 
 showing that they both result in the same final graph.
 %
-We begin by calculating the edges of $\repl(V_a,v_n,G)$.
 
+
+
+  
+ 
+\subsection*{Equality of nodes}
+
+We first show that for $ G=(V,E); V_a,V_b \subseteq V$; $I=V_a\inter V_b$  and $V_n,V_m \nin V$, the nodes resulting from 
+$\repl(V_b,v_m,\repl(V_a,v_n,G))$, and the nodes resulting from 
+$\repl(V_a,v_n,\repl(V_b,v_m,G))$ are equal.
+
+We begin by calculating the nodes of $\repl(V_a,v_n,G)$.
+%
+Following the definition of $\repl$ reproduced above, $\repl(V_a,v_n,G)$ results in the nodes $V_1$, where 
+
+\begin{eqnarray*}
+  V_1 & = & V\hide V_a \union \{v_n\}
+\end{eqnarray*}
+
+At this point, $V_b$ is modified, so let $V'_b = V_b$ after $\repl(V_a,v_n,G)$, ie $V'_b = V_b\hide I \union \{v_n\}$. The final set of nodes, which we denote $V_{12}$, is given by $V_{12} = V'_b\hide I \union \{v_f\}$. We use $v_f$ as the name for the final set of nodes to emphasise the fact that this will be different from $v_m$. Similarly, when we carry out the $\repl$ functions in the other order, we will use $v_g$ for the name of the final set of nodes. $v_f$ and $v_g$ are not in $V$. 
+
+\[
+V_{12} \\
+= \\
+V_1\hide V'_b \union \{v_f\}\\
+= (\rm{by~replacing~} V'_b) \\
+V_1\hide\ (V_b\hide I \union \{v_n\}) \union \{v_f\}\\
+= (\rm{by~replacing~} V_1) \\
+(V\hide V_a \union \{v_n\})~\hide\ (V_b\hide I \union \{v_n\}) \union \{v_f\}\\
+= (\rm{by~removing~} v_n)\\
+(V\hide V_a)~\hide\ (V_b\hide I) \union \{v_f\}\\
+= (\rm{since~} I=V_a \inter V_b)\\
+(V\hide V_a)~\hide\ (V_b) \union \{v_f\}\\
+=\\
+V\hide (V_a \union V_b) \union \{v_f\}
+\]
+
+A similar argument holds for $V_{21}$, showing $V_{21} = V\hide (V_a \union V_b) \union \{v_g\}$ and so $V_{21}=V_{12}$ (up to $\alpha$-equivalence).
+
+
+\subsection*{Equality of edges}
+
+
+To show that the edges remain unchanged in either order, we begin by calculating the edges of $\repl(V_a,v_n,G)$.
+%
 Following the definition of $\repl$ reproduced above, $\repl(V_a,v_n,G)$ results in graph $G_1=(V_1,E_1)$, where
 
 \begin{eqnarray*}
@@ -47,7 +89,7 @@ Following the definition of $\repl$ reproduced above, $\repl(V_a,v_n,G)$ results
   && \union\ \{(v_{n},v')|(v,v') \in \OUT(V_a) \}\\
 \end{eqnarray*}
 
-where we define
+and we define
 \[
 \INN(v_n) = \{(v',v_n)|(v',v) \in \INN(V_a) \}\\
 \OUT(v_n) = \{(v_n,v')|(v,v') \in \OUT(V_a) \}
@@ -72,11 +114,8 @@ where we define
  \INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V'_b) \}\\
  \OUT(v_f) = \{(v_f,v')|(v,v') \in \OUT(V'_b) \}
  \]
-
-  
-
  \noindent
- At this point we evaluate $E_{12}$ separately, then $V_{12}$.  By substitution of the $E_1$, we get: 
+ By substitution of the $E_1$, we get: 
 
 \[
 E_{12}  =  \left( \left(
@@ -146,114 +185,61 @@ and, since $I = V_a \inter V_b$,  and therefore $I \subseteq V_a$, we can write
 
 \[
 E_{12}  = 
-  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a) \union    \INN(V_b) ~\union\ \OUT(V_b)   ~\union\   \INT(V_b\hide I))  \\
+  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a) \union    \INN(V_b) ~\union \OUT(V_b)   ~\union   \INT(V_b\hide I))  \\
    \hphantom{E_{12}  = \;\; }   \union\ \\
 \hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
 \]
 
 
-
-
-
-Next, we expand the definition of $\INN(v_f)$. Recall \comment{hit the buffers here; continue later}  \comment{wrong tack: instead tur $\INN(V_b\hide I)$ into $\INN(V_b)$. Then do the same with $E_{21}$. }
-
+Next, observe that, since $I \subseteq V_b$, $V_b\hide I = V_b$, and so  $\INT(V_b\hide I) = \INT(V_b)$. 
 
 \[
- \INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V'_b) \}\\
-\]
-\noindent
-so, by definition of $V'_b$ ($V'_b = (V_b\hide I)\union\{v_{n}\}$)
-\[
- \INN(v_f) = \{(v',v_f)|(v',v) \in \INN((V_b\hide I)\union\{v_{n}\}) \}\\
- \]
-   and..
-
-
-  %\[
- %\INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V_b\hide I)\union \INN\{v_{n}\}) \}\\
- %\]
-
-   so, since ($\INN(v_n) = \{(v',v_n)|(v',v) \in \INN(V_a) \}$)
-   
-\[
- \INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V_b\hide I)\union  \{(v',v_n)|(v',v) \in \INN(V_a) \} \}\\
-\]
-\noindent
-and,  since $I = V_a \inter V_b$, 
-\[
- \INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V_b)\union  \{(v',v_n)|(v',v) \in \INN(V_a) \} \}\\
+E_{12}  = 
+  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a) \union    \INN(V_b) ~\union \OUT(V_b)   ~\union   \INT(V_b))  \\
+   \hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
 \]
 
-XXXXXXX
+
+A similar chain of reasoning to the above demonstrates that
+
 
 \[
-in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in((P_2\hide\{v_i\}) \union \{v_{N1}\})\}
-\]
-\noindent
-and, by set manipulation, 
-\[
-in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2\hide\{v_i\}) \union  \{(v',v_{N1},r(l))|(v',v,l)\in in(v), v\in P_1\}\}
-\]
-\noindent
-which, by definition of $in(P_1)$, we can write as
-\[
-in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2\hide\{v_i\}) \union  r(in(P_1))\}
-\]
-\noindent
-where $r(in(P))$ is the relabeling operator $r$ promoted to sets.  Which, since $r$ is idempotent ($r(r(l)) = r(l)$), we can write as
-\[
-in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2\hide\{v_i\}) \union  in(P_1)\}
-\]
-\noindent
-and since $\{v_i\} \subseteq P_1$, 
-\[
-in(v_f) = \{(v',v_f,r(l))|(v',v,l) \in in(P_2) \union  in(P_1)\}
+E_{21}  = 
+  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a) \union    \INN(V_b) ~\union \OUT(V_b)   ~\union   \INT(V_b))  \\
+   \hphantom{E_{21}  = \;\; }   \union\ \\
+\hphantom{E_{21}  = \;\;}   (\INN(v_g) \union \OUT(v_g))\\ 
 \]
 
-%\input{extra}
 
+It now remains to show that the edges associated with $v_f$ and $v_g$ are teh same: ie that $\INN(v_f) = \INN(v_g)$ and $\OUT(v_f) = \OUT(v_g)$.
 
-\comment{We now need to show that $v_f=v_g$ under $\alpha$-equivalence. \comment{haven't said what $v_g$ is yet} We do this by showing that $in(v_f)=in(v_g)$. The demonstration that $out(v_f)=out(v_g)$ proceeds in a similar fashion. }
-
-
-
-It is thus clear that $in(v_f)=in(v_g)$. 
-
-
-\subsection{equality of nodes}
-
- We now need to show that for any nodes $w,x,y,z$ in a graph $G$, the nodes in the graph resulting from $\col(y,z,\col(w,x,G))$ are the same as the nodes resulting from $\col(w,x,\col(y,z,G))$. 
-
-Recall from Definition~\ref{def:col} that if $x$ and $y$ are nodes, and $P$ is the set of all nodes on the path from $x$ to $y$, then  $\col(x,y,G) =  (V',E')$, where 
-  \begin{eqnarray*}
-  V' & = & (V\hide P) \union \{v_{N1}\}     \\
-  \end{eqnarray*}
-
-
-Let $P_1$ be defined as $\Path(w,x)$ and $P_2$  as $\Path(y,z)$ and $\{v_i\} = \Path(x,w) \inter \Path(y,z)$.
-
-Consider first $\col(y,z,\col(w,x,G))$, and let $v_{N1}$ be the intermediate node, and $v_f$ be the final node. 
-
-Then by Definition~\ref{def:col}, $V_1 = (V\hide P_1) \union \{v_{N1}\}$. $P_2$ is modified, and $P'_2= P_2\hide \{v_i\} \union \{v_{N1}\}$ and the final set of nodes $V''$ is given by $V_{12} = V_1\hide P'_2 \union \{v_f\}$. 
-
-So
+Consider $\INN(v_f)$. We know that $ \INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V'_b) \}$, and by expansion of the definition of $V'_b$ we get
 \[
-V_{12} \\
+\INN(v_f) \\
 =\\
-V_1\hide P'_2 \union \{v_f\} \\
+\{(v',v_f)|(v',v) \in \INN(V_b\hide I \union \{v_n\}) \}\\
 =\\
-V_1\hide ((P_2\hide \{v_i\}) \union \{v_{N1}\}) \union \{v_f\}\\
+\{(v',v_f)|(v',v) \in \INN(V_b\hide I) \union \INN(\{v_n\}) \}\\
 =\\
-((V\hide P_1) \union \{v_{N1}\})\hide ((P_2\hide \{v_i\}) \union \{v_{N1}\}) \union \{v_f\}\\
-=(\textrm{removing}\; v_{N1}\; \textrm{from both sides of the hiding operator})\\
-((V\hide P_1))\hide ((P_2\hide \{v_i\}) ) \union \{v_f\}\\ 
-= (\textrm{since}\; \{v_i\} \subseteq P_1 \inter P_2)\\
-((V\hide P_1))\hide ((P_2) ) \union \{v_f\}\\ 
+\{(v',v_f)|(v',v) \in \INN(V_b\hide I)\} \union \{(v',v_f)|(v',v)\in \INN(\{v_n\}) \}\\
+=(\rm{by~~definition~~of~~}\INN(\{v_n\})\\
+\{(v',v_f)|(v',v) \in \INN(V_b\hide I)\} \union \{(v',v_f)|(v',v)\in \{(v',v_n)|(v',v) \in \INN(V_a)\} \}\\
+=(\rm{by~~simplication})\\
+\{(v',v_f)|(v',v) \in \INN(V_b\hide I)\} \union \{(v',v_f)|(v',v) \in \INN(V_a)\} \}\\
+=(\rm{since~~} I=V_a\inter V_b)\\
+\{(v',v_f)|(v',v) \in \INN(V_b)\} \union \{(v',v_f)|(v',v) \in \INN(V_a)\} \}\\
 =\\
-(V\hide (P_1 \union P_2)) \union \{v_f\}\\ 
+\{(v',v_f)|(v',v) \in \INN(V_b) \union \INN(V_a) \}\\
 \]
 
-A similar argument holds for $V_{21}$, showing $V_{21} = (V\hide (P_2 \union P_1)) \union \{v_g\}$ and so $V_{21}=V_{12}$ (up to $\alpha$-equivalence).
 
-Thus $\col(y,z,\col(w,x,G)) = \col(w,x,\col(y,z,G))$, as required. 
+Similar reasoning shows that $\INN(v_g)$ also is equal to $\{(v',v_g)|(v',v) \in \INN(V_a)\union \INN(V_b) \}$, and thus the $\INN(v_f) = \INN(v_g)$.
+
+The demonstration that $\OUT(v_f) = \OUT(v_g)$ follows similar lines.
+
+
+  
+ 
+
 

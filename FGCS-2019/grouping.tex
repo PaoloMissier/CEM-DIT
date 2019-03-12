@@ -62,7 +62,7 @@ The Path Closure of $V_{gr}$ in $G$ is
 \[\clos(V_{gr}, \jwb{G})  =  \bigcup_{v_i, v_j \in V_{gr}} V_{ij} \]
 \end{definition}
 
-\jwb{We assume, for the moment, that the subgraph given by $\clos(V_{gr}, G)$ is a connected graph. In Section~\ref{sec:allowing} we explore the implications of relaxing this assumption.}  \comment{need to demonstrate later that the order of operations is irrelevant}. 
+\jwb{We assume, for the moment, that the subgraph given by $\clos(V_{gr}, G)$ is a connected graph. In Section~\ref{sec:allowing} we explore the implications of relaxing this assumption.}  \comment{Check consistency with 4.3}
 
 
 
@@ -86,7 +86,7 @@ The same result can be obtained by first \textit{extending} the closure in \jwb{
 Following this approach, we are going to define grouping as a composition of three functions: \textit{closure}, defined above, \textit{extension}, and \textit{replacement}, as follows.
 
 %
-The \textit{extension} of a set $V_{gr} \subset V$ relative to type $t \in \{ \en, \act \}$ is $V_{gr}$ augmented with all its adjacent nodes, in either direction, of type $t$. Formally:
+The \textit{extension} of a set $V_{gr} \subset V$ relative to type $t \in \{ \en, \act \}$ is $V_{gr}$ augmented with all its adjacent nodes, in either direction, of type $t$. \jwb{We do this because when we later replace this extended set with a single abstract node of type $t$, we want to ensure that we maintain type-correctness of the graph.} Formally:
 
 
 %%%%
@@ -104,7 +104,7 @@ The \textit{extension} of a set $V_{gr} \subset V$ relative to type $t \in \{ \e
 % \end{array}
 % \]
 %\end{definition}
-\comment{The nodes we to which we extend must have the type $t$. It isn't possible to include a node of type other than t.}
+%\comment{The nodes we to which we extend must have the type $t$. It isn't possible to include a node of type other than t.}
 
 \comment{To make this more clear, we use $v_s,v_d \nin V_{gr}$ in the definition of $extend$. This would also make this definition more compatible with the definitions of incut and outcut.}
 
@@ -112,7 +112,7 @@ The \textit{extension} of a set $V_{gr} \subset V$ relative to type $t \in \{ \e
 \vspace*{10pt}
 \begin{definition}[$\extend$]
   \label{def:extend}
-Let $G = (V,E) \in \guEA$, $t \in \{ \en, \act \}$. $v_s$ and $v_d$ are the source and destination nodes of a relationship. \comment{replace $V_{gr}$ in the defn below with something that suggests $\clos$ has been applied?}
+Let $G = (V,E) \in \guEA$, $t \in \{ \en, \act \}$. $v_s$ and $v_d$ are the source and destination nodes of a relationship. \comment{we could replace $V_{gr}$ in the defn below with something that suggests $\clos$ has been applied?}
 \[
 \begin{array}{l}
 \extend(V_{gr}, G ,t) =  \\
@@ -131,19 +131,19 @@ Let $G = (V,E) \in \guEA$, $t \in \{ \en, \act \}$. $v_s$ and $v_d$ are the sour
 In our example, $\extend(\{e_1, e_3, e_4, e_5, a_1, a_3\}, G, \en) = \{e_1, e_3, e_4, e_5, a_1, a_3, e_2, e_6\}$.  Note that all boundary nodes in $\extend(V_{gr}, G, t)$ are of type $t$ by construction.
 %\footnote{A boundary node is any node in the extended set with a link to a node not in the set.}
 
-Next, we consider replacing the collected nodes with a new abstract node.
+Next, we  \jwb{replace} the collected nodes with a new abstract node.
 %
-Let $V^* \subset V$ be obtained using $\pclos$ then $\extend$, as outlined above, and let $v_{new}$ be a new node symbol that does not appear in $V$, created using $\pclos$ then $\extend$. 
+Let $V^* \subset V$ be obtained using $\pclos$ then $\extend$, as outlined above, and let $v_{new}$ be a new node symbol that does not appear in $V$.
+%
 Function $\repl$ replaces $V^*$ with $v_{new}$ in $V$, and connects $v_{new}$ to the rest of the graph, as follows.
 
 Let $\vartheta_{out}(V^*)$ denote the \textit{outcut} of $G$ associated with $V^*$:
 \jwb{\[ \vartheta_{out}(V^*) = \{  (v_d \leftarrow v_s) |   v_s \in  V^*, v_d \in V \setminus V^*\}\]}
-This is the set of arcs of $G$ pointing out of $V^*$,
-%\jwb{(i.e., those  whose destinations lie in $V^*$ and whose sources lie in $V \setminus V^*$ recalling that relationships point backwards in time). }
-
+This is the set of arcs of $G$ pointing out of $V^*$.
+%
 Symmetrically, let $\vartheta_{in}(V^*)$ denote the \textit{incut}  of $G$ associated with $V^*$, i.e., the set of arcs of $G$ leading into $V^*$:
 \jwb{\[ \vartheta_{in}(V^*) = \{  (v_d\leftarrow v_s) |  v_d \in V^*, v_s \in  V \setminus V^* \}\]}
-
+%
 Finally, let $\vartheta_{int}(V^*)$ denote internal arcs, that connect two nodes inside $V^*$:
 \[ \vartheta_{int}(V^*) = \{  (v_s\leftarrow v_d) | v_s, v_d \in V^*\}\]
 
@@ -232,7 +232,7 @@ V^{*} & = \extend(V_{cl}, \en) = V_{cl} \cup  \{e_2, e_6 \} \\
 
 \jwb{In this section we have described the grouping operator in terms of the component functional parts.}
 %
-\jwb{We made two assumptions that have to be discharged. The first, made in Definition~\ref{def:clos}, was that, if we removed typing and directional information from $G$,  that $\pclos(V_{gr},G)$ resulted in a single connected component. We show the implications of relaxing this this in Section~\ref{sec:allowing}. The second assumption, that all nodes in the initial selected set are the same type, is dealt with in the following  Section.}
+\jwb{We made two assumptions that have to be discharged. The first, made in Definition~\ref{def:clos}, was that $\pclos(V_{gr},G)$ results in a single connected  subgraph. We show the implications of relaxing  this in Section~\ref{sec:allowing}. The second assumption, that all nodes in the initial selected set are the same type, is dealt with in the following  Section.}
 
 
 \subsection{Generalization to \textit{e-grouping} and \textit{a-grouping}}
@@ -384,21 +384,36 @@ It is straightforward to show that strict t-grouping reduces to normal grouping 
 
 
 \jwb{In this section we relax the assumption made after Definition~\ref{def:clos}, that the subgraph identified by  $\pclos(V_{gr},G)$ is connected.}
+%
+\jwb{If, instead,  two separate subgraphs are identified within $\pclos(V_{gr},G)$, there are two possibilities. Either following the application of $\extend$ (which extends the set of nodes encompassed) the two subgraphs remain separate, in which case they should be treated as two graphs, or following the applications of $\extend$ the two subgraphs overlap. }
+%
+  \jwb{In this case, we must show that the order in which the $\repl$ functions are carried out is unimportant.}
+  %
+  \jwb{Note that, because it was only at the point of using $\extend$ that the graphs overlapped, we only need to consider the order of application of the two $\repl$ functions.}
 
-
-\jwb{If multiple separate subgraphs are identified within $\pclos(V_{gr},G)$, \emph{and they remain separate following the application of $\extend$}, then each can be replaced by multiple new abstract nodes.} \comment{phrasing!}
-
-\jwb{Consider the situation if the  application of $\extend$ causes two previously unconnected graphs ($V_1$ and $V_2$, say) to be connected.  We now need to show that the order in which the $\repl$ functions are carried out is unimportant. }\comment{That last line is a critical line in the argument. Because it was only by using $\extend$ before graphs overlapped, we only need to consider the order of application of the two $\repl$ functions.}
-  
-
-\jwb{Let $v_n$ and $v_m$ be the new nodes. Let $a$ be the node such that $a \in V_1 \inter V_2$.  We need to show that
-  \[
+\begin{theorem}\label{thm:multiple}
+\jwb{Let $V_1 \inter V_2 \neq \emptyset$. It is the case that
+   \[
   \repl(V_1,v_n,\repl(V_2,v_m,G)) =   \repl(V_2,v_m,\repl(V_1,v_n,G))
-  \]
-}  
+  \]}
+\noindent
+\end{theorem}
+\jwb{Proof:~\ref{app:multiple}.}
 
-\comment{I believe that the proofs from the Blue-Collapse paper should apply in this case. I need to think about it further and present them better (possibly as another appendix, since they run to about 6 pages in that paper..}
-
-\comment{Blur Collapse proofs (as they stand) only apply for homogenous groupings.  IDK if they apply further. }
+\subsection{Summary}
 
 
+\comment{finishing para}
+\jwb{In this section we have presented functions that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes \emph{of the same type}, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node. Section~\ref{sec:allowing} shows that multiple applications of $\group$ give the same result irrespective of order. 
+}
+
+\jwb{It is clear that, in order to meet our initial requirement of maintaining type-correctness of the abstracted graph, more nodes than just the original ones selected will have to hidden. This has implications for the use of this operator, especially given that hidden information may be a critical part of the graph. We address this  problem in~\citep{MBGCD14} where we present a simple policy model and language for controlling abstraction, in the context where provenance owners want to control the disclosure of their provenance graphs. There, the senders define a policy which results in a sensitivity vale being associated with nodes, which gives us a means of evaluating the ``damage'' to a graph caused by the abstraction operator.}
+
+\comment{Address: It is not evident what is the impact of hiding information which the user did not select, especially information that was obfuscated to maintain validity?  What if the non selected obfuscated content is actually the information that must be communicated between the two parties. }
+
+\jwb{Another approach which is open to us following the result of Theorem~\ref{the:multiple} break the initial set chosen by the user into multiple smaller sets, thereby reducing the amount of extra information hidden. This could be taken to its logical limit by abstracting individual nodes, but this  would have to be balanced  against the increasing revelation of the structure of the graph.  A full investigation of this is beyond the scope of this paper.
+  }
+
+
+
+\jwb{In the following section we evaluate the consistency of the abstractions we propose on the ordering constraints C2-C7. }

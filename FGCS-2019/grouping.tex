@@ -380,35 +380,36 @@ It is straightforward to show that strict t-grouping reduces to normal grouping 
 %\caption{$\guEA$ graph patterns for e- and a-grouping} \label{fig:a-grouping-pattern-proofs}
 %\end{figure}
 
-\jwb{
-\subsection{Multiple Applications of Group}
-\label{sec:allowing}
-}
-
-\comment{replace iterates over all subgroups. this bit not needed. }
-\comment{the most general case produces two or more disjoint subgraphs (where disconnect means there is no path from any node in one to any node in the other  }
-
-\jwb{In this section we relax the assumption made after Definition~\ref{def:clos}, that the subgraph identified by  $\pclos(V_{gr},G)$ is connected.}
+% \jwb{
+% \subsection{Multiple Applications of Group}
+% \label{sec:allowing}
+% }
+% 
+% \comment{replace iterates over all subgroups. this bit not needed. }
+% \comment{the most general case produces two or more disjoint subgraphs (where disconnect means there is no path from any node in one to any node in the other  }
+% 
+% \jwb{In this section we relax the assumption made after Definition~\ref{def:clos}, that the subgraph identified by  $\pclos(V_{gr},G)$ is connected.}
+% %
+% \jwb{If, instead,  two separate subgraphs are identified within $\pclos(V_{gr},G)$, there are two possibilities. Either following the application of $\extend$ (which extends the set of nodes encompassed) the two subgraphs remain separate, in which case they should be treated as two graphs, or following the applications of $\extend$ the two subgraphs overlap. }
+% %
+%   \jwb{In this case, we must show that the order in which the $\repl$ functions are carried out is unimportant.}
+%   %
+%   \jwb{Note that, because it was only at the point of using $\extend$ that the graphs overlapped, we only need to consider the order of application of the two $\repl$ functions.}
+% 
+% \begin{theorem}\label{thm:multiple}
+% \jwb{Let $V_1 \inter V_2 \neq \emptyset$. It is the case that
+%    \[
+%   \repl(V_1,v_n,\repl(V_2,v_m,G)) =   \repl(V_2,v_m,\repl(V_1,v_n,G))
+%   \]}
+% \noindent
+% \end{theorem}
+% \jwb{Proof:~\ref{app:multiple}.}
 %
-\jwb{If, instead,  two separate subgraphs are identified within $\pclos(V_{gr},G)$, there are two possibilities. Either following the application of $\extend$ (which extends the set of nodes encompassed) the two subgraphs remain separate, in which case they should be treated as two graphs, or following the applications of $\extend$ the two subgraphs overlap. }
-%
-  \jwb{In this case, we must show that the order in which the $\repl$ functions are carried out is unimportant.}
-  %
-  \jwb{Note that, because it was only at the point of using $\extend$ that the graphs overlapped, we only need to consider the order of application of the two $\repl$ functions.}
-
-\begin{theorem}\label{thm:multiple}
-\jwb{Let $V_1 \inter V_2 \neq \emptyset$. It is the case that
-   \[
-  \repl(V_1,v_n,\repl(V_2,v_m,G)) =   \repl(V_2,v_m,\repl(V_1,v_n,G))
-  \]}
-\noindent
-\end{theorem}
-\jwb{Proof:~\ref{app:multiple}.}
 
 \subsection{Summary}
 
 
-\comment{finishing para}
+%\comment{finishing para}
 \jwb{In this section we have presented functions that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes \emph{of the same type}, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node. Section~\ref{sec:allowing} shows that multiple applications of $\group$ give the same result irrespective of order. 
 }
 

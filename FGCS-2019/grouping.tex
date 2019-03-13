@@ -1,6 +1,6 @@
 \section{Grouping Provenance graph nodes}  \label{sec:grouping}
 
-\comment{discuss (somewhere) implications of relaxing the assumption about connectivity in Section~\ref{sec:closure}.}
+%\comment{discuss (somewhere) implications of relaxing the assumption about connectivity in Section~\ref{sec:closure}.}
 
 
 
@@ -60,10 +60,10 @@ The Path Closure of $V_{gr}$ in $G$ is
 \[\clos(V_{gr}, \jwb{G})  =  \bigcup_{v_i, v_j \in V_{gr}} V_{ij} \]
 \end{definition}
 
-\jwb{We assume, for the moment, that the subgraph given by $\clos(V_{gr}, G)$ is a subgraph of $G$} \comment{with the property that each source is connectef to at least one of the sinks. For now, we assume there is only one such subgraph that contains all teh nodes on Vgr. 
+\jwb{We assume, for the moment, that the subgraph given by $\clos(V_{gr}, G)$ is a subgraph of $G$ with the property that each source is connected to at least one of the sinks. For now, we assume there is only one such subgraph that contains all the nodes in $V_{gr}$. 
 }
 
-\jwb{ connected graph. In Section~\ref{sec:allowing} we explore the implications of relaxing this assumption.}  \comment{Check consistency with 4.3}
+%\jwb{ connected graph. In Section~\ref{sec:allowing} we explore the implications of relaxing this assumption.}  \comment{Check consistency with 4.3}
 
 
 
@@ -82,12 +82,14 @@ In this example, we can construct a new group of nodes, $\{ e', e_2, e_6\}$, on 
 %
 The same result can be obtained by first \textit{extending} the closure in \jwb{Fig.~\ref{fig:convex-ex-1}(b)} to include e-nodes $e_2$, $e_6$, and then replacing the resulting set with $e''$ (this is indicated by the ``extend and replace'' arrow from \jwb{Fig.~\ref{fig:convex-ex-1}(b)} to \jwb{Fig.~\ref{fig:convex-ex-1}(d) as} shown).
 %
-\jwb{The \textit{extend} operator will have the role of ``gathering up'' certain nodes into the set to be replaced. We require all the set boundary nodes (nodes connected to nodes not in the set) to be of the same type, so in Fig.~\ref{fig:convex-ex-1}(b) we must  include nodes $e_2$ and $e_6$.}
-\comment{purpose of extend is to preserve type-consistency of the $\repl$ operator}
+\jwb{The $\extend$ operator will have the role of ``gathering up'' certain nodes into the set to be replaced, and the purpose of $\extend$ is to ensure that the eventual node replacement preserves the type-consistency of graph.}
+\jwb{We require all the set boundary nodes (nodes connected to nodes not in the set) to be of the same type, so in Fig.~\ref{fig:convex-ex-1}(b) we must  include nodes $e_2$ and $e_6$.}
+
 Following this approach, we are going to define grouping as a composition of three functions: \textit{closure}, defined above, \textit{extension}, and \textit{replacement}, as follows.
 
 %
-The \textit{extension} of a set $V_{gr} \subset V$ relative to type $t \in \{ \en, \act \}$ is $V_{gr}$ augmented with all its adjacent nodes, in either direction, of type $t$. \jwb{We do this because when we later replace this extended set with a single abstract node of type $t$, we want to ensure that we maintain type-correctness of the graph.} Formally:
+The \textit{extension} of a set $V_{gr} \subset V$ relative to type $t \in \{ \en, \act \}$ is $V_{gr}$ augmented with all its adjacent nodes, in either direction, of type $t$. %\jwb{We do this because when we later replace this extended set with a single abstract node of type $t$, we want to ensure that we maintain type-correctness of the graph.}
+Formally:
 
 
 %%%%
@@ -107,13 +109,14 @@ The \textit{extension} of a set $V_{gr} \subset V$ relative to type $t \in \{ \e
 %\end{definition}
 %\comment{The nodes we to which we extend must have the type $t$. It isn't possible to include a node of type other than t.}
 
-\comment{To make this more clear, we use $v_s,v_d \nin V_{gr}$ in the definition of $extend$. This would also make this definition more compatible with the definitions of incut and outcut.}
+\comment{To make the defn below more clear, we use $v_s,v_d \nin V_{gr}$ in the definition of $extend$. This will also make this definition more compatible with the definitions of incut and outcut.}
 
 
 \vspace*{10pt}
 \begin{definition}[$\extend$]
   \label{def:extend}
-Let $G = (V,E) \in \guEA$, $t \in \{ \en, \act \}$. $v_s$ and $v_d$ are the source and destination nodes of a relationship. \comment{we could replace $V_{gr}$ in the defn below with something that suggests $\clos$ has been applied?}
+  Let $G = (V,E) \in \guEA$, $t \in \{ \en, \act \}$. $v_s$ and $v_d$ are the source and destination nodes of a relationship.
+  %\comment{we could replace $V_{gr}$ in the defn below with something that suggests $\clos$ has been applied?}
 \[
 \begin{array}{l}
 \extend(V_{gr}, G ,t) =  \\
@@ -134,22 +137,23 @@ In our example, $\extend(\{e_1, e_3, e_4, e_5, a_1, a_3\}, G, \en) = \{e_1, e_3,
 
 Next, we  \jwb{replace} the collected nodes with a new abstract node.
 %
-Let $V^* \subset V$ be obtained using $\pclos$ then $\extend$, as outlined above, and let $v_{new}$ be a new node symbol that does not appear in $V$.
+Let $V^* \subset V$ be obtained using $\pclos$ then $\extend$, as outlined above, and let $v_{new}$ be a new node  that does not appear in $V$.
 %
-Function $\repl$ replaces $V^*$ with $v_{new}$ in $V$, and connects $v_{new}$ to the rest of the graph, as follows.
+Function $\repl$ replaces $V^*$ with $v_{new}$ in $V$, and connects $v_{new}$ to the rest of the graph.
+\jwb{To aid us in the definition, we begin by defining the \textit{outcut}, \textit{incut} and the \textit{internal} nodes of $V^*$.}
 
-Let $\vartheta_{out}(V^*)$ denote the \textit{outcut} of $G$ associated with $V^*$:
+Let $\vartheta_{out}(V^*)$ denote the \textit{outcut} of $G$ associated with $V^*$, defined as:
 \jwb{\[ \vartheta_{out}(V^*) = \{  (v_d \leftarrow v_s) |   v_s \in  V^*, v_d \in V \setminus V^*\}\]}
 This is the set of arcs of $G$ pointing out of $V^*$.
 %
 Symmetrically, let $\vartheta_{in}(V^*)$ denote the \textit{incut}  of $G$ associated with $V^*$, i.e., the set of arcs of $G$ leading into $V^*$:
 \jwb{\[ \vartheta_{in}(V^*) = \{  (v_d\leftarrow v_s) |  v_d \in V^*, v_s \in  V \setminus V^* \}\]}
 %
-Finally, let $\vartheta_{int}(V^*)$ denote internal arcs, that connect two nodes inside $V^*$:
+Finally, let $\vartheta_{int}(V^*)$ denote internal arcs, that connect two both nodes inside $V^*$:
 \[ \vartheta_{int}(V^*) = \{  (v_s\leftarrow v_d) | v_s, v_d \in V^*\}\]
 
 
-\jwb{Function $\repl$ replaces each arc $(v_d \leftarrow v_s) \in \vartheta_{out}(V^*)$ with a new arc $(v_{new} \leftarrow v_s)$ of the same type, and replaces each arc $(v_d \leftarrow v_s) \in \vartheta_{in}(V^*)$ with a new arc $(v_s \leftarrow v_{new})$ of the same type. Arcs in $\vartheta_{int}(V^*)$ simply disappear along with the nodes in $V^*$.}
+\jwb{Function $\repl$ replaces each arc $(v_d \leftarrow v_s) \in \vartheta_{out}(V^*)$ with a new arc $(v_{d} \leftarrow v_{new})$ of the same type, and replaces each arc $(v_d \leftarrow v_s) \in \vartheta_{in}(V^*)$ with a new arc $(v_{new} \leftarrow v_{d})$ of the same type. Arcs in $\vartheta_{int}(V^*)$ simply disappear along with the nodes in $V^*$.}
 %
 
 
@@ -229,13 +233,13 @@ V^{*} & = \extend(V_{cl}, \en) = V_{cl} \cup  \{e_2, e_6 \} \\
 & = (\{a_1,a_2,a_3,e''\}, \{ (a_2, e''), (a_4, e''), (e'',a_5) \})
 \end{align*}
 
-\comment{If we have two or more components as a result of extend, the repl operater iterates over these sets. Apply to each component separately. }
 
-\jwb{\subsubsection{Summary}}
+
+%\jwb{\subsubsection{Summary}}
 
 \jwb{In this section we have described the grouping operator in terms of the component functional parts.}
-%
-\jwb{We made two assumptions that have to be discharged. The first, made in Definition~\ref{def:clos}, was that $\pclos(V_{gr},G)$ results in a single connected  subgraph. We show the implications of relaxing  this in Section~\ref{sec:allowing}. The second assumption, that all nodes in the initial selected set are the same type, is dealt with in the following  Section.}
+\jwb{Up to this point we have been operating under the assumption made in Definition~\ref{def:clos}: that there is only one subgraph generated  by  $\clos(V_{gr}, G)$.  In the case where we have two or more subgraphs,  the $\extend$ operator and the $\repl$ operator would iterate over these sets, and by applied to each subgraph separately. }
+\jwb{A further assumption, that all nodes in the initial selected set are the same type, is dealt with in the following  Section.}
 
 
 \subsection{Generalization to \textit{e-grouping} and \textit{a-grouping}}

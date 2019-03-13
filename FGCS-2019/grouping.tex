@@ -410,37 +410,42 @@ It is straightforward to show that strict t-grouping reduces to normal grouping 
 % \jwb{Proof:~\ref{app:multiple}.}
 %
 
+
 \subsection{Complexity of grouping operators}  \label{sec:complexity}
 
-
+\paolo{
 The grouping operator ensures that the validity of a PROV graph is preserved, that is, the abstracted graph that results from a valid PROV graph does not violate PROV constraints.
 Such guarantee, however, comes at a cost which is defined by the complexity of the $\pclos()$ and $\extend()$ operators.
 Here we analyse their worst-case complexity, and then argue that much better performance is expected in practical cases.
-
+}
+\paolo{
 Firstly, observe that the closure operator can be reduced to a special case of the node reachability problem for acyclic digraphs.
 Specifically, given two nodes $v_1, v_2 \in V_{gr}$ such that $v_2$ is reachable from $v_2$, we need to collect all nodes along \textit{all} paths that connect $v_1$ to $v_2$.
 This can be accomplished by enumerating all nodes $x$ that are reachable from each $v \in V_{gr}$ while keeping track of the corresponding paths. Whenever $ x \in V_{gr}$, we collect all nodes along the recorded path from $v$ to $x$.
-
+}
+\paolo{
 It is easy to see that the worst-case scenario occurs when the nodes in $V_{gr}$ are located at the two ends of the graph, i.e., they are either source or sink nodes.
 In such case, the reachability algorithm needs to visit \textit{all} nodes $V$ and \textit{all} edges $E$ in the graph, and it must additionally keep track of all edges it traverses.
-
+}
+\paolo{
 Using a simple BFS approach,  we can solve the reachability problem in $O(\mid V\mid + |E|)$ steps, which in the worst-case is $O(|V|^2)$, with a $O(\mid E\mid)$ space complexity for recording all edges. 
 Note that the many algorithms that exist to address the problem aim to strike a balance between the cost of pre-processing the graph in order to efficiently answer multiple reachability queries, and the complexity of each individual query.
 In our case, however, we can dispense with pre-processing as we expect the closure over $V_{gr}$ to be computed only once.\footnote{Note however that, when consecutive abstraction rounds are envisioned, i.e., abstraction over abstracted graphs, pre-processing may be appropriate, but that needs to be balanced against the cost of updating the data structures after each abstraction round.}
-
+}
+\paolo{
 An experimental evaluation of the actual cost of computing closures in practice is beyond the scope of this paper, which is focused on the theoretical underpinnnings of the abstraction operations.
 However, two factors suggest that the practical complexity will be considerably less than the worst-case.
 Firstly, we can stop the graph traversal as soon as we have visited all $V_{gr}$ nodes. Unless one of those is a sink node, this results in pruning part of the graph. 
 Note also that in this case the abstraction will consist of one single abstract node that represents the entire graph, because the closure will include all nodes, which is unlikely to be a desired outcome.
 And secondly, in a provenance graph not all edges are allowed, in fact the graph is bipartite with respect of the nodes types (entities and activities), and furthermore, there is at most one generating activity per entity. These factors greatly reduce the expected number of edges to much less than the theoretical max $|V|^2$.
-
+}
+\paolo{
 Regarding the $\extend()$ operator, note that this requires all nodes in $\pclos(V_{gr}, G)$ to be visited in order to check their type and possibly extend the closure to their immediate successors. 
 This is a linear problem in the worst case, namely when the closure contains all nodes in the graph (in practice, we expect the closure to be much smalller than the graph).
-
+%}
+}
 
 \subsection{Summary}
-
-
 %\comment{finishing para}
 \jwb{In this section we have presented functions that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes \emph{of the same type}, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node. Section~\ref{sec:allowing} shows that multiple applications of $\group$ give the same result irrespective of order. 
 }

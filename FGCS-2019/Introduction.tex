@@ -3,69 +3,81 @@
 \section{Introduction}
 
 \paolo{
-The provenance of data is a form of structured metadata that records the processes involved in data production. In addition to references to data generation or transformation processes, a \textit{provenance trace} may include input  or intermediate data products, as well as references to agents, humans as well as software systems, who were responsible for those processes.
+The provenance of data is a form of structured metadata that records the processes involved in data production. In addition to references to data generation or transformation processes, a \textit{provenance trace} typically includes input  or intermediate data products as well as references to \textit{agents}, that is the humans or software systems who were responsible to enact those processes.
 %
 	In multi-party collaboration settings that involve data sharing, as well as in third party auditing of data and processes, there is a broad expectation that 
-shipping the available provenance to collaborators, or more generally publishing it along with the data, may help data consumers form judgements regarding the reliability of the data itself.
+shipping the available provenance to collaborators, or more generally publishing it along with the data, may help data consumers, including auditors, form judgements regarding the reliability of the data itself.
 }
 
 %
 \paolo{
-	Offering to disclose the provenance of a data as evidential basis for establishing data quality and reliability is particularly important when data products are exchanged as part of transactions amongst parties with limited mutual trust. 
+	Offering to disclose the provenance of a data as evidential basis for establishing data quality and reliability is particularly important when data products are exchanged as part of transactions that involve parties with limited mutual trust. 
 This is the case for instance of \textit{dynamic coalitions}~\citep{BFJM06}, ad hoc collaborative partnerships that are created 
 to pursue a common goal, in scenarios such as multi-agency emergency/threat responses, as well as the exchange of intelligence information. 
 Despite the need to share data of a possibly sensitive nature, these coalitions are characterized by a lack of established interaction protocols and by limited trust amongst the partners. 
 }
 \paolo{
-This situation creates a tension between data providers and consumers, when it comes to negotiating the level of detail of the orovenance that providers are prepared to offer to consumers. 
-On one hand, consumers will require as much provenance detail as possible.
-Data providers, however, will be reticent to offer detailed provenance traces, because those may contain sensitive information regarding their own internal processes as well as any proprietary data used by those processes.
+This situation creates a tension between data providers and consumers, when it comes to negotiating the level of detail of the provenance that providers are prepared to offer to consumers. 
+On the one hand, consumers will require as much provenance detail as possible, to use as a basis for establishing data credibility.
+Data providers, on the other hand, will be reticent to offer detailed provenance traces, because those may contain sensitive information regarding their own internal processes as well as any proprietary data used by those processes. 
 %
-To appreciate how such tension may arise, consider the following scenario, where ...  
+In fact, the provenance of a data product will typically contain more sensitive information than then data product itself.}
+
+
+\paolo{\subsection{Motivating scenario: provenance of intelligence information}
+	%
+To appreciate how such tension may arise, consider a scenario where a public agency PA  wants to buy intelligence reports, say about potential threats to the public, from an intelligence provider, IP.
 %
-}
+Under assumption of limited trust, PA will want to mitigate the risk of acting upon information provided by IP, which is potentially unreliable. 
+% 
+At the same time, IP has a business incentive to supply PA with additional evidence that facilitates PA's risk assessment and thus increases the chance of a successful transaction.}
+
+%
+\paolo{The  key assumption that motivates our work is that the provenance of each intelligence report is relevant in contributing, at least in part, the required evidence. 
+%
+A fictional but realistic example of provenance for an intelligence report such information is shown in Fig.~\ref{fig:graph-example}.
+%
+As depicted in the figure, provenance can be visually depicted as a digraph whose nodes represent either \textit{entities} (ovals in the figure), i.e., data, documents, etc., \textit{activities} (rectangles), which represent the execution of some process over a period of time, or \textit{agents} (pentagons), which represent  humans or computing systems. 
+%
+The edges represent various types of directed relationships, the most common being ``activity $a$ used entity $e$'', ``entity $e$ was generated by activity $a$'', ``activity $a$ was associated with agent $ag$'' (i.e., $ag$ was responsible for $a$), and more.}
+
+\paolo{Formally, such a graph is a depiction of a PROV document, which in turn conforms to the W3C PROV data model~\citep{w3c-prov-dm}, introduced in Sec.~\ref{sec:prov-core}. 
+We will use the graph representation of provenance throughout the paper, as it facilitates reasoning about the mechanisms for provenance abstraction, which are at the core of our work.}
+
+\paolo{
+The process Reading the graph from top to bottom retains the temporal dependencies amongst its nodes, which are generated as the process 
+In this example, the topmost entities \texttt{TwitterFeed-batch1}, \texttt{TwitterFeed-batch2}, \texttt{TwitterFeed-batch3}
+	
+	%%%
+	%
+	}
+	
+
+%
+
 \paolo{TBD -- rewriting the example in 1.1. removed fig 1} \\
 
 
-
-
 \paolo{OLD TEXT BELOW}
+
+This may contain a wealth of details regarding how the report was produced, including the raw input data used for the analysis, the analytical tools and their configuration parameters, as well as the identity of the analysts involved, and their position within the business organization.  
+
 
 %Second, regarding \textit{selective disclosure}, we are motivated by the emerging notion of .
 %
 %
 %
-Our working assumption is that, in this setting, provenance can be used as a form of evidence in support of the data that is being exchanged. 
-%
-In these scenarios, full disclosure of provenance data may not be possible, e.g. due either to confidentiality policies, Intellectual Property restrictions associated with individual components, or data protection regulations. These restrictions introduce the need to hide certain parts of the provenance traces. 
-%
-In this paper we develop a model and algorithm for performing  abstraction over provenance metadata. These provide the theoretical underpinning, defined on top of PROV, for applications that require provenance exchange while obfuscating some of its content.
+\mnote{In this paper we develop a model and algorithm for performing  abstraction over provenance metadata. These provide the theoretical underpinning, defined on top of PROV, for applications that require provenance exchange while obfuscating some of its content.}
 
 %The work presented in this paper is motivated 
 
-The recent standardisation of a data model for exchanging provenance in an interoperable way, namely the PROV model from the W3C~\citep{w3c-prov-dm}, makes this assumption realistic.
+\mnote{The recent standardisation of a data model for exchanging provenance in an interoperable way, namely the PROV model from the W3C~\citep{w3c-prov-dm}, makes this assumption realistic.}
 %
 
 
 %controlling the selective disclosure of potentially sensitive provenance content
 
-%In this paper we address the problem of controlling the selective disclosure of provenance information, which may arise in the presence of limi
-With the emergence of provenance as a valuable complement to data in such a setting, two separate but related issues arise, namely that of interpretation of complex provenance by humans,  and that of .
-  
-%
-First, regarding \textit{complexity}, we observe that while provenance is a rich form of metadata, it is often the reflection of articulated processes involving many intermediate data products and many inter-related activities. 
-%
-Such complexity is at odds with the need for humans to understand the meaning of the data, common for instance in e-science. 
-While provenance is an important element of scholarly communication, it needs to be understandable by non-technical users, i.e., scientists. 
-%
-Indeed in e-science, the idea of abstracting provenance to make it understandable is not entirely new.
-%
-The Zoom system~\citep{DBLP:conf/icde/BitonBDH08}, discussed in more detail below, is an example of a system for computing views over provenance, which is designed to simplify human understanding of provenance traces.
-%
 
-
-
-\subsection{Motivating scenario: provenance of intelligence information}
 %
 %
 %\begin{figure}
@@ -75,24 +87,7 @@ The Zoom system~\citep{DBLP:conf/icde/BitonBDH08}, discussed in more detail belo
 %\label{fig:scenario}
 %\end{figure}
 
-Imagine a setting where one or more public agencies engage in a business relationship with an independent intelligence provider. 
 %
-In Fig.~\ref{fig:scenario} these are the Public Agencies (PA) box and the Incident Room Analysts (IR) box, respectively.
-%
-IR has a business incentive to provide analysis of potential threats to PA that is as accurate as possible, while PA has an interest in acquiring and acting upon intelligence reports issued by IR.
-%
-Realistically, however, PA will want to mitigate the risk of acting upon information provided by IR, which is potentially unreliable. At the same time, IR has a business incentive to supply PA with additional evidence that facilitates PA's risk assessment.
-%
-
-%
-The  key assumption that motivates our work is that the provenance of the intelligence report is relevant in contributing, at least in part, the required evidence. This may contain a wealth of details regarding how the report was produced, including the raw input data used for the analysis, the analytical tools and their configuration parameters, as well as the identity of the analysts involved, and their position within the business organization.  
-
-%
-An example of provenance containing such information is shown in Fig.~\ref{fig:graph-example}.
-%
-As depicted in the figure, provenance can be represented as a graph whose nodes represent either \textit{entites} (ovals in the figure), i.e., data, documents, etc., \textit{activities} (rectangles), which represent the execution of some process over a period of time, or \textit{entites} (pentagons), which represent  humans or computing systems. Directed edges represent various types of relationships, the most common being ``activity $a$ used entity $e$'', ``entity $e$ was generated by activity $a$'', ``activity $a$ was associated with agent $ag$'' (i.e., $ag$ was responsible for $a$), and more.
-%
-Provenance graphs are introduced more formally in Sec.~\ref{sec:prov-core}.
 
 \begin{figure*}
 \begin{center}

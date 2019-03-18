@@ -450,14 +450,24 @@ This is a linear problem in the worst case, namely when the closure contains all
 
 \subsection{Summary}
 %\comment{finishing para}
-\jwb{In this section we have presented functions that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes \emph{of the same type}, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node. Section~\ref{sec:allowing} shows that multiple applications of $\group$ give the same result irrespective of order. 
+\jwb{In this section we have presented operators that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes of the same type, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this work to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node. %Section~\ref{sec:allowing} shows that multiple applications of $\group$ give the same result irrespective of order. 
 }
 
-\jwb{It is clear that, in order to meet our initial requirement of maintaining type-correctness of the abstracted graph, more nodes than just the original ones selected will have to hidden. This has implications for the use of this operator, especially given that hidden information may be a critical part of the graph. We address this  problem in~\citep{MBGCD14} where we present a simple policy model and language for controlling abstraction, in the context where provenance owners want to control the disclosure of their provenance graphs. There, the senders define a policy which results in a sensitivity vale being associated with nodes, which gives us a means of evaluating the ``damage'' to a graph caused by the abstraction operator.}
+\jwb{It is clear that, in order to meet our initial requirement of maintaining type-correctness of the abstracted graph, in general more nodes than just the original ones selected will have to hidden. This has implications for the use of this operator, especially given that hidden information may be a critical part of the graph. We address this  problem in~\citep{MBGCD14} where we present a simple policy model and language for controlling abstraction, in the context where provenance owners want to control the disclosure of their provenance graphs. There, the senders define a policy which results in a sensitivity value being associated with nodes, which gives us a means of evaluating the ``damage'' to a graph caused by the abstraction operator.}
+
+\jwb{In~\citep{MBGCD14} we do this by means of defining a property \emph{utility} as a counterpart to sensitivity. It is used to indicate  the interest of the provenance owner in ensuring that a node be retained as part of the graph, as it represents important evidence which is not sensitive.   The utility values associated to different nodes are used to quantify any loss of utility as a result of the application of \emph{group} though a measure of \emph{residual utility}. If we write the utility of a node $n$ as $u(n)$, and  $V_{ret} = V / V_{gr}$ is the set of nodes \emph{not} intended to be hidden, and $V'_{ret} \subset V_{ret}$ the nodes which were in fact retained after grouping, the  residual utility is simply
+  \[
+  RU_{V} = \frac{\Sigma_{n\in V'_{ret}} u(n)}{\Sigma_{n\in V_{ret}} u(n)}
+\]
+  which is a measure of the proportion of the graph utility not selected by the grouping operator. 
+}
+
+
+
 
 \comment{Address: It is not evident what is the impact of hiding information which the user did not select, especially information that was obfuscated to maintain validity?  What if the non selected obfuscated content is actually the information that must be communicated between the two parties. }
 
-\jwb{Another approach which is open to us following the result of Theorem~\ref{the:multiple} break the initial set chosen by the user into multiple smaller sets, thereby reducing the amount of extra information hidden. This could be taken to its logical limit by abstracting individual nodes, but this  would have to be balanced  against the increasing revelation of the structure of the graph.  A full investigation of this is beyond the scope of this paper.
+\jwb{Another approach is break the initial set chosen by the user into multiple smaller sets, thereby reducing the amount of extra information hidden. This could be taken to its logical limit by abstracting individual nodes, but this  would have to be balanced  against the increasing revelation of the structure of the graph. The significance of this trade off would have to be considered in a particular context, and  a full investigation is beyond the scope of this paper.
   }
 
 

@@ -79,7 +79,7 @@ Events occur instantaneously, and they mark the lifetime boundaries of Entities 
 \end{itemize}
 %\end{description}
 
-In order to formally express events, we introduce a set $\Ev$ of event symbols, with a pre-order\footnote{Recall that a pre-order is a binary relation with reflexivity and transitivity, but no symmetry or anti-symmetry.} $\preorder \subset \Ev \times \Ev$, and the following set of partial functions that associate events to elements and relations in a provenance instance:
+We formally express events by introducing a set $\Ev$ of event symbols, with a pre-order\footnote{Recall that a pre-order is a binary relation with reflexivity and transitivity, but no symmetry or anti-symmetry.} $\preorder \subset \Ev \times \Ev$, and the following set of partial functions that associate events to elements and relations in a provenance instance:
 \begin{align*}
 start: \act \rightarrow \Ev \\
 end: \act \rightarrow \Ev \\
@@ -92,12 +92,13 @@ Temporal constraints involving events, and expressed by means of their pre-order
 \subsection{Constraints and valid $\guEA$ graphs}
 \label{sec:prov-constraints}
 
-As mentioned earlier, our goal in this work is to define transformations of a valid PROV instance into new valid instance, whilst providing obfuscation by abstracting out some of its details. Validity is defined in terms of a set of constraints, as stated in the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}.
+%As mentioned earlier, our goal in this work is to define transformations of a valid PROV instance into new valid instance, whilst providing obfuscation by abstracting out some of its details. 
+Validity of a PROV document is defined in terms of a set of constraints, as stated in the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}.
 %
 For instance, Constraint 55 states that the Entities and Activities are disjoint:  $\en \cap \act = \emptyset$.
-Thus, a document $D$ that contains both statements (1) $a_1 \used~e_1$ and (2) $e_1 \used ~a_1$ cannot be valid, because by definition of $\used$ given earlier, (1) entails 
-$e_1 \in \en$, $a_1 \in \act$, while (2) entails $a_1 \in \en$, $e_1 \in \act$, violating the constraint.
-
+Thus, a document $D$ that contains both statements (1) $a_1 \used~e_1$ and (2) $e_1 \used ~a_1$ cannot be valid, because by definition% of $\used$ given earlier,
+ (1) entails  $e_1 \in \en$, $a_1 \in \act$, while (2) entails $a_1 \in \en$, $e_1 \in \act$, violating the constraint.
+%
 Note that disjointness constraint 55 entails that $\guEA$ graphs are bipartite.
 
 In this paper we are mainly concerned with temporal constraints, which apply to $\guEA$ instances and determine the admissible partial ordering of the event types introduced in the previous section.

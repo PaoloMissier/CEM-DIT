@@ -64,7 +64,13 @@ A concrete specification of an access control system or provenance~\citep{Cadenh
 
 A loosely related strand of research in this area aims at summarising a collection of provenance graphs by constructing a ``super-graph'' that captures the common features across a collection of similar graphs, such as those that are produced by repeating execution of a process with different inputs and parameters. This has been addressed with an aim to improve provenance queries \citep{DBLP:journals/jidm/El-JaickML14}, as well as to provide a compact but approximate representation of provenance at the possible cost of information loss \citep{Ainy:2015:ASD:2806416.2806429}. This work is only peripherally relevant here, as our approach only operates on one graph at a time. 
 
-More closely related, and possibly a source of inspiration for our future work, is recent work on \textit{compressing} provenance graphs by recognising identical paths in the graph, called \textit{provenance types}, and replacing them with new abstract nodes \citep{moreau2015aggregation}.
+\paolo{In \citep{moreau2015aggregation} a mechanism is proposed to automatically construct aggregations from a single PROV graph.
+This relies on the concept of \textit{provenance types}, which are fixed-length paths in the graph that occur more than once. 
+The aggregation is defined as a mapping from provenance nodes to the provenance types, and there is a way to connect these types into a new PROV-like graph, by similarly mapping the graph edges to new weighted edges.
+The result is a new graph that is meant to capture the ``essence'' of a fine-grained set of provenance  statements by observing regularities in the original graph.
+This is substantially different from our approach, namely (i) the choice of nodes to aggregate is driven by the discovery of provenance types, which is entirely driven by graph topology and not by a user choice, and (ii) there is no intent to generate \textit{valid} PROV graphs, which is instead the main goal of our transformation.  
+Thus, the approach is not suitable to support policy-driven (or other user-oriented) selective disclosure, and the aggregation operation produces a graph that may violate PROV constraints.
+}
 
 \subsection{General graph anonymization}
 

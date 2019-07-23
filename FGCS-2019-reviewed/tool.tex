@@ -1,0 +1,170 @@
+\section{Tool Implementation}   \label{sec:summary}
+
+Rather than giving a procedural pseudo-code for the $\group$ algorithm, we summarize its functional specification, comprising of the four functions defined so far: $\clos()$, $\extend()$, $\repl()$, and $\remIsolated()$, in Table~\ref{alg-summary}.
+
+\begin{table*}
+  \begin{eqnarray*}
+    %%%%%%
+    \clos(V_{gr}, V)  &%  
+    = &%
+     \bigcup_{v_i, v_j \in V_{gr}} V_{ij} \\
+    %%%%%%
+    \extend(V_{gr}, G ,t) &%
+    = & V_{gr} 
+      \begin{mydrop}
+        ~\cup~ \{ v' | (v, v') \in E \wedge v \in V_{gr} \wedge \type(v') = t) \}  \\
+        ~\cup~ \{ v | (v', v) \in E \wedge v \in V_{gr} \wedge \type(v') = t) \}  
+      \end{mydrop} \\%
+    %%%%%%
+    \repl(V_{gr}, v_{new}, G) &% 
+    = & %
+    (V', E'), \mathrm{where}~~ 
+       \begin{mydrop}
+         \vartheta_{out}'(V_{gr}') = \{ v \xleftarrow{t}  v_{new} |  \begin{mydrop}
+                 v \xleftarrow{t} v' \in \vartheta_{out}(V_{gr}')  \wedge \\%
+                 ( (t = \wat \wedge \type(v_{new}) = \en) \vee \\%
+                (t = \waw \wedge \type(v_{new}) = \act)  \vee \\%
+                (t \neq \wat \wedge t \neq \waw) )\}  
+              \end{mydrop} \\
+         \vartheta_{in}'(V_{gr}') = \{  v_{new} \xleftarrow{t}  v | \begin{mydrop}
+           v' \xleftarrow{t} v \in \vartheta_{in}(V_{gr}')  \wedge  \\%
+           ( \begin{mydrop}
+             (t = \delegate \wedge \type(v_{new}) = \ag) \\%
+             \vee t \neq \delegate )\}
+             \end{mydrop}
+           \end{mydrop}
+       \end{mydrop}\\
+    %%%%%%
+   V' & %
+   = & %
+   V  \setminus V_{gr}  \cup \{v_{new}\}  \\
+    %%%%%%
+   E' &% 
+   = & % 
+   E \setminus (\vartheta_{out}(V_{gr}) \cup \vartheta_{in}(V_{gr}) \cup \vartheta_{int}(V_{gr}))  \cup \vartheta_{out}'(V_{gr})  \cup \vartheta_{in}'(V_{gr}) \\
+    %%%%%%
+    \remIsolated(V,E) \mathrm{where} & %
+    = &%
+    (V', E') \\
+    %%%%%%
+    \mathit{isolated}(G) & 
+    = & %
+    \{  v \in V | \type(v) = \ag  \wedge \nexists v' \in V . ((v',v) \in E \vee (v,v') \in E) \} \\
+    V' & %
+    = & %
+    V \setminus \mathit{isolated}(G)\\
+    %%%%%%
+    E' &
+    =&
+    E \\
+    %%%%%%
+    \group(G, V_{gr}, v_{new}, t) &%
+    = & %
+    \remIsolated(\repl( \extend(\clos(V_{gr},V), V, t), v_{new},  G ))
+    %%%%%%
+  \end{eqnarray*}
+  \caption{Functional summary of the grouping algorithm.}
+  \label{alg-summary}
+\end{table*}
+
+
+
+% \begin{table*}
+% \begin{tabularx}{\textwidth}{lXlX}
+% %%%%%%
+% $\clos(V_{gr}, V) $ &  
+% %%%%%%
+% $ \bigcup_{v_i, v_j \in V_{gr}} V_{ij}$ \\
+% %%%%%%
+% $\extend(V_{gr}, G ,t) = V_{gr}:$ &  
+% %%%%%%
+% $\cup \{ v' | (v, v') \in E \wedge v \in V_{gr} \wedge \type(v') = t) \}  
+% \cup \{ v | (v', v) \in E \wedge v \in V_{gr} \wedge \type(v') = t) \} $ \\
+% %%%%%%
+% $\repl(V_{gr}, v_{new}, G) = (V', E'):$ &  
+% $\vartheta_{out}'(V_{gr}') = \{ v \xleftarrow{t}  v_{new} |  v \xleftarrow{t} v' \in \vartheta_{out}(V_{gr}')  \wedge ( (t = \wat \wedge \type(v_{new}) = \en) \vee 
+% (t = \waw \wedge \type(v_{new}) = \act)  \vee (t \neq \wat \wedge t \neq \waw) )\} $ \newline
+% $\vartheta_{in}'(V_{gr}') = \{  v_{new} \xleftarrow{t}  v |  v' \xleftarrow{t} v \in \vartheta_{in}(V_{gr}')  \wedge ( (t = \delegate \wedge \type(v_{new}) = \ag) \vee t \neq \delegate )\} $ \newline
+% $V' = V  \setminus V_{gr}  \cup \{v_{new}\} $ \newline
+% $ E' = E \setminus (\vartheta_{out}(V_{gr}) \cup \vartheta_{in}(V_{gr}) \cup \vartheta_{int}(V_{gr}))  \cup \vartheta_{out}'(V_{gr})  \cup \vartheta_{in}'(V_{gr}) $\\
+% %%%%%%
+% %%%%%%
+% $\remIsolated(V,E) = (V', E')$ & 
+% $\mathit{isolated}(G) = \{  v \in V | \type(v) = \ag  \wedge \nexists v' \in V . ((v',v) \in E \vee (v,v') \in E) \}$ \newline
+% $V ' = V \setminus \mathit{isolated}(G), E' =  E$ \\
+% %%%%%%
+% $\group(G, V_{gr}, v_{new}, t):$&
+% $\remIsolated(\repl( \extend(\clos(V_{gr},V), V, t), v_{new},  G ))$
+% \end{tabularx} 
+% \caption{Functional summary of the grouping algorithm.}
+% \label{alg-summary}
+% \end{table*}
+% 
+ 
+A procedural implementation of the algorithm, written in Java, is available online (\url{https://github.com/PaoloMissier/ProvAbs}) as part of a tool in which a policy language is used to drive the selection of the set $V_{gr}$ of nodes to be abstracted. Using the tool, policy setters may experiment with abstraction policies on their provenance graphs, observing their effects when abstraction is performed.
+%
+Noting that $\group()$ is closed wrt composition, the tool also allows for more complex abstraction, by letting users specify compositions of $\group$ operations as part of their policy.
+
+%
+Here we only provide a brief description of the tool. A more detailed account can be found in~\citep{Missier2013c} (submitted).
+%
+The tool operates on provenance graphs written in the provenance notation PROV-N~\citep{w3c-prov-n}.
+
+%
+Given $G \in \guaEAG$, the tool lets users specify a grouping set $V_{gr}$ by means of an \textit{abstraction policy}. It operates in two steps. Firstly, path expressions and predicates are used to select a set of nodes, and to assign a numerical \textit{sensitivity} value to them. 
+%
+For example, the following rule contains a path expression that binds variables \texttt{process} and \texttt{data} to activity and entity nodes $a$, $e$, respectively, such that $\used(a,e)$ holds and $e$ is any node that is reachable from node with id \texttt{d14}:
+
+\vspace{0.5\baselineskip}
+
+\small
+\textsf{for all (process used data)}
+
+\textsf{ \;\;\; where (data descendantOf d14)) }
+
+\textsf{ \;\;\;\;\;\; setSensitivity(data, 10)}
+
+\vspace{0.5\baselineskip}
+
+\normalsize
+
+The sensitivity value of the selected data nodes is set to 10.
+%
+Here \textit{descendantOf} is a built-in query predicate that returns all nodes reachable from a given start node. 
+
+%
+As an another example, the  predicate
+
+\vspace{0.5\baselineskip}
+
+\small
+\textsf{for all (data wgb process)} 
+
+ \textsf{ \;\;\; where (process.classification $>$ ``conf'' in classifications) }
+
+\textsf{ \;\;\;\;\;\; setSensitivity(data, 9)}
+
+\vspace{0.5\baselineskip}
+
+\normalsize
+
+
+binds variables \texttt{data} and \texttt{process} to pairs of nodes $d$, $p$ such that $\wgby(d,p)$ and where the classification value $p.classification$ of $p$ (a property of the node) is greater than ``conf''. This requires an ordered set of classification labels to be declared in a user-defined \texttt{classifications} list.
+%
+During the first step, the tool evaluates the policy rules, resulting in the annotation of the selected nodes with sensitivity values. 
+
+%
+This model operates on the same principle as the Bell-LaPadula security model. Each known receiver of a graph is pre-assigned a clearance level. This is determined by factors outside the scope of the tool, e.g. how much a receiver is trusted to the provenance owner. 
+%
+In the second step, node sensitivities are compared to the clearance level $cl$ of the receiver, and $V_{gr}$ is defined as the set of nodes whose sensitivity is lower than $cl$.
+%
+
+The rationale for these two steps is that sensitivity can be defined largely independently of the specific receiver, while the exact level of abstraction is relative to a receiver, who in this case is represented simply by a clearance level.
+
+%Such predicates 
+%For example, if certain activities had a property named \emph{sensitivity} which contained numeric values, then ``\emph{all entities produced by processes that sensitivity} $\ge$ \emph{5}'' is a valid clause within the policy language.  
+%
+%
+%
+%The evaluation of a policy over $G$ results in the identification of the set of nodes $V_{gr}$. The user can then  apply $\group(G, V_{gr}, v_{new}, t)$ to a graph $G \in \guaEAG$, where $t$ is again selected by the user. 
+%

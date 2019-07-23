@@ -1,0 +1,105 @@
+%%-*- mode: LaTeX; mode: FlySpell; -*-
+
+%\documentclass{article}
+\documentclass[10pt,journal,cspaper,compsoc]{TKDE-template/IEEEtran}
+
+\input{preamble}
+
+\begin{document}
+
+\title{Provenance graph abstraction by node grouping}
+
+\author{Paolo~Missier,
+        Jeremy~Bryans,
+        Carl~Gamble,
+        Vasa~Curcin,
+        and~Roxana~Danger% <-this % stops a space
+        \IEEEcompsocitemizethanks{
+         \IEEEcompsocthanksitem P. Missier, J. Bryans  and C. Gamble are with the School of Computing Science, Newcastle University, UK.\protect\\
+% note need leading \protect in front of \\ to get a newline within \thanks as
+% \\ is fragile and will error, could use \hfil\break instead.
+E-mail: {firstname.lastname}@ncl.ac.uk
+\IEEEcompsocthanksitem V. curcin and R. Danger are with the Department of Computing, Imperial College, London, UK}% <-this % stops a space
+\thanks{}}
+
+
+
+%\markboth{IEEE Transaction on Knowledge and Data Engineering,~Vol.~X, No.~Y, DATE}%
+%{Shell \MakeLowercase{\textit{et al.}}: happy}
+
+\IEEEcompsoctitleabstractindextext{%
+\begin{abstract}
+
+Data provenance is a form of metadata that records the activities involved in data production. It can be used to help data consumers to form judgments regarding data reliability. The PROV data model, released by the W3C in 2013, defines a relational model and constraints which provides a structural and semantic foundation for provenance. This enables the exchange of provenance between data producers and consumers. When the provenance content is sensitive and subject to disclosure restrictions, however, a complementary model is needed to enable producers to partially obfuscate provenance in a principled way. In this paper we propose such a formal model. It is embodied by a grouping operator, whereby a set of nodes in a PROV-compliant provenance graph is replaced by a new abstract node, leading to a new valid PROV graph. We define graph editing rules which allow existing dependencies to be removed, but guarantee that no spurious dependencies are introduced in the abstracted graph. As grouping is closed with respect to composition, it can be used as a building block to achieve complex abstraction. The operator is implemented as part of a user tool that lets owners of sensitive provenance information specify custom abstraction policies.
+
+\end{abstract}
+
+\begin{keywords}
+Provenance metadata, provenance abstraction
+\end{keywords}
+}
+\maketitle
+
+%\IEEEdisplaynotcompsoctitleabstractindextext
+\IEEEpeerreviewmaketitle
+%\date{}
+
+
+
+
+\input{Introduction}
+
+
+\input{relatedWork}
+
+
+
+\input{prov-summary}
+
+
+
+\input{grouping}
+
+\input{abstractionEvents}
+
+
+\input{agents}
+
+\input{summary}
+
+
+
+\appendix
+
+\input{policyModel}
+
+%\section{Grouping composition}
+%
+%\mnote{Commutative?}
+
+%\section{Abstracting relations}
+%
+%\mnote{What does it really mean?
+%
+%\begin{itemize}
+%\item I can delete an edge. No problem
+%\item anonymize: not interesting, as domain/range mostly determines the edge type
+%\item generalize. Influence is the typical case. Covered in section below
+%\item is there a notion of grouping over edges?
+%\end{itemize}
+%}
+%
+%
+%\section{PROV pattern for the grouping operator}
+%
+%\mnote{Bundle does not work, because it is designed to express provenance of provenance.
+%
+%we need a construct that is syntactically similar to bundling but with a different semantics
+%}
+
+
+\bibliographystyle{alpha}
+\bibliography{prov-abstraction-foundations,p3s-JB}  
+
+
+\end{document}

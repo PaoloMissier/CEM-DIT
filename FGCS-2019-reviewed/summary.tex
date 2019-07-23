@@ -1,0 +1,16 @@
+
+\section{Summary and further research}
+\label{sec:further}
+
+We have proposed a model for the principled obfuscation of provenance based on a formal definition of abstraction, in which sensitive elements of a provenance graph are grouped together and replaced by a single abstract node.  The presentation is incremental: first we develop the model for the case when the nodes of provenance graphs are restricted to entities and activities, and then consider the case where nodes may also be agents.  A guiding principle  throughout is that we avoid the introduction of \emph{false dependencies}: abstraction will reduce the information content of a provenance graph, but it will not introduce false information.  
+The abstraction acts on and results in provenance graphs which are PROV compliant.   A separate paper presents the tool implementing this model in detail.
+
+
+The work described in this paper is progressing in two main directions.
+%
+First, we are aware that the fragment of PROV to which this version of $\group$ applies does not cover all relation types. Nevertheless, the method described in the paper for reasoning about PROV graph transformation can be used as a guideline to extend the work to the missing parts of PROV. We are going to address these in the future.
+
+Second, so far we have ignored the implications of abstraction on the space of events that are used to characterize the semantics of PROV. As constraints over the relative ordering of events are defined in detail in the PROV-CONSTR document, there is however an obligation to extend the notion of validity of PROV graphs to include those constraints. Thus, grouping must be shown to be validity-preserving relative to those constraints as well. 
+
+\comment{Address: The authors have not considered what domains enforce a validity constraint and what if it is relaxed to show an partially inconsistent graph?}
+

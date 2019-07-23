@@ -1,0 +1,76 @@
+%%-*- mode: LaTeX; mode: FlySpell; -*-
+
+\documentclass{elsarticle}
+
+\input{preamble}
+
+\begin{document}
+
+\title{Abstracting PROV provenance graphs: a validity-preserving approach}
+
+ 
+\author[ncl]{P. ~Missier \corref{cor1}}
+\ead{Paolo.Missier@newcastle.ac.uk}
+
+\author[cov]{J. ~Bryans\corref{cor1}}
+\ead{Jeremy.Bryans@coventry.ac.uk}
+
+\author[ncl]{C. ~Gamble}
+\ead{Carl.Gamble@newcastle.ac.uk}
+    
+\author[kcl]{V. ~Curcin}
+\ead{Vasa.Curcin@kcl.ac.uk}
+
+\address[ncl]{School of Computing, Newcastle University, UK}
+\address[cov]{Institute for Future Transport and Cities, Coventry University, UK}
+\address[kcl]{Kings College, London, UK}
+
+\cortext[cor1]{Corresponding Author}
+
+
+\markboth{IEEE Transaction on Knowledge and Data Engineering,~Vol.~X, No.~Y, DATE}%
+{Shell \MakeLowercase{\textit{et al.}}: happy}
+
+
+\begin{abstract}
+Data provenance is a structured form of metadata designed to records the activities and datasets involved in data production, as well as their dependency relationships. The PROV data model, released by the W3C in 2013, defines a schema and constraints that together provide a structural and semantic foundation for provenance. This enables the interoperable exchange of provenance between data producers and consumers. When the provenance content is sensitive and subject to disclosure restrictions, however, a way of partially obfuscating provenance in a principled way before communicating it to certain parties is required. In this paper we present a provenance abstraction operator that achieves this goal. It maps a PROV document $P_1$  to a new abstract version $P_2$, with the properties that (i) if $P_1$ satisfies a certain constraint $C$ then $P_2$ also satisfies $C$, and (ii) the dependencies that appear in $P_2$ are \textit{justified} by those in $P_1$, i.e., no spurious dependencies are introduced in $P_2$. Furthermore, the operator is closed with respect to composition, making abstraction of abstract PROV documents possible.  The operator is implemented as part of a user tool, described in a separate paper, that lets owners of sensitive provenance information control the abstraction by specifying an abstraction policy.
+\end{abstract}
+
+\begin{keyword}
+Provenance \sep Provenance metadata \sep provenance abstraction 
+\end{keyword}
+
+\maketitle
+
+\input{Introduction}
+ 
+\input{relatedWork}
+
+\input{prov-summary}
+
+\input{grouping}
+
+\input{abstractionEvents}
+
+\input{agents}
+
+%\input{tool}
+
+\input{summary}
+
+\section*{Acknowledgements}
+
+The support of the ONRG and the EPSRC in funding this research is gratefully acknowledged. 
+
+\section*{References}
+
+\bibliographystyle{plain}
+\bibliography{prov-abstraction-foundations}
+
+\appendix
+
+%\section{Proofs}
+\include{proof}
+%\include{multiple-apps-order-irrelevant-proof}
+
+\end{document}

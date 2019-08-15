@@ -46,12 +46,17 @@ A consequence of this verbiage are the title (Abstracting PROV...) which and the
 It is strongly recommended that authors review the draft from the perspective of these definitions. 
 
 
-\jwb{I think we can should abstraction $->$ encapsulation throughout. It should be easy enough. The reviewer clearly feels strongly about it. }
+\jwb{Change abstraction $->$ encapsulation throughout. It should be easy enough. The reviewer clearly feels strongly about it. JWB to do.}
 
+\jwb{Remove Fig. 6 (the example of what goes wrong) and go directly into the solution we propose. JWB to do.}
+
+\jwb{Rebuild figures. JWB to do.}
+
+\jwb{Para on trust model. PM to do}
 
 \item The introduction does not mention anything about the trust model between PA and IP on obtained provenance. Specifically if PA does not trust the obtained report, what guarantee does it have for trusting the obtained provenance. The authors must provide explanation as to why they think provided provenance will be trusted by PA. 
 
- \jwb{A paragraph on the trust model will help. Limited trust (hence I don't show you everything), but a willingness/need to cooperate. (hence I show you something) Illustrate with disaster relief/military applications.  }
+ \jwb{A paragraph on the trust model will help. Limited trust (hence I don't show you everything), but a willingness/need to cooperate. (hence I show you something) Illustrate with disaster relief/military applications.  PM to do.}
 
 \item Related Work
 
@@ -63,7 +68,7 @@ It is strongly recommended that authors review the draft from the perspective of
 
 
 The above sentence must be made more specific. 
-
+\jwb{make sentence more specific! PM to do.}
 
 \item The paper introduces three operators: path closure, extend, and replace, and provides either a extension and replace or just closure and replace. It is not clear when the IP or the system will chose one operator over the other. The time complexity appears to be the same. So why will extend and replace ever be applied over path closure and replace?
 
@@ -123,21 +128,21 @@ Why are edges a1->e1 and a->e3 not left unlabeled because ‘used’ edge label 
 
 \item it is not clear why the type of $v_d$ and $v_s$ are necessary in definition when G is an element of $PG_{gu/ea}$.
 
-\jwb{t is the type of the nodes on the boundary that Extend creates. Add sentence under definition of extend (defintion 3)}
+\jwb{t is the type of the nodes on the boundary that Extend creates. Add sentence under definition of extend (defintion 3) JWB to do.}
 
 \item Figure 8 uses a new keyword ’absorb’. Why isn’t it ‘extend’ now?
 
-\jwb{Historical reasons!}   
+\jwb{Historical reasons! JWB to fix.}   
 
 \item How is Definition 6 related to the grouping operator? Is it related?
 
 The significance of this definition is not clear. 
 
-  \jwb{Let's remove defn 6. }
+  \jwb{Let's remove defn 6. JWB to do.}
 
 \item In Section 4.2 the word propagation is used. Is it similar to extension? 
 
-  \jwb{Similar. Perhaps avoid the word.  I think the first reviewer just gave up here. } 
+  \jwb{Similar. Perhaps avoid the word.  I think the first reviewer just gave up here. JWB to correct.} 
 
   
 \end{enumerate}
@@ -150,7 +155,7 @@ This paper is about abstracting provenance graphs, using the PROV model promulga
 
 The paper first considers the subcase where there are only two node types (entity/activity) and two edge relationships (usage/generation). Thus, the graph is bipartite.  Formal definitions of the problem and proposed algorithm are given: first the set of nodes is closed-off to include all nodes "between" selected nodes, then additional nodes on the frontier of the selected set are added so that the outside of the selected set matches the intended collapsed node type.  The paper considers the constraints and argues that abstracting a valid graph results in another valid graph.  Next the paper shows how to extend the results to consider PROV graphs with agents, with an unstated assumption that agent nodes are disjoint from entity and activity nodes, so that the agent nodes only interact with the rest of the graph in fairly limited ways and the underlying bipartite abstraction approach still works.
 
-\jwb{is this assumption not always true?}
+\jwb{is this assumption not always true? PM to clarify.}
 
 One complication in this setting is that edges from agents to abstracted nodes may no longer make sense, and in this case they are removed.
 
@@ -172,19 +177,19 @@ For example, one (unserious) solution could be to abstract the whole graph to a 
   \caption{  \label{fig:example1} no false dependencies}
 \end{figure}
 
-\jwb{We are rather vague about ``no false dependencies''. For example in the figure~\ref{fig:example1}, the abstraction introduces an apparent dependency between e1 and e4 that was not there previously.  I suggest we ``refine the assumption'' to be ``no unjustified dependencies'' where a dependency is justified if it is made of relationships all of which are justified and a relationship is justified if it was present in the original graph. The problem then reduces to showing that we introduce no unjustified links in the group operator, which we can do by inspection of replace.}
+\jwb{We are rather vague about ``no false dependencies''. For example in the figure~\ref{fig:example1}, the abstraction introduces an apparent dependency between e1 and e4 that was not there previously.  I suggest we ``refine the assumption'' to be ``no unjustified dependencies'' where a dependency is justified if it is made of relationships all of which are justified and a relationship is justified if it was present in the original graph. The problem then reduces to showing that we introduce no unjustified links in the group operator, which we can do by inspection of replace. JWB to do. }
   
 In addition, I think the notion of correctness of abstractions in this paper needs to be compared with the notion of "sound" workflow views explored for ZOOM by Liu et al. [A].
 
 
 \item I did not really follow the discussion of preservation of constraints in section 5.  I consider myself fairly familiar with the constraints specification.  The specification (and the accompanying semantics) does not assume the events are linearly ordered, and the authors correctly point this out.  However, the argument that the constraints are satisfied by the abstracted document seems to hinge on being able to compute maxima and minima among (finite) sets of events.  This may not be possible in a general preorder, so using the notation for "max" and "min" is not necessarily meaningful, since the max or min of a set may not exist. As a simple example, suppose we have two parallel chains e1 wgb a1 used e2 and e3 wgb a2 used e4.  Then the events related to e1/a1/e2 are unrelated to those for e3/a2/e4, for example the max and min of the two concurrent usage events doesn't exist.
 
-  \jwb{This is Figure~\ref{fig:example1}, but I don't follow the argument. max and min of finite sets exist.}
+  \jwb{This is Figure~\ref{fig:example1}, but I don't follow the argument. max and min of finite sets exist. PM to deal with. }
 
 Another (more minor but relevant) nitpick is that the ordering in a PROV graph is a preorder (aka quasiorder), so that there can be nontrivial cycles in the $\leq$ relation (for example for "simultaneous" generation events).  This means that if an upper bound or lower bound exists for a set of events, it may not be unique.
 This also seems likely to lead to strange situations, for example if abstraction leads to two generation events becoming simultaneous, it will seem strange if they have different timestamps (though there is nothing wrong with this vis a vis validity since the timestamps are just uninterpreted data as far as PROV validity is concerned.)  Yet in several places the paper assumes that simultaneous events are necessarily equal, which is not the case in PROV.
 
-\jwb{I'm lost here too}
+\jwb{I'm lost here too. PM to deal with.}
 
 I think this difficulty can be overcome by, for example, assuming that you are given an event preorder consistent with the original PROV instance and constructing from that another preorder consistent with the abstracted instance in which the needed maximal or minimal events exist, adding them if necessary, and choosing the maximum or minimum of a set of events arbitrarily if there is more than one possibility.  
 
@@ -192,15 +197,15 @@ I think this difficulty can be overcome by, for example, assuming that you are g
 
 \item It is fine and reasonable that the paper mostly focuses on the entity/activity/generation/use subset of PROV.  The later section on extending to include agents, however, implicitly relies on some simplifying assumptions.  In PROV, entity and activity are disjoint classes, but agent is not assumed to be disjoint from either entity or activity.  So, a node could be both entity and agent, or both entity and activity (just not entity and activity or all three).  I think this possibility would lead to some complications compared to the simple case discussed in the paper, and this simplifying assumption (that agents, entities and activities are disjoint) should be made explicit.
 
-\jwb{Yes, it certainly would! And we do make the implicit assumption that agents are disjoint from entities and activities. Soln: just say so somewhere. }
+\jwb{Yes, it certainly would! And we do make the implicit assumption that agents are disjoint from entities and activities. Soln: just say so somewhere. JWB to do.}
   
 Another related point is that by assuming that nodes/edges have exactly one PROV type, the paper may miss an opportunity for using flexibility that already exists in PROV to aid abstraction.  For example, nothing in PROV says that a node has to have any type at all; and though edges are expected to have a property type, PROV provides a generic edge type "wasInfluencedBy" that superclasses the other edge types.  Thus, the problem with edges becoming isolated discussed in section 6.3 could be avoided by using wasInfluencedBy edges to represent the problematic edge relationships, instead of deleting such edges and removing the resulting disconnected nodes.  Alternatively, the issue highlighted in figure 15 could be avoided by instead allowing eN to be both entity and agent, so that the actedOnBehalfOf edge still makes sense.  (However, I'm not sure this works in general and would result in graphs that no longer have agents distinct from entity /activity nodes.)
 
-\jwb{Best just say this isn't a direction we go in.} 
+\jwb{Best just say this isn't a direction we go in. Just say that graphs are bi-partite. JWB to do. } 
 
 \item A relatively minor point is that there is some further uncited work on provenance sanitization/abstraction/redaction [A,B,C,D].  The notion of convexity mentioned here appears also in [B] for example, which only considers activity abstraction for a simplified form of OPM.  There is also a short survey [E] which already discusses/compares work up to circa 2014.
 
-\jwb{Only A and B are mentioned below. Maybe we could track the others down, or ask the editor for clarification?} 
+\jwb{Only A and B are mentioned below. Maybe we could track the others down, or ask the editor for clarification? PM to do a lit survey. } 
 \end{enumerate}
 
 
@@ -210,24 +215,24 @@ Overall, I think the paper presents work that is worth publishing: I started out
 
 \item Clarify what part of the paper proves that that relations in the abstracted graph are "justified", and discuss the issue of how to avoid "abstracting too much".
 
-\jwb{I think we can answer this, as I suggest in answer to Point 1}
+\jwb{I think we can answer this, as I suggest in answer to Point 1. JWB to do.}
 
 \item Clarify the discussion of max/min and avoid apparent reliance on the maxima/minima already existing in the event structure for the original document.
 
-  \jwb{Dont' know here}
+  \jwb{Dont' know here PM to do.}
 
   
 \item Clarify assumptions needed for the existing algorithm to work in the presence of agents.
 
-\jwb{OK - mainly that the node types are disjoint}
+\jwb{OK - mainly that the node types are disjoint JWB to do.}
   
 \item Discuss alternative abstraction strategies such as using wasInfluencedBy edges.
 
-  \jwb{A brief discussion with a point forward to Blue/Collapse paper?}
+  \jwb{A brief discussion with a point forward to Blue/Collapse paper? I've forgotten how we agreed to deal with this.}
   
 \item Cite/discuss uncited related work and compare with other formal notions of abstraction correctness such as "sound workflow views"
 
- \jwb{perhaps just do a search for these.}
+ \jwb{perhaps do a search for these. PM to do lit survey.}
   
 \end{enumerate}
 
@@ -235,13 +240,14 @@ These changes would help to circumscribe the contribution of the paper more clea
 
 Of course, I would also be happy with more substantial changes that address the concerns above more thoroughly.
 
-
 \subsubsection*{Detailed comments}
+
+\jwb{Mostly, I can do these.}
 
 The paper is overall in fairly good shape, there were few typos or difficult-to-follow points.
 
 p10: "Further extensions... wasDerivedFrom and wasInformedBy" - while wasInformedBy in Prov is just an abbreviation for a 2-step generation/use path, wasDerivedFrom is a little more complicated (it can correspond to a chain of use/generation steps) and has a special status in PROV-CONSTRAINTS: it is the only relationship where event ordering cycles are strictly forbidden.  Incidentally, this means that in the absence of wasDerivedFrom, it's easy in some sense for a document to be valid, as long as it is well-formed, all of the events can be simultaneous.  
-\jwb{Not sure what to do about this one. What are we being asked to do?}
+\jwb{Not sure what to do about this one. What are we being asked to do? Still not sure here.}
 
 
 p12.  I think it would help discussion to clarify that there might be many preorders $(Ev,\preceq)$ that are consistent with a given, valid PROV document, and throughout this and the next section you are fixing one such preorder.  I think it would also be helpful (if you do as I suggest above) to distinguish between the preorder $(Ev,\preceq)$ that is given for the original document, and a new one that you construct $(Ev',\preceq')$, that extends $(Ev,\preceq)$ with any new events needed to describe the new edge relationships introduced for the abstracted node.  Likewise, it would be helpful to state the constraint-preservation result somewhere explicitly as a theorem so that it is clear what formal property corresponds to the informal description given earlier.

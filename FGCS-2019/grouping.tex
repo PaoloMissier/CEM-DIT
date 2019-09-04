@@ -60,8 +60,8 @@ The Path Closure of $V_{gr}$ in $G$ is
 \[\clos(V_{gr}, \jwb{G})  =  \bigcup_{v_i, v_j \in V_{gr}} V_{ij} \]
 \end{definition}
 
-\jwb{We assume, for the moment, that the subgraph given by $\clos(V_{gr}, G)$ is a subgraph of $G$ with the property that each source is connected to at least one of the sinks. For now, we assume there is only one such subgraph that contains all the nodes in $V_{gr}$. 
-}
+We assume, for the moment, that the subgraph given by $\clos(V_{gr}, G)$ is a subgraph of $G$ with the property that each source is connected to at least one of the sinks. For now, we assume there is only one such subgraph that contains all the nodes in $V_{gr}$. 
+
 
 %\jwb{ connected graph. In Section~\ref{sec:allowing} we explore the implications of relaxing this assumption.}  \comment{Check consistency with 4.3}
 
@@ -70,10 +70,15 @@ The Path Closure of $V_{gr}$ in $G$ is
 \begin{figure*}
 \centering
 \includegraphics[scale=.5]{figures/convex-ex-1-revision.pdf} 
+%\includegraphics[scale=.27]{reworked-fig7.png} 
+\includegraphics[scale=.5]{reworked-fig7.pdf} 
 \caption{Path closure and replacement with extension on a set of entity nodes.} \label{fig:convex-ex-1}
 \end{figure*}
 
-Fig.~\ref{fig:convex-ex-1} shows a continuation of the previous example. This time the replacement is performed on $\clos(\{e_1, e_3, e_4, e_5\},G) = \{e_1, e_3, e_4, e_5, a_1, a_3\}$, \jwb{(in Fig.}~\ref{fig:convex-ex-1}(b)),  resulting in graph \jwb{in Fig.~\ref{fig:convex-ex-1}(c).}
+\jwb{Fig.~\ref{fig:convex-ex-1} illustrates $\pclos$ in the transition from (a) to (b).  $\pclos$ is performed on the set $\{e_1, e_3, e_4, e_5\},G)$, resulting in the set $\{e_1, e_3, e_4, e_5, a_1, a_3\}$, (in Fig.~\ref{fig:convex-ex-1}(b)).
+}
+
+\jwb{  resulting in graph in Fig.~\ref{fig:convex-ex-1}(c).}
 %
 However, while this solves the cycle problem, the graph is no longer bipartite, \jwb{because} the new edges $e' \rightarrow e_2$ and $e' \rightarrow e_6$ connect nodes of the same type.
 %

@@ -112,9 +112,11 @@
 \newcommand{\showColour}{yes} % {yes}
 \newcommand{\showComments}{yes} % {yes}
 \newcommand{\note}[2]{\ifthenelse{\equal{\showColour}{yes}}{\textcolor{#1}{#2}}{#2}}
-\newcommand{\jwb}[1]{\note{blue}{#1}}
+\newcommand{\jwb}[1]{\note{black}{#1}}
+\newcommand{\jwbtwo}[1]{\note{blue}{#1}}
 
-\newcommand{\paolo}[1]{\note{blue}{#1}}
+\newcommand{\paolo}[1]{\note{black}{#1}}
+\newcommand{\paolotwo}[1]{\note{green}{#1}}
 
 
 \newcommand{\com}[2]{\ifthenelse{\equal{\showComments}{yes}}{\textcolor{#1}{#2}}{}}

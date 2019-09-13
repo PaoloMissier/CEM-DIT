@@ -77,7 +77,7 @@ The above sentence must be made more specific.
 
 \item The paper introduces three operators: path closure, extend, and replace, and provides either a extension and replace or just closure and replace. It is not clear when the IP or the system will chose one operator over the other. The time complexity appears to be the same. So why will extend and replace ever be applied over path closure and replace?
 
-  \comment{It isn't a choice. I wonder if Fig 6 gives that impression?}
+  \comment{It isn't a choice. I wonder if Fig 6 gives that impression? JWB to add sentence /paragraph explaining functional  approach to definition}
   
 
 \item There are several issues with Fig 6. 
@@ -88,29 +88,33 @@ The above sentence must be made more specific.
 
 
   \comment{Fig 6. is an example of what goes wrong. A couple of reviewers have had a problem with this (or the same one twice). We should either remove it or flag very carefully that it is a strawman.}
+  \jwb{remomved}
 
 \item In group, the authors use the term “rewired” but do not explain what that means. If rewired means ALL incoming and outgoing edges are connected back again, then what happened to edge a1->e1 and a3->e3? The explanations are confusing: it seems the direction of the edge is introduced but this edge is also relabeled ‘wgBy’. Why? 
 
 \comment{he's right about this. It should be labelled wgBy and used. }
+  \jwb{fig 6 removed}
   
 It might be helpful in that Figure to show how each edge in the left hand side of the diagram is mapped to each edge in the right hand side of the diagram.  
 
 \comment{I think the reviewers are overthinking this example.}
+\jwb{done by removing fig 6}
 
  The definition of Group operator is a node grouping operator; the definition does not include edges. But group operator is stated as an alternative to path closure, replace, extend.
 
-\comment{The reviewer is wrong here. 'Group' returns a PROV graph. Group is defined using path closure, replace and extend. The rewiring is part of the definition, defined in replace.}
+\comment{The reviewer is wrong here. 'Group' returns a PROV graph. Group is defined using path closure, replace and extend. The rewiring is part of the definition, defined in replace. JWB to clarify. }
  
 Why are edges a1->e1 and a->e3 not left unlabeled because ‘used’ edge label will lead to a false dependency. Again the group operator definition does not imply a false dependency may result as a result of it. 
 
 \comment{Again, the reviewer is reading this not as an example of what goes wrong, but of our contribution. }
+\jwb{removed}
 
 \item There is something wrong with the mathematical definition: $PG_{gu/ea}  ~~X~~ P(V) \rightarrow PG_{gu/ea}$
 
   
  The result is the same graph?  As a side, the equations are not numbered, and P(V) in this equation is not defined.
 
- \comment{This is not a definition, it's the type of the Group operator. (Page 14) Say this explicitly. }
+ \comment{This is not a definition, it's the type of the Group operator. (Page 14) Say this explicitly. JWB to do. }
  \comment{Overall, I recommend removing fig 6 and the paras beginning ``to get a quick intuition''. Replace with a para on the functional approach then  go into the definition of path closure.}
 
 \item The definition of Group operator is a node grouping operator; the definition does not include edges.

@@ -26,6 +26,7 @@ In fact, the provenance of a data product will typically contain more sensitive 
 \paolo{In this paper we propose to resolve such tension by introducing an operator to achieve selective disclosure of provenance information.}
 
 \paolo{\subsection{Motivating scenario: provenance of intelligence information}
+\label{sec:motivating}
 	%
 To appreciate how such tension may arise, consider a scenario where a public agency PA  wants to buy intelligence reports, say about potential threats to the public, from an intelligence provider, IP.
 %
@@ -124,8 +125,8 @@ The main challenge addressed in this paper is to guarantee that abstraction prod
 
 In this paper we develop a model and algorithm for performing  abstraction over PROV graphs, providing the theoretical underpinning to ensure that the abstraction process satisfies a number of properties.
 %
-Our main contribution is the formal definition of a provenance abstraction operator that rewrites  a PROV graph $\pg$ into a new graph $\pg'$, by mapping a set $V_{gr}$ of nodes (for ``vertex in a group'') in $\pg$ to a new abstract node $v_{new}$, and then mapping each relationship involving elements of $V_{gr}$ to a new relationship involving $v_{new}$ in $\pg'$. 
-\jwb{The set $V_{gr}$ is chosen by the user of the abstraction operator as the set of nodes she wishes to obfuscate.}
+Our main contribution is the formal \jwbtwo{functional} definition of a provenance abstraction operator that rewrites  a PROV graph $\pg$ into a new graph $\pg'$, by mapping a set $V_{gr}$ of nodes (for ``vertex in a group'') in $\pg$ to a new abstract node $v_{new}$, and then mapping each relationship involving elements of $V_{gr}$ to a new relationship involving $v_{new}$ in $\pg'$. 
+\jwb{The set $V_{gr}$ is chosen by the user of the abstraction operator as the set of nodes she wishes to obfuscate,} \jwbtwo{ and the grouping operator ($\group$) is defined in three steps using three subordinate operators, in Section~\ref{sec:grouping}. } 
 
 We prove several formal properties of $\pg'$: firstly, schema preservation: if $\pg$ is a PROV graph, that is, it conforms to the PROV data model~\citep{w3c-prov-dm}, then $\pg'$ is also a PROV graph. Secondly, validity preservation: if $\pg$ is \textit{valid}, that is, it satisfies all PROV constraints~\citep{w3c-prov-dm}, then $\pg'$ is also valid. Finally, no spurious dependencies are introduced into $\pg'$: a  relationship involving $v_{new}$ is only created as a result of a mapping from an existing relationship involving elements of $V_{gr}$. Strictly, if $a$ and $e$ are not \textit{directly} related in $\pg$, we guarantee that they are not directly related in $\pg'$. 
 

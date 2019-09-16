@@ -2,31 +2,43 @@
 
 %\comment{discuss (somewhere) implications of relaxing the assumption about connectivity in Section~\ref{sec:closure}.}
 
-
+%\comment{fix next two paras.} 
+%
+\comment{need to be clear (again) about assumptions. We have motivated these in Sec~\ref{sec:motivation}. } 
 
 As mentioned in Sec.~\ref{sec:contributions}, our goal is to define graph editing operators that selectively remove information from a graph $G \in \guEA$, yielding a new graph $G' \in \guEA$.
 %
-The first of these, namely the removal of labels or annotations associated with a node or an edge, is straightforward. 
-%
-Regarding the removal of a node, we note that simply reconnecting the remaining nodes generally may lead to an invalid graph. 
-%
-A simple example is a graph defined by: $\{\used(a, e_1)$, $\wgby(e_2, a) \}$ where activity $a$ is removed. This results simply in two disconnected nodes $e_1$, $e_2$, because no relationship can be inferred between them from the original graph.
+%The first of these, namely the removal of labels or annotations associated with a node or an edge, is straightforward. 
 
+%\jwbtwo{Several graph editing options are possible, depending on the information we want to remove. We may remove chosen parameters from nodes or to anonymise individual nodes, in each case retaining the original structure of the graph.}
+%
+\jwbtwo{We require the final operator to remove all the chosen nodes, and replace them by a single abstract node.} \jwbtwo{As discussed in Section~\ref{sec:motivating}, this may be to avoid inadvertently revealing any internal business processes or details about the chain of command.}
+%\
+\jwbtwo{Furthermore, we wish the modified graph to be a valid PROV graph, in the sense that the relations and constraints from Section~\ref{sec:prov-background} are respected. This will allow the output to be consumed by any system capable of reading the PROV language.}
 
-Rather than delving into the possible consequences of such node and edge elision, we focus exclusively on the $\group$ graph transformation operator as the prime way to achieve abstraction over provenance graphs.
 %
-$\group$ takes a graph $G = (V, E) \in \guEA$ and a subset $V_{gr} \subset V$ of its nodes \jwb{that the user wishes to obfuscate} and produces a modified graph $G' \in \guEA$. The nodes in $V_{gr}$ are ``grouped'' together and replaced by a new single node.
+%\jwbtwo{It is important to note, however, that} simply reconnecting the remaining nodes generally may lead to an invalid graph. 
 %
+%A simple example is a graph defined by: $\{\used(a, e_1)$, $\wgby(e_2, a) \}$ where activity $a$ is removed. This results in two disconnected nodes $e_1$, $e_2$, with no indication of the connection between them. % because no relationship can be inferred between them from the original graph.
+
+\jwbtwo{In this section, we focus exclusively on the definition of the} $\group$ graph transformation operator as the prime way to achieve abstraction over provenance graphs.
+%
+$\group$ takes a graph $G = (V, E) \in \guEA$ and a subset $V_{gr} \subset V$ of its nodes \jwb{that the user wishes to obfuscate} and produces a modified graph $G' \in \guEA$. The nodes in $V_{gr}$ are ``grouped'' together and replaced by a new single node. \jwbtwo{The $\group$ operator has the following signature:}
   
 \[ \group : \guEA \times \mathbb{P}(V) \rightarrow \guEA \]
   
 %Here we define $\group$ over $\guEA$ graphs. This will be extended to abstraction over Agents in Sec.~\ref{sec:agents-abstraction}.
 
-%The $\group$ operator has the following signature:
 
-%
 As the operator is closed under composition, further abstraction can be achieved by repeated grouping, either on multiple disjoint sets $V_{gr}$, or on sets that include abstract nodes (abstraction of abstraction).
 
+
+\jwbtwo{Below, we take a functional approach to the definition, by defining three subordinate functions and then defining $\group$ as the functional composition of these subordinate functions. }
+
+\jwbtwo{In Section~\ref{sec:closure} we assume that the set of nodes to be removed are all of the same type ($\en$ or $\act$) We refer to this as \emph{homogeneous grouping}
+and the replacement node is of the same type as the removed nodes.} 
+%
+\jwb{In Section~\ref{sec:generalisation} we remove these assumptions, so both entities and activities can be removed. A consequence is that  the type of the replacement node must be  explicitly given. This leads to two variants, depending on which type ($\en$ or $\act$) is chosen for the final replacement node.   }
 
 
 %

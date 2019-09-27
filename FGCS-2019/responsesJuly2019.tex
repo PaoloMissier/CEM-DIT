@@ -95,42 +95,38 @@ The above sentence must be made more specific.
 
 \item In group, the authors use the term “rewired” but do not explain what that means. If rewired means ALL incoming and outgoing edges are connected back again, then what happened to edge a1->e1 and a3->e3? The explanations are confusing: it seems the direction of the edge is introduced but this edge is also relabeled ‘wgBy’. Why? 
 
-\comment{"rewired" is a poor choice of term and has been removed. The labels for edges in each of the diagrams in the paper are now clear} 
+\comment{"rewired" is a poor choice of term and has been removed. The labels for edges in each of the diagrams in the paper are now clear.} 
 
-\jwb{check this!!}
-
-
-\comment{he's right about this. It should be labelled wgBy and used. }
-  \jwb{fig 6 removed}
-  
 It might be helpful in that Figure to show how each edge in the left hand side of the diagram is mapped to each edge in the right hand side of the diagram.  
 
-\comment{I think the reviewers are overthinking this example.}
-\jwb{done by removing fig 6}
+\comment{We feel it would better aid comprehension to remove  figure 6.}
 
  The definition of Group operator is a node grouping operator; the definition does not include edges. But group operator is stated as an alternative to path closure, replace, extend.
 
-\comment{The reviewer is wrong here. 'Group' returns a PROV graph. Group is defined using path closure, replace and extend. The rewiring is part of the definition, defined in replace. JWB to clarify. }
+\comment{'Group' returns a PROV graph, and is a rewriting operator. We have clarified this at the start of section 1.2.  Rather than being an alternative to path closure, replace and extend, Group  is defined using these operators.  The rewiring is part of the definition of group, defined in the subordinate operator replace.  }  \jwb{Should we sprinkle the word "rewriting" about? would that help?}
  
 Why are edges a1->e1 and a->e3 not left unlabeled because ‘used’ edge label will lead to a false dependency. Again the group operator definition does not imply a false dependency may result as a result of it. 
 
-\comment{Again, the reviewer is reading this not as an example of what goes wrong, but of our contribution. }
-\jwb{removed}
+\jwb{The group operator as defined later in section 4 will not produce a false a dependency here. }
 
 \item There is something wrong with the mathematical definition: $PG_{gu/ea}  ~~X~~ P(V) \rightarrow PG_{gu/ea}$
 
   
  The result is the same graph?  As a side, the equations are not numbered, and P(V) in this equation is not defined.
  
- \comment{define $\powerset$}
- \comment{number equations}
+ \comment{We've clarified that this equation is the type signature of the group operator, rather than it's definition.}
+ 
+ \comment{The powerset operator has been named when it is  used.}
+ 
+ \comment{the equation has been numbered.} 
 
- \comment{This is not a definition, it's the type of the Group operator. (Page 14) Say this explicitly. JWB to do. }
- \comment{Overall, I recommend removing fig 6 and the paras beginning ``to get a quick intuition''. Replace with a para on the functional approach then  go into the definition of path closure.}
+\comment{DO OTHERS}
+
+% \comment{Overall, I recommend removing fig 6 and the paras beginning ``to get a quick intuition''. Replace with a para on the functional approach then  go into the definition of path closure.}
 
 \item The definition of Group operator is a node grouping operator; the definition does not include edges.
 
-\comment{No, the definition is in terms of extend, closure and replace. The edges are dealt with by the replace operator.}
+\comment{The definition of Group is in terms of extend, closure and replace. The edges are dealt with by the replace operator.}
 
   
 \item Explain why these cycles cannot be broken by simply keeping timing information or “happens before” relationship. 
@@ -143,26 +139,28 @@ Why are edges a1->e1 and a->e3 not left unlabeled because ‘used’ edge label 
 
   \comment{This is referring to the para before section 4.1. Both problems are caused by the nodes $a_1$ and $a_3$.
     }
- \comment{This is another example of Fig 6 being a problem (at least for this reviewer)}
+% \comment{This is another example of Fig 6 being a problem (at least for this reviewer)}
 
 
 \item it is not clear why the type of $v_d$ and $v_s$ are necessary in definition when G is an element of $PG_{gu/ea}$.
 
-\comment{t is the type of the nodes on the boundary that Extend creates. Add sentence under definition of extend (defintion 3) JWB to do.}
+\comment{t is the type of the nodes on the boundary that Extend creates. We have added tet just above the definition of Extend to clarify this.}
 
 \item Figure 8 uses a new keyword ’absorb’. Why isn’t it ‘extend’ now?
 
-\comment{Historical reasons! JWB to fix.}   
+\comment{The figure has been corrected.}   
 
 \item How is Definition 6 related to the grouping operator? Is it related?
 
 The significance of this definition is not clear. 
 
-  \comment{Let's remove defn 6. JWB to do.}
+\comment{Defn 6 is the definition of the Group operator under the assumption that all the nodes removed are of the same type (homogeneous grouping). We make this clear at the start of section 4.1, and again just before  definition 6. Section 4.2 generalises to full grouping. }
+
+
 
 \item In Section 4.2 the word propagation is used. Is it similar to extension? 
 
-  \comment{Similar. Perhaps avoid the word.  I think the first reviewer just gave up here. JWB to correct.} 
+  \comment{We have avoided the word propagation and clarified that strict $t_grouping$ involves a further step. } 
 
   
 \end{enumerate}

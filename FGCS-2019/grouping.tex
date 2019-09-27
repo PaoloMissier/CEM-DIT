@@ -23,21 +23,25 @@ As mentioned in Sec.~\ref{sec:contributions}, our goal is to define graph editin
 
 \jwbtwo{In this section, we focus exclusively on the definition of the} $\group$ graph transformation operator as the prime way to achieve abstraction over provenance graphs.
 %
-$\group$ takes a graph $G = (V, E) \in \guEA$ and a subset $V_{gr} \subset V$ of its nodes \jwb{that the user wishes to obfuscate} and produces a modified graph $G' \in \guEA$. The nodes in $V_{gr}$ are ``grouped'' together and replaced by a new single node. \jwbtwo{The $\group$ operator has the following signature:}
+%\jwbtwo{Let $V$ and $E$ be as defined in Section~\ref{prov-core}. }
+
+$\group$ takes a graph $G \in \guEA$ \jwbtwo{with nodes $V$ and edges $E$} and a subset $V_{gr} \subset V$ of its nodes \jwb{that the user wishes to obfuscate} and produces a modified graph $G' \in \guEA$. The nodes in $V_{gr}$ are ``grouped'' together and replaced by a new single node. \jwbtwo{The $\group$ operator has the following signature, where $\power(V)$ is the powerset of the nodes $V$ of the graph $G$ :}
   
-\[ \group : \guEA \times \mathbb{P}(V) \rightarrow \guEA \]
-  
+
+\begin{equation}
+Group : PG_{gu/ea} \times \power(V)  \rightarrow PG_{gu/ea} 
+\end{equation}
 %Here we define $\group$ over $\guEA$ graphs. This will be extended to abstraction over Agents in Sec.~\ref{sec:agents-abstraction}.
 
 
 As the operator is closed under composition, further abstraction can be achieved by repeated grouping, either on multiple disjoint sets $V_{gr}$, or on sets that include abstract nodes (abstraction of abstraction).
 
 
-\jwbtwo{Below we take a functional approach to the definition, by defining three subordinate functions and then defining $\group$ as the functional composition of these subordinate functions. }
+\jwbtwo{We take a functional approach to the definition of $group$, by defining three subordinate functions and then defining $\group$ as the functional composition of these subordinate functions. }
 
 \jwbtwo{In Section~\ref{sec:closure} we make the simplifying assumption that the set of nodes to be removed are all of the same type (either all $\en$ or all $\act$). We refer to this as \emph{homogeneous grouping} and the replacement node is also of type ($\en$ or $\act$).} 
 %
-\jwb{In Section~\ref{sec:generalisation} we remove these assumptions, so entities and activities can be removed by the same application of $\group$. A consequence is that  the type of the replacement node must be  explicitly given. This leads to two variants, depending on which type ($\en$ or $\act$) is chosen for the final replacement node.   }
+\jwb{In Section~\ref{sec:generalisation} we remove these assumptions, so entities and activities can be removed by the same application of $\group$. A consequence is that the type of the replacement node must be  explicitly given. This leads to two variants of the operator,  depending on which type ($\en$ or $\act$) is chosen for the final replacement node.   }
 
 
 %
@@ -174,15 +178,23 @@ Function $\repl()$ replaces $V^*$ with $v_{new}$ in $V$, and connects $v_{new}$ 
 
 
 Let $\vartheta_{out}(V^*)$ denote the \textit{outcut} of $G$ associated with $V^*$, defined as:
-\jwb{\[ \vartheta_{out}(V^*) = \{  (v_d \leftarrow v_s) |   v_s \in  V^*, v_d \in V \setminus V^*\}\]}
+
+\begin{equation}
+ \vartheta_{out}(V^*) = \{  (v_d \leftarrow v_s) |   v_s \in  V^*, v_d \in V \setminus V^*\}
+\end{equation}
+ 
 This is the set of arcs of $G$ pointing out of $V^*$.
 %
 Symmetrically, let $\vartheta_{in}(V^*)$ denote the \textit{incut}  of $G$ associated with $V^*$, i.e., the set of arcs of $G$ leading into $V^*$:
-\jwb{\[ \vartheta_{in}(V^*) = \{  (v_d\leftarrow v_s) |  v_d \in V^*, v_s \in  V \setminus V^* \}\]}
+
+\begin{equation} \vartheta_{in}(V^*) = \{  (v_d\leftarrow v_s) |  v_d \in V^*, v_s \in  V \setminus V^* \}
+\end{equation}
+
 %
 \jwbtwo{Finally, let $\vartheta_{int}(V^*)$ denote internal edges, that connect two nodes inside $V^*$:}
-\[ \vartheta_{int}(V^*) = \{  (v_s\leftarrow v_d) | v_s, v_d \in V^*\}\]
-
+\begin{equation}
+\vartheta_{int}(V^*) = \{  (v_s\leftarrow v_d) | v_s, v_d \in V^*\}
+\end{equation}
 
 \jwb{Function $\repl()$ replaces each arc $(v_d \leftarrow v_s) \in \vartheta_{out}(V^*)$ with a new arc $(v_{d} \leftarrow v_{new})$ of the same type, and replaces each arc $(v_d \leftarrow v_s) \in \vartheta_{in}(V^*)$ with a new arc $(v_{new} \leftarrow v_{d})$ of the same type. Arcs in $\vartheta_{int}(V^*)$ simply disappear along with the nodes in $V^*$.}
 %
@@ -193,10 +205,14 @@ Symmetrically, let $\vartheta_{in}(V^*)$ denote the \textit{incut}  of $G$ assoc
 
 \begin{definition}
   Let $ty \in \{\used,  \wgby\}$. Then:
-  \begin{align*}
-\vartheta_{out}'(V^*) = \{ & \jwb{(}v \xleftarrow{ty}  v_{new} \jwb{)}|  v \xleftarrow{ty} v' \in \vartheta_{out}(V^*)  \}  \\
-\vartheta_{in}'(V^*) = \{ & \jwb{(}v_{new} \xleftarrow{ty} v \jwb{)} | v' \xleftarrow{ty} v \in \vartheta_{in}(V^*)  \}   
-\end{align*}
+ % \begin{align*}
+\begin{equation}
+\vartheta_{out}'(V^*) = \{  \jwb{(}v \xleftarrow{ty}  v_{new} \jwb{)}|  v \xleftarrow{ty} v' \in \vartheta_{out}(V^*)  
+\end{equation}
+\begin{equation}
+\vartheta_{in}'(V^*) = \{  \jwb{(}v_{new} \xleftarrow{ty} v \jwb{)} | v' \xleftarrow{ty} v \in \vartheta_{in}(V^*)  
+\end{equation}
+%\end{align*}
 \label{def:eq:outcut}
 \end{definition}
 
@@ -233,12 +249,12 @@ Since the arcs have the same type as those they replace, it follows that $\repl(
 
 \begin{figure*}
 \centering
-\includegraphics[scale=.5]{figures/convex-a-only-revision.pdf} 
+%\includegraphics[scale=.5]{figures/convex-a-only-revision.pdf} 
 \includegraphics[scale=.5]{reworked-fig8.pdf} 
 \caption{Grouping on a set of Activity nodes} \label{fig:convex-a-only}
 \end{figure*}
 
-\jwbtwo{We} can now provide an initial definition of our $\group()$ operator, under the simplifying assumption that all nodes in $V_{gr}$ are of the same type \jwb{before closure.}  We denote this type by $\type(V_{gr})$ (with a slight abuse of notation). \jwb{Definitions~\ref{def:t-grouping} and~\ref{def:strict-t-grouping}  in Section~\ref{sec:generalisation} remove this assumption.}
+\jwbtwo{We} now provide an initial definition of our $\group()$ operator, under the simplifying assumption that all nodes in $V_{gr}$ are of the same type \jwb{before closure.}  We denote this type by $\type(V_{gr})$ (with a slight abuse of notation), and denote the initial definition of $Group$ as $\group_{hom}$ \jwb{Definitions~\ref{def:t-grouping} and~\ref{def:strict-t-grouping}  in Section~\ref{sec:generalisation} remove this assumption.}
 
 
 %
@@ -259,7 +275,7 @@ Let $G=(V,E) \in \guEA$, $V_{gr} \in V$ be a type-homogeneous set, and let $v_{n
 
 Fig.~\ref{fig:convex-a-only} shows \jwbtwo{the application of $\group_{hom}$ to a set of Activity nodes. The progression is} similar to that of Fig.~\ref{fig:convex-ex-1}. This time $\type(v) = \act$ for each $v \in V_{gr} = \{a_1, a_2, a_3\}$, and $V_{gr}$ is replaced by another activity node, \jwbtwo{$a_{new}$}. 
 %
-\jwbtwo{The $\pclos$ operator ensures that the nodes $e_4$ and $e_5$ are included (Fig.~\ref{fig:convex-a-only}(b)), and the $\extend$ operator includes the activity node $a_4$ in Fig.~\ref{fig:convex-a-only}(c). Note that there are no incut edges: $\vartheta_{in}(V^*) = \emptyset.$  All shaded nodes are replaced with $a_{new}$ and the graph is rebuilt by the operator $\repl()$.  In the next section we remove the assumption that the set of nodes initially selected is of the same type.} 
+\jwbtwo{The $\pclos$ operator ensures that the nodes $e_4$ and $e_5$ are included (Fig.~\ref{fig:convex-a-only}(b)), and the $\extend$ operator includes the activity node $a_4$ in Fig.~\ref{fig:convex-a-only}(c). Note that there are no incut edges: $\vartheta_{in}(V^*) = \emptyset.$  All shaded nodes are replaced with $a_{new}$ and the graph is rebuilt by the operator $\repl()$.  In the next section we remove the assumption that the \jwbtwo{all the}  nodes initially selected \jwbtwo{are} of the same type.} 
 
 
 
@@ -302,7 +318,7 @@ ev(\wgby(e_{new}, a_1)) & \preorder ev(\wgby(e_{new}, a_3))  \quad \wedge \\
 ev(\wgby(e_{new}, a_3)) & \preorder ev(\wgby(e_{new}, a_1))
 \end{align*}
 
-The intuitive interpretation for this pattern is that each of the two activities generated one entity in the group represented by $e_{new}$, and that the abstraction makes these two events indistinguishable. \comment{what abstraction? Not ours?} Formally, nothing further needs to be done to the graph. \jwb{We will explore the implications of the event ordering rules further in Section~\ref{sec:event}.  }  However note that one can restore, if desired, the more natural pattern whereby one single generation event is recorded for $e_{new}$. This is achieved simply by propagating the grouping to the set of generating activities. \comment{Involves a renaming to $a_{new}$. I this we should drop this bit and   Fig.~\ref{fig:e2-a4}(e-3)} In the example, this leads to the graph in Fig.~\ref{fig:e2-a4}(e-3).  
+The intuitive interpretation for this pattern is that each of the two activities generated one entity in the group represented by $e_{new}$, and that the abstraction makes these two events indistinguishable. \comment{what abstraction? Not ours?} Formally, nothing further needs to be done to the graph. \jwb{We will explore the implications of the event ordering rules further in Section~\ref{sec:event}.  }  However note that one can restore, if desired, the more natural pattern whereby one single generation event is recorded for $e_{new}$. This is achieved simply by \jwbtwo{extending} the grouping to the set of generating activities. \comment{Involves a renaming to $a_{new}$. I this we should drop this bit and   Fig.~\ref{fig:e2-a4}(e-3)} In the example, this leads to the graph in Fig.~\ref{fig:e2-a4}(e-3).  
 
 \begin{figure*}
 \centering
@@ -311,7 +327,7 @@ The intuitive interpretation for this pattern is that each of the two activities
 \caption{e-grouping and a-grouping on mixed type nodes} \label{fig:e2-a4}
 \end{figure*}
 
-We now formalize these considerations by introducing two definitions for $\group$. The first, which we call \textbf{t-grouping}, is agnostic of multiple generation patterns, while the second (\textbf{strict t-grouping}) applies propagation to ensure that the graph is free from multiple generation patterns. \comment{does it rename?} \comment{do we refer to e-grouping and a-grouping previously?}
+We now formalize these considerations by introducing two definitions for $\group$. The first, which we call \textbf{t-grouping}, is agnostic of multiple generation patterns, while the second (\textbf{strict t-grouping}) applies \jwbtwo{a further step} to ensure that the graph is free from multiple generation patterns. \comment{do we refer to e-grouping and a-grouping previously?}
 
 \vspace{10pt}
 \begin{definition}[t-Grouping]

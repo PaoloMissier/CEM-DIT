@@ -84,7 +84,7 @@ Events occur instantaneously, and they mark the lifetime boundaries of Entities 
 \end{itemize}
 %\end{description}
 
-We formally express events by introducing a set $\Ev$ of event symbols, with a pre-order\footnote{Recall that a pre-order is a binary relation with reflexivity and transitivity, but no symmetry or anti-symmetry.} $\preorder \subset \Ev \times \Ev$, and the following set of partial functions that associate events to elements and relations in a provenance instance:
+We formally express events by introducing a set $\Ev$ of event symbols, with a pre-order\footnote{Recall that a pre-order is a binary relation with reflexivity and transitivity, but no symmetry or anti-symmetry.} $\preorder ~~\subset \Ev \times \Ev$, and the following set of partial functions that associate events to elements and relations in a provenance instance:
 \begin{align*}
 start: \act \rightarrow \Ev \\
 end: \act \rightarrow \Ev \\
@@ -137,7 +137,7 @@ With reference to a graph $\pg$, these are (including constraint (55) above, and
 	
 	\item\textbf{C7: generation-within-activity (Constraint 34):} The generation of $e$ by $a$ cannot precede the start of $a$ and must precede the end of $a$.
 	Let $\wgby(e,a) \in \pg$:
-	\[ start(a) \preorder ev(\wgby(e,a))  \preorder ev(a)\]
+	\[ start(a) \preorder ev(\wgby(e,a))  \preorder end(a)\]
 	
 	\item\textbf{C8: invalidation-invalidation-ordering (Constraint 40):}	If an entity is invalidated by more than one activity, the events must all be simultaneous.
 	\begin{align*}

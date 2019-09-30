@@ -176,9 +176,13 @@ In general, we will denote values in the abstracted prov graph by primed version
 
 The following equalities, define the orderings of the events associated with the relations in $\wgby'_{out}$.
 
+
 \vspace*{10pt}
 \begin{definition}[Abstract generation events - e-grouping]
 \label{def:abstract-gen-e}
+
+\paolotwo{Replace max with a new event that dominates all of the $ev(g)$ and adjust the def below accordingly}
+
 For each $g' \in \wgby'_{out}$:
 \[
 ev(g') = max \{ ev(g) | g \in \wgby_{out} \}  
@@ -224,6 +228,9 @@ The following equalities, which generalise (15), define the events associated wi
 \vspace*{10pt}
 \begin{definition}[Abstract usage events - e-grouping] 
 \label{def:abstract-usage-e}
+
+
+\paolotwo{min does not always exist so as for max, we need to introduce a new $u$ that is $\leq$ than all of the usage events, and adjust the def below accordingly}
 Let
 \[u'_{min} = min \{ ev(u) | u \in \used_{in} \}\] and let 
 $g'_{max} = max \{ ev(g) | g \in \wgby_{out}\} $.\\
@@ -237,6 +244,7 @@ ev(\used(a,e_{new})) = max \{ g'_{max} , u'_{min} \}
 \end{equation}
 \end{definition}
 
+\paolotwo{remove invalidation altogether}
 \paragraph*{\textbf{Abstract Invalidation events}}
 The events equalities for invalidation, exemplified in (\ref{eq:inval-min}), follow the pattern used above for usage. The only difference is that $\used'_{in}$ is replaced by 
 \[ \inv'_{in} = \{ \inv(a, e_{new}) | a \notin V^* \} \]
@@ -278,7 +286,7 @@ We appeal to the informal definitions of start and end in~\citep{w3c-prov-dm} to
 \end{itemize}
 (For simplicity we are going to leave the trigger entity implicit, and simply refer to the start and end events as $\start(a)$ and $\ed(a)$).
 
-
+\paolotwo{do not think we need (27) because it is implied by the mapping for the abstract generation events. probably (28) not needed either }
 \begin{definition}[Start events - e-grouping] 
 \label{def:abstract-start-e}
 Consider events $a$ such that $\wgby(e_{new},a)$. For each such $a$, we set the new start event $\start'(a)$ as the lesser of the original start event and the generation event $ev(\wgby(e_{new},a))$. Thus
@@ -324,6 +332,7 @@ As a consequence, the abstract event definitions given in the previous section a
 %
 %
 
+\paolotwo{def 14 makes no sense as we again need to introduce artificial min and max to account for the abstract start and end events}
 The new start (resp. end) event is taken to be the minimum (resp. maximum) relevant start (resp. end)  event.
 \begin{definition}[Abstract start and end events - a-grouping] 
 \label{def:abstract-start-and-end-a}

@@ -139,12 +139,12 @@ With reference to a graph $\pg$, these are (including constraint (55) above, and
 	Let $\wgby(e,a) \in \pg$:
 	\[ start(a) \preorder ev(\wgby(e,a))  \preorder end(a)\]
 	
-	\item\textbf{C8: invalidation-invalidation-ordering (Constraint 40):}	If an entity is invalidated by more than one activity, the events must all be simultaneous.
-	\begin{align*}
-		&\text{if } \inv(e,a_1), \inv(e,a_2) \in \pg \\
-		&\text{ then } ev(\inv(e,a_1)) = ev(\inv(e,a_2)) 
-	\end{align*}
-
+	\item\textbf{C8: invalidation-invalidation-ordering (Constraint 40):}	If an entity is invalidated by more than one activity, the events must all be simultaneous. \jwbtwo{If $\inv(e,a_1), \inv(e,a_2) \in \pg$, then }
+	  \begin{align*}
+          &\jwbtwo{ev(\inv(e,a_1)) \preorder  ev(\inv(e,a_2)) ~~\mathrm{and}} \\
+          &\jwbtwo{ev(\inv(e,a_2)) \preorder  ev(\inv(e,a_1))}
+          \end{align*}
+\jwbtwo{must hold.}
 
 \end{itemize}
 

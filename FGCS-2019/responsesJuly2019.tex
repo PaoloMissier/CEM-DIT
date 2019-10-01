@@ -56,18 +56,10 @@ It is strongly recommended that authors review the draft from the perspective of
 \jwb{I suggest we include a brief discussion on terminology somewhere that makes reviewer ones points.} 
 
 
-\comment{Remove Fig. 6 (the example of what goes wrong) and go directly into the solution we propose. JWB to do.}
-
-\jwb{done}
-
-\comment{Rebuild figures. JWB to do.}
-\jwb{done}
-
-\comment{Para on trust model. PM to do}
-
 \item The introduction does not mention anything about the trust model between PA and IP on obtained provenance. Specifically if PA does not trust the obtained report, what guarantee does it have for trusting the obtained provenance. The authors must provide explanation as to why they think provided provenance will be trusted by PA. 
 
- \comment{A paragraph on the trust model will help. Limited trust (hence I don't show you everything), but a willingness/need to cooperate. (hence I show you something) Illustrate with disaster relief/military applications.  PM to do.}
+
+  \jwb{We have added a discussion in section 1.1 on the trust model. }
 
 \item Related Work
 
@@ -89,7 +81,7 @@ The above sentence must be made more specific.
 
 \item There are several issues with Fig 6. 
 
-\jwb{Fig 6. was an example of the problems that a naive approach would face. It is clear to us now that the approach itself was problematic for more than one reviewer, and so section 4 has been substantially revised to remove the emphasis on wrong solutions, and move more quickly to the solution that we present. This, we trust, deals with the fundamental issue behind many of the reviewer's points below.}
+\jwb{Fig 6. was an example of the problems that a naive approach would face. It is clear to us now that the approach itself was problematic for more than one reviewer, and so section 4 has been substantially revised to remove a misleading emphasis on wrong solutions, and move more quickly to the solution that we present. This, we trust, deals with the fundamental issue behind many of the reviewer's points below.}
 
   \begin{enumerate}
     
@@ -111,7 +103,8 @@ It might be helpful in that Figure to show how each edge in the left hand side o
 
  The definition of Group operator is a node grouping operator; the definition does not include edges. But group operator is stated as an alternative to path closure, replace, extend.
 
-\jwb{'Group' returns a PROV graph, and is a rewriting operator. We have clarified this at the start of section 1.2.  Rather than being an alternative to path closure, replace and extend, Group  is defined using these operators.  The rewiring is part of the definition of group, defined in the subordinate operator replace.  }  \comment{Should we sprinkle the word "rewriting" about? would that help?}
+ \jwb{'Group' returns a PROV graph, and is a rewriting operator. We have clarified this at the start of section 1.2.  Rather than being an alternative to path closure, replace and extend, group  is defined using these operators.  The rewiring is part of the definition of group, defined in the subordinate operator replace.  }
+ %\comment{Should we sprinkle the word "rewriting" about? would that help?}
  
 Why are edges a1->e1 and a->e3 not left unlabeled because ‘used’ edge label will lead to a false dependency. Again the group operator definition does not imply a false dependency may result as a result of it. 
 
@@ -132,40 +125,39 @@ Why are edges a1->e1 and a->e3 not left unlabeled because ‘used’ edge label 
 
 \item The definition of Group operator is a node grouping operator; the definition does not include edges.
 
-\jwb{The definition of Group is in terms of extend, closure and replace. The edges are dealt with by the replace operator.}
+\jwb{The definition of Group is in terms of extend, closure and replace, and the edges are dealt with by the replace operator. Group is thus a rewriting operator and the definition includes edges.}
 
   
 \item Explain why these cycles cannot be broken by simply keeping timing information or “happens before” relationship. 
 
-\comment{I'm not sure what this means, or what the reviewer is referring to}
+\jwb{We deal with the cycles by including nodes that induce cycles in the set of nodes to be removed. We discuss the implications of timing in section 5.}
   
   \end{enumerate}
 
 \item refers to “issue”. Which one? Previous para states two issues. 
 
-  \jwb{This is referring to the para before section 4.1. Both problems are caused by the nodes $a_1$ and $a_3$.
+  \jwb{This is referring to the para before section 4.1 begins. Both problems are caused by the nodes $a_1$ and $a_3$.
   }
-  \jwb{We have reworked the text in Section 4 to introduce the issues (the introduction of cycles and badly typed relations) separately, and to dealt with them in turn. }
+  \jwb{We have reworked the text in Section 4 to introduce the issues (the introduction of cycles and badly typed relations) separately, and to deal with them in turn. }
 % \comment{This is another example of Fig 6 being a problem (at least for this reviewer)}
 
 
 \item it is not clear why the type of $v_d$ and $v_s$ are necessary in definition when G is an element of $PG_{gu/ea}$.
 
-\jwb{t is the type of the nodes on the boundary that Extend creates. We have added tet just above the definition of Extend to clarify this.}
+\jwb{t is the type of the nodes on the boundary that Extend creates. We have added text just above the definition of Extend to clarify this.}
 
 \item Figure 8 uses a new keyword ’absorb’. Why isn’t it ‘extend’ now?
 
-\jwb{The figure has been corrected.}   
+\jwb{The figure has been corrected to remove the misleading word.}   
 
 \item How is Definition 6 related to the grouping operator? Is it related? The significance of this definition is not clear. 
 
-\jwb{Defn 6 is the definition of the Group operator under the assumption that all the nodes removed are of the same type (homogeneous grouping). We make this clear at the start of section 4.1, and again just before  definition 6. Section 4.2 generalises to full grouping. }
-
+\jwb{Defn 6 is the definition of the group operator under the assumption that all the nodes removed are of the same type (homogeneous grouping). We make this clear at the start of section 4.1, and again just before  definition 6. Section 4.2 generalises to full grouping. }
 
 
 \item In Section 4.2 the word propagation is used. Is it similar to extension? 
 
-  \jwb{We have avoided the word propagation and clarified that strict $t\_grouping$ involves a further step. } 
+  \jwb{We have avoided the word propagation and clarified that strict $e\_grouping$ involves a further step. } 
 
   
 \end{enumerate}
@@ -275,7 +267,7 @@ p10: "Further extensions... wasDerivedFrom and wasInformedBy" - while wasInforme
 
 p12.  I think it would help discussion to clarify that there might be many preorders $(Ev,\preceq)$ that are consistent with a given, valid PROV document, and throughout this and the next section you are fixing one such preorder.  I think it would also be helpful (if you do as I suggest above) to distinguish between the preorder $(Ev,\preceq)$ that is given for the original document, and a new one that you construct $(Ev',\preceq')$, that extends $(Ev,\preceq)$ with any new events needed to describe the new edge relationships introduced for the abstracted node.  Likewise, it would be helpful to state the constraint-preservation result somewhere explicitly as a theorem so that it is clear what formal property corresponds to the informal description given earlier.
 
-\comment{OK, I think I see this one. I guess the theorem he talks about is the one proved in the two appendicies.}
+
 
 
 p12.  In the formula $\preceq \subset Ex \times Ev$, there should be space between the preorder and subset symbols
@@ -292,23 +284,40 @@ p13, In C7, I think the RHS should be end(a), not ev(a).
 
 p13, in C8, you say that two invalidation events for the same activity are equal, but (as for C2)they need not be equal, just simultaneous.
 
-\comment{Check with PM}
+\jwb{Done}
+
 
 p15 "subgraph given by pclos" - since pclos returns a set of nodes, not a graph, did you mean to say "subgraph induced by pclos"?
 
+\jwb{Done} 
+
 p16.  The figures fall off the edge of the page.
+
+\comment{I think this is dealt with sufficiently now.} \comment{print out final and check}
 
 p17.  In definition 3 and following discussion, I had to think for a minute to convince myself that extend correctly ensures that boundary nodes are of type t.  I think this happens to be the case for bipartite $PG_{gu/ea}$ graphs.  The definition ensures that all added nodes are of type t, but if more edges or node types are present then it seems possible that this definition might leave some boundary nodes of other types. \comment{It's because we are assuming here that $t\in\{e,a\}$  } Please say a little more here since this fact is relied on later and then when agents are considered I think the correctness of extend when t = e or a needs to be revisited. \comment{Need to think about this point}
 
+\jwb{Decision is to drop the (less mature) work on agents} \comment{Need to implement this decision in paper}
+
 p21.  In the "if $|V_{gen}| \leq 1$" side condition, there is unnecessary spacing between "|" and "V" and missing spacing between "|" and "$\leq$".
+
+\jwb{The spacing has been corrected.}
 
 p21. "v2 is reachable from v2" - I think one of these was meant to be v1.
 
+\jwb{Corrected.}
+
 p22. "And secondly, in a provenance graph ... the graph is bipartite" - true for $PG_{gu/eq}$ but not generally.  Also, "with respect of" -> "with respect to" 
+
+\jwb{Corrected.}
 
 p22. "the theoretical max" -> "... maximum"
 
+\jwb{Corrected.}
+
 p22. "will have to hidden" - missing "be"
+
+\jwb{Corrected.}
 
 p23. In section 5 it is implied that we can reason about ordering constraints (i.e. a preorder) by reasoning about all the possible linear orderings consistent with the preorder, and perhaps this is the rationale for using min and max.  However, I am not sure that introducing discussion of linear orderings is necessary or helpful here; I think it would be clearer to present the content of this section as a recipe for constructing an event preorder for the abstracted graph G' from any such preorder consistent with the original graph G, adding any necessary min/max events.
 
@@ -358,6 +367,7 @@ p37. "PROV-CONSTR" -> "PROV-CONSTRAINTS"?
 
 p38. Citation 9: include URL
 
+\jwb{Done.}
 
 p41.  The discussion at the beginning of the section seems to conflate times and events (e.g. start(a) is referred to as a start time).
 

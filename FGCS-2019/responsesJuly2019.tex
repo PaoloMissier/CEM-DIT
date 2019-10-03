@@ -16,7 +16,7 @@
 
 \begin{document}
 
-
+\comment{must redraw fig 9 from events section}
 Dear Dr. Bryans,
 
 Thank you for submitting your manuscript to Future Generation Computer Systems. I have received comments from reviewers on your manuscript. Your paper should become acceptable for publication pending suitable minor revision and modification of the article in light of the appended reviewer comments.
@@ -24,7 +24,7 @@ Thank you for submitting your manuscript to Future Generation Computer Systems. 
 When resubmitting your manuscript, please carefully consider all issues mentioned in the reviewers' comments, outline every change made point by point, and provide suitable rebuttals for any comments not addressed.
 
 
-\section*{Comments from the editors and reviewers:}
+section*{Comments from the editors and reviewers:}
 \section*{Reviewer 1}
 
 The authors have addressed the concerns, but have indeed raised some others:
@@ -50,10 +50,7 @@ It is strongly recommended that authors review the draft from the perspective of
 
 \jwb{I'm not sure about this now. We are imaging a scenario where one PROV graph is transformed into another for consumption by a third party. Some of the nodes on the first graph are not on the second. However, the new node is not encapsulating them, it is replacing them. }
 
-\jwb{Abstraction is the usual word in this context (PROV) for this work. 
-  The second reviewer (more experienced in PROV?) has no difficulty with the term.}
-
-\jwb{I suggest we include a brief discussion on terminology somewhere that makes reviewer ones points.} 
+\jwb{ Say abstraction is the usual word in this context (PROV) for this work back up with references. (eg)  The second reviewer (more experienced in PROV?) has no difficulty with the term.} I suggest we include a brief discussion on terminology somewhere that makes reviewer ones points.} 
 
 
 \item The introduction does not mention anything about the trust model between PA and IP on obtained provenance. Specifically if PA does not trust the obtained report, what guarantee does it have for trusting the obtained provenance. The authors must provide explanation as to why they think provided provenance will be trusted by PA. 
@@ -192,8 +189,10 @@ For example, one (unserious) solution could be to abstract the whole graph to a 
   \caption{  \label{fig:example1} no false dependencies}
 \end{figure}
 
-\comment{We are rather vague about ``no false dependencies''. For example in the figure~\ref{fig:example1}, the abstraction introduces an apparent dependency between e1 and e4 that was not there previously.  I suggest we ``refine the assumption'' to be ``no unjustified dependencies'' where a dependency is justified if it is made of relationships all of which are justified and a relationship is justified if it was present in the original graph. The problem then reduces to showing that we introduce no unjustified links in the group operator, which we can do by inspection of replace. JWB to do. }
-  
+\comment{We are rather vague about ``no false dependencies''. For example in the figure~\ref{fig:example1}, the abstraction introduces an apparent dependency between e1 and e4 that was not there previously.  I suggest we ``refine the assumption'' to be ``no unjustified dependencies'' where a dependency is justified if it is made of individial wgBy and used  relationships all of which are justified and a relationship is justified if it was present in the original graph. The problem then reduces to showing that we introduce no unjustified links in the group operator, which we can do by inspection of replace. JWB to do. }
+
+
+
 In addition, I think the notion of correctness of abstractions in this paper needs to be compared with the notion of "sound" workflow views explored for ZOOM by Liu et al. [A].
 
 

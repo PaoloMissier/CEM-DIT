@@ -30,14 +30,15 @@ In fact, the provenance of a data product will typically contain more sensitive 
 	%
 To appreciate how such tension may arise, consider a scenario where a public agency PA  wants to buy intelligence reports, say about potential threats to the public, from an intelligence provider, IP.
 %
-Under assumption of limited trust, PA will want to mitigate the risk of acting upon information provided by IP, which is potentially unreliable. 
-% 
-At the same time, IP has a business incentive to supply PA with additional evidence that facilitates PA's risk assessment and thus increases the chance of a successful transaction.}
+\jwbtwo{The trust model is governed by a desire on the side of the PA  for risk mitigation, and the environment is such that  PA is not prepared to fully trust and act upon the information provided by the  IP without performing some risk assessment on the information.}
+\jwbtwo{The key issue here is not that the PA does not trust the IP (it is assumed that sufficient trust exists to contemplate purchasing IP's intelligence reports), but that it must come to an independent assessment of the trustworthiness of the intelligence reports which have been provided.}  Under \jwbtwo{the} assumption of limited trust \jwbtwo{by  PA in IP's information, PA must find some way to} mitigate the risk of acting upon information provided by IP, which is potentially unreliable. 
+%
+At the same time, IP has a business incentive to supply PA with additional evidence that facilitates PA's risk assessment and thus increases the chance of a successful transaction. }
+\paolo{The  key assumption that motivates our work is that the provenance of each intelligence report is relevant in contributing, at least in part, the required evidence. } \jwbtwo{However, simply disclosing all provenance may not be in IP's business interests, and so IP must find a way to strike a balance between supporting PA's risk assessment and protecting its own business  interests.}
 
-%
-\paolo{The  key assumption that motivates our work is that the provenance of each intelligence report is relevant in contributing, at least in part, the required evidence. 
-%
-A fictional but realistic example of provenance for an intelligence report such information is shown in Fig.~\ref{fig:graph-example}.
+\jwbtwo{We illustrate this with a}
+  \paolo{
+ fictional but realistic example of provenance for an intelligence report, shown in Fig.~\ref{fig:graph-example}.
 %
 Provenance can be visually depicted as a digraph whose nodes represent either \textit{entities} (ovals in the figure), i.e., data, documents, etc., \textit{activities} (rectangles), which represent the execution of some process over a period of time, or \textit{agents} (pentagons), which represent  humans or computing systems. 
 %

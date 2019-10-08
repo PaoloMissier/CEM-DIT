@@ -6,14 +6,8 @@
 %
 \comment{need to be clear (again) about assumptions. We have motivated these in Sec~\ref{sec:motivating}. } 
 
-As mentioned in Sec.~\ref{sec:contributions}, our goal is to define graph editing operators that selectively remove information from a graph $G \in \guEA$, yielding a new graph $G' \in \guEA$.
-%
-%The first of these, namely the removal of labels or annotations associated with a node or an edge, is straightforward. 
+As mentioned in Sec.~\ref{sec:contributions}, our goal is to define \jwbtwo{a} graph editing operator that selectively removes information from a graph $G \in \guEA$, yielding a new graph $G' \in \guEA$. \jwbtwo{We require the final operator to remove all the chosen nodes, and replace them by a single abstract node.} \jwbtwo{As discussed in Section~\ref{sec:motivating}, this may be to avoid inadvertently revealing any internal business processes or details about the chain of command.}
 
-%\jwbtwo{Several graph editing options are possible, depending on the information we want to remove. We may remove chosen parameters from nodes or to anonymise individual nodes, in each case retaining the original structure of the graph.}
-%
-\jwbtwo{We require the final operator to remove all the chosen nodes, and replace them by a single abstract node.} \jwbtwo{As discussed in Section~\ref{sec:motivating}, this may be to avoid inadvertently revealing any internal business processes or details about the chain of command.}
-%\
 \jwbtwo{Furthermore, we wish the modified graph to be a valid PROV graph, in the sense that the relations and constraints from Section~\ref{sec:prov-background} are respected. This will allow the output to be consumed by any system capable of reading the PROV language.}
 
 %
@@ -39,9 +33,8 @@ As the operator is closed under composition, further abstraction can be achieved
 
 \jwbtwo{We take a functional approach to the definition of $group$, by defining three subordinate functions and then defining $\group$ as the functional composition of these subordinate functions. }
 
-\jwbtwo{In Section~\ref{sec:closure} we make the simplifying assumption that the set of nodes to be removed are all of the same type (either all $\en$ or all $\act$). We refer to this as \emph{homogeneous grouping} and the replacement node is also of type ($\en$ or $\act$).} 
-%
-\jwb{In Section~\ref{sec:generalisation} we remove these assumptions, so entities and activities can be removed by the same application of $\group$. A consequence is that the type of the replacement node must be  explicitly given. This leads to two variants of the operator,  depending on which type ($\en$ or $\act$) is chosen for the final replacement node.   }
+\jwbtwo{In Section~\ref{sec:closure} we make the simplifying assumption that the set of nodes to be removed are all of the same type (either all $\en$ or all $\act$). We refer to this as \emph{homogeneous grouping} and the replacement node is imlicitly of the same type as the nodes selected to be removed.}
+\jwbtwo{In Section~\ref{sec:generalisation} we remove this assumption, so the group of nodes initially selected to be removed can contain both entities and activities. A consequence of this is that the type of the replacement node is no longer implicit, and  must be  explicitly given. This leads to two variants of the operator,  depending on which type ($\en$ or $\act$) is chosen for the final replacement node.   }
 
 
 %
@@ -57,11 +50,11 @@ As the operator is closed under composition, further abstraction can be achieved
 \subsection{Closure and homogeneous grouping}
 \label{sec:closure}
 
-\comment{fix below wrt text above}
+%\comment{fix below wrt text above}
 
-\jwbtwo{In this subsection we present the homogeneous version of the $\group$ operator that will replace a selected set of nodes with an abstracted one, working under the simplifying assumption that all the nodes selected to be removed are of the same type.  } %The general case, where the selected nodes can contain both $\en$ and $\act$ nodes, is covered in Section~\ref{sec:generalisation}.}
+\jwbtwo{In this subsection we present the homogeneous version of the $\group$ operator that will replace a selected set of nodes with an abstracted one, working under the simplifying assumption that all the nodes selected to be removed are of the same type.  As stated previously, we also wish to ensure that the final abstracted graph is a valid PROV graph.}
 
-\jwbtwo{We wish to ensure that the final abstracted graph is a valid PROV graph. Let the set of nodes to be replaced in a graph $G$ be $V_{gr}$. An issue, pointed out in the description of the ProPub system~\citep{springerlink:10.1007/978-3-642-22351-8_13}, mentioned earlier, is that removing $V_{gr}$ and replacing it with a single node can lead to cycles in the modified graph. Intuitively, this occurs when $V_{gr}$ is not``convex'', that is, there are paths in the graph that lead out of $V_{gr}$ and then back in again.}
+ \jwbtwo{Let the set of nodes to be replaced in a graph $G$ be $V_{gr}$. An issue, pointed out in the description of the ProPub system~\citep{springerlink:10.1007/978-3-642-22351-8_13}, mentioned earlier, is that removing $V_{gr}$ and replacing it with a single node can lead to cycles in the modified graph. Intuitively, this occurs when $V_{gr}$ is not``convex'', that is, there are paths in the graph that lead out of $V_{gr}$ and then back in again.}
 
 This suggests the introduction of a preliminary closure operation \textit{pclos}(), which ensures acyclicity by capturing \jwbtwo{and including all the nodes on paths between nodes in the initial group}. It is defined as follows.
 
@@ -72,15 +65,16 @@ This suggests the introduction of a preliminary closure operation \textit{pclos}
 \begin{definition}[Path Closure]
 \label{def:clos}
 Let $G = (V,E) \in \guEA$ be a provenance graph, and let $V_{gr} \subset V$.  
-For each pair  $v_i, v_j \in V_{gr}$ such that there \jwb{one or more directed paths} $v_i \leadsto v_j$ in $G$, let $V_{ij} \subset V$ be the set of all nodes in \jwb{all paths $v_i \leadsto v_j$}.
+For each pair  $v_i, v_j \in V_{gr}$ such that there \jwbtwo{are} one or more directed paths $v_i \leadsto v_j$ in $G$, let $V_{ij} \subset V$ be the set of all nodes in \jwb{all paths $v_i \leadsto v_j$}.
 The Path Closure of $V_{gr}$ in $G$ is
 \[\clos(V_{gr}, \jwb{G})  =  \bigcup_{v_i, v_j \in V_{gr}} V_{ij} \]
 \end{definition}
 
 
-\jwbtwo{Fig.~\ref{fig:convex-ex-1} illustrates $\pclos()$ in the transition from Fig.~\ref{fig:convex-ex-1}(a) to Fig.~\ref{fig:convex-ex-1}(b).  $\pclos()$ is performed on the set $\{e_1, e_3, e_4, e_5\},G)$, resulting in the set $\{e_1, e_3, e_4, e_5, a_1, a_3\}$, in Fig.~\ref{fig:convex-ex-1}(b).
+\jwbtwo{Fig.~\ref{fig:convex-ex-1} illustrates $\pclos()$ in the transition from Fig.~\ref{fig:convex-ex-1}(a) to Fig.~\ref{fig:convex-ex-1}(b).  $\pclos()$ is performed on the set $\{e_1, e_3, e_4, e_5\},G)$, resulting in the set $\{e_1, e_3, e_4, e_5, a_1, a_3\}$ in Fig.~\ref{fig:convex-ex-1}(b).
 }
-\jwbtwo{We assume, for the moment, that nodes in $\clos(V_{gr}, G)$ form a single connected subgraph under $G$, and that each source is connected to at least one of the sinks.} 
+\jwbtwo{We assume, for the moment, that nodes in $\clos(V_{gr}, G)$ induce a single connected subgraph under $G$.}
+\comment{I don't think we need the extra assumption that each source in the induced graph is connected to at least one of the sinks in the induced graph.} 
 
 \begin{figure*}
 \centering
@@ -254,7 +248,7 @@ Since the arcs have the same type as those they replace, it follows that $\repl(
 \caption{Grouping on a set of Activity nodes} \label{fig:convex-a-only}
 \end{figure*}
 
-\jwbtwo{We} now provide an initial definition of our $\group()$ operator, under the simplifying assumption that all nodes in $V_{gr}$ are of the same type \jwb{before closure.}  We denote this type by $\type(V_{gr})$ (with a slight abuse of notation), and denote the initial definition of $Group$ as $\group_{hom}$ \jwb{Definitions~\ref{def:t-grouping} and~\ref{def:strict-t-grouping}  in Section~\ref{sec:generalisation} remove this assumption.}
+\jwbtwo{We} now provide an initial definition of our $\group()$ operator, under the simplifying assumption that all nodes in $V_{gr}$ are of the same type \jwb{before closure.}  We denote this type by $\type(V_{gr})$ (with a slight abuse of notation), and denote the initial definition of $Group$ as $\group_{hom}$. Definitions~\ref{def:t-grouping} and~\ref{def:strict-t-grouping}  in Section~\ref{sec:generalisation} remove \jwbtwo{the assumption of type-homogeneity.}
 
 
 %
@@ -275,7 +269,7 @@ Let $G=(V,E) \in \guEA$, $V_{gr} \in V$ be a type-homogeneous set, and let $v_{n
 
 Fig.~\ref{fig:convex-a-only} shows \jwbtwo{the application of $\group_{hom}$ to a set of Activity nodes. The progression is} similar to that of Fig.~\ref{fig:convex-ex-1}. This time $\type(v) = \act$ for each $v \in V_{gr} = \{a_1, a_2, a_3\}$, and $V_{gr}$ is replaced by another activity node, \jwbtwo{$a_{new}$}. 
 %
-\jwbtwo{The $\pclos$ operator ensures that the nodes $e_4$ and $e_5$ are included (Fig.~\ref{fig:convex-a-only}(b)), and the $\extend$ operator includes the activity node $a_4$ in Fig.~\ref{fig:convex-a-only}(c). Note that there are no incut edges: $\vartheta_{in}(V^*) = \emptyset.$  All shaded nodes are replaced with $a_{new}$ and the graph is rebuilt by the operator $\repl()$.  In the next section we remove the assumption that the \jwbtwo{all the}  nodes initially selected \jwbtwo{are} of the same type.} 
+\jwbtwo{The $\pclos$ operator ensures that the nodes $e_4$ and $e_5$ are included (Fig.~\ref{fig:convex-a-only}(b)), and the $\extend$ operator includes the activity node $a_4$ in Fig.~\ref{fig:convex-a-only}(c). Note that there are no incut edges: $\vartheta_{in}(V^*) = \emptyset.$  All shaded nodes are replaced with $a_{new}$ and the graph is rebuilt by the operator $\repl()$.  In the next section we remove the assumption that \jwbtwo{all the}  nodes initially selected \jwbtwo{are} of the same type.} 
 
 
 
@@ -295,30 +289,30 @@ Fig.~\ref{fig:convex-a-only} shows \jwbtwo{the application of $\group_{hom}$ to 
 \subsection{Generalization to \textit{e-grouping} and \textit{a-grouping}}
 \label{sec:generalisation}
 
-\jwb{So far we have described the grouping operator in terms of the component functional parts.}
-\jwb{Up to this point we have been operating under the assumption made in Definition~\ref{def:clos}: that there is only one subgraph generated  by  $\clos(V_{gr}, G)$.  In the case where we have two or more subgraphs,  the $\extend()$ operator and the $\repl()$ operator would iterate over the set of subgraphs produced, and be applied to each subgraph separately. }
-\comment{Other assumptions: group homogeneity is discharged here. Each source is connected to a sink? Actually, this isn't a separate assumption. It is just two/more groups.    }
-
-Additional care must be taken if we allow $V_{gr}$ to include nodes of mixed types.  The type of the replacement node must now be specified, as it is no longer implied from the type of the nodes in $V_{gr}$. Indeed,  the choice of the type can lead to different abstracted graphs. Thus, we will now refer to grouping as \textit{t-grouping}, where $t \in \{ \en, \act\}$, i.e., \textit{e-grouping} or \textit{a-grouping}. 
-\jwbtwo{Fig.~\ref{fig:e2-a4}(a) is a subgraph of the previous example.}
-Fig.~\ref{fig:e2-a4}(a-1, a-2) illustrates the application of the $\group_{hom}$ operator (Def.~\ref{def:homo-group}), assuming \textit{a-grouping} and $V_{gr} = \{ e_4, a_2\}$. Because the boundary nodes for the set to be replaced must be of type activity, the extension incorporates activity node $a_1$.
+\jwb{So far we have described the grouping operator in terms of the component functional parts.} \jwbtwo{We} have been operating under the assumption made in Definition~\ref{def:clos}: that there is only one subgraph \jwbtwo{induced}  by  $\clos(V_{gr}, G)$.  In the case where we have two or more subgraphs,  the $\extend()$ operator and the $\repl()$ operator would iterate over the set of subgraphs produced, and be applied to each subgraph separately.
 
 
+\jwbtwo{We have also been operating under the assumption of group homogeneity: that all nodes in  $V_{gr}$  are of the same type. }
+Additional care must be taken if we allow $V_{gr}$ to include \jwbtwo{both node  types}.  The type of the replacement node must now be specified, as it is no longer implied from the type of the nodes in $V_{gr}$. Indeed,  the choice of the type can lead to different abstracted graphs. Thus, we will now refer to grouping as \textit{t-grouping}, where $t \in \{ \en, \act\}$, i.e., \textit{e-grouping} or \textit{a-grouping}.
 
-%\jwb{As an illustration, observe that \textit{e-grouping} and \textit{a-grouping} lead to different patterns in  Fig.~\ref{fig:e2-a4}(e-1, e-2).}
+\jwbtwo{Consider Fig.~\ref{fig:e2-a4}. Fig.~\ref{fig:e2-a4}(a) is a subgraph of our running  example.} 
+Fig.~\ref{fig:e2-a4}(a-1, a-2) illustrates the application of the $\group_{hom}$ operator (Def.~\ref{def:homo-group}), assuming \textit{a-grouping} and $V_{gr} = \{ e_4, a_2\}$.
+\jwbtwo{Although $\pclos$ has no effect, the extension incorporates activity node $a_1$ because the boundary nodes for the set to be replaced must be of type $\act$. In  Fig.~\ref{fig:e2-a4}(a-2)  $\repl$ replaces all these nodes with $a_{new}$ and edits the edges of the graph accordingly.   }
 
 
 \jwb{Consider now the case of \textit{e-grouping} in Fig.~\ref{fig:e2-a4}(e-1, e-2).}  
 %
-Now the extension leads to $V_{cl} = V_{gr} \cup \{ e_5\}$, which in turn leads to the pattern shown in Fig.~\ref{fig:e2-a4}(e-2), involving two generation events for the new entity $e_{new}$.
-\comment{do (a or e) nodes on the edge of graphs form any special cases for a- or e-grouping?  }
-Although this is a valid pattern, the two generation events must be simultaneous (this is one of the temporal constraints defined in~\citep{w3c-prov-constraints}):
+\jwbtwo{Again,  $\pclos$ has no effect, but the}
+   extension leads to the incorporation of $e_5$, which in turn leads to the pattern shown in Fig.~\ref{fig:e2-a4}(e-2), involving two generation events for the new entity $e_{new}$.
+%\comment{do (a or e) nodes on the edge of graphs form any special cases for a- or e-grouping?  }
+Although this is a valid pattern, the two generation events must be simultaneous (this is one of the temporal constraints defined in~\citep{w3c-prov-constraints}): 
 \begin{align*}
 ev(\wgby(e_{new}, a_1)) & \preorder ev(\wgby(e_{new}, a_3))  \quad \wedge \\
 ev(\wgby(e_{new}, a_3)) & \preorder ev(\wgby(e_{new}, a_1))
 \end{align*}
 
-The intuitive interpretation for this pattern is that each of the two activities generated one entity in the group represented by $e_{new}$, and that the abstraction makes these two events indistinguishable. \comment{what abstraction? Not ours?} Formally, nothing further needs to be done to the graph. \jwb{We will explore the implications of the event ordering rules further in Section~\ref{sec:event}.  }  However note that one can restore, if desired, the more natural pattern whereby one single generation event is recorded for $e_{new}$. This is achieved simply by \jwbtwo{extending} the grouping to the set of generating activities. \comment{Involves a renaming to $a_{new}$. I this we should drop this bit and   Fig.~\ref{fig:e2-a4}(e-3)} In the example, this leads to the graph in Fig.~\ref{fig:e2-a4}(e-3).  
+The intuitive interpretation for this pattern is that each of the two activities generated one entity in the group represented by $e_{new}$, and that the abstraction makes these two events indistinguishable.  Formally, nothing further needs to be done to the graph. \jwb{We will explore the implications of the event ordering rules further in Section~\ref{sec:event}.  }  However note that one can restore, if desired, the more natural pattern whereby one single generation event is recorded for $e_{new}$. This is achieved simply by \jwbtwo{extending} the grouping to the set of generating activities.
+In the example, this leads to the graph in Fig.~\ref{fig:e2-a4}(e-3).  
 
 \begin{figure*}
 \centering
@@ -327,7 +321,7 @@ The intuitive interpretation for this pattern is that each of the two activities
 \caption{e-grouping and a-grouping on mixed type nodes} \label{fig:e2-a4}
 \end{figure*}
 
-We now formalize these considerations by introducing two definitions for $\group$. The first, which we call \textbf{t-grouping}, is agnostic of multiple generation patterns, while the second (\textbf{strict t-grouping}) applies \jwbtwo{a further step} to ensure that the graph is free from multiple generation patterns. \comment{do we refer to e-grouping and a-grouping previously?}
+We now formalize these considerations by introducing two definitions for $\group$. The first, which we call \textit{t-grouping} \jwbtwo{where $t \in \{\en,\act\}$}, is agnostic of multiple generation patterns, while the second (\textit{strict e-grouping}) applies \jwbtwo{a further step to e-grouping} to ensure that the \jwbtwo{new} graph is free from multiple generation patterns. \jwbtwo{Note that a-grouping does not need a similar strict version, since the new node, an activity, does not have the possibility of multiple generation. }
 
 \vspace{10pt}
 \begin{definition}[t-Grouping]
@@ -342,37 +336,37 @@ Then:
 \label{eq:t-grouping}
 \end{definition}
 
-Note that the assumption that \jwb{boundary} nodes in the closure are homogeneous and are replaced by a node of the same type $t$, which is necessary for $\repl$ to perform correctly, still holds in this case. 
+Note that the assumption that \jwb{boundary} nodes in the closure are homogeneous still holds in this case. 
 
-\jwbtwo{Strict t-grouping} performs the further step illustrated in the transition from Fig.~\ref{fig:e2-a4}(e-2) to Fig.~\ref{fig:e2-a4}(e-3). 
+\jwbtwo{Strict e-grouping} performs the further step illustrated in the transition from Fig.~\ref{fig:e2-a4}(e-2) to Fig.~\ref{fig:e2-a4}(e-3). \jwbtwo{Note that that the $Group$ operator can only produce a multiple generation pattern if $type(v_{new})=En$.}
+
 
 %\comment{need to remove any  genBy}
 
 
-\begin{definition}[Strict t-Grouping]
+\begin{definition}[Strict e-Grouping]
 Given 
-$G=(V,E) \in \guEA$, $V_{gr} \in V$, $t \in \{\en, \act\}$, and a new node $v_{new}$ with $\type(v_{new}) = t$, let
-\[ G' = (V',E') = \group(G, V_{gr}, v_{new}, t). \]
+$G=(V,E) \in \guEA$, $V_{gr} \in V$, $t \in \{\en, \act\}$, and a new node $v_{new}$ with $\type(v_{new}) = \en$, let
+\[ G' = (V',E') = \group(G, V_{gr}, v_{new}, \en). \]
 Let 
 $V_{gen} = \{ a \in V' |  a \xleftarrow{\wgby} v_{new} \in E' \}$ be the set of activity nodes that generate $v_{new}$ according to $G'$, and let $a_{new}$ be a new activity node. Then:
 \begin{equation*}
 %\footnotesize
 \sgroup(G, V_{gr},v_{new}, t)=
 \begin{cases}
-G' & \!\text{if}  |\!V_{gen}\!| \leq 1  \\
+G' & \!\text{if}~~ |\!\!V_{gen}\!| ~~\leq 1  \\
 \repl(V_{gen}, a_{new}, G') & \!\text{otherwise } 
 \end{cases}
 %\normalsize
 \end{equation*}
 \label{def:strict-t-grouping}
 \end{definition}
-\jwbtwo{Note that that the $Group$ operator can only produce an multiple generation pattern if $type(v_{new})=En$.}
 %
-It is straightforward to show that strict t-grouping reduces to normal grouping if the grouping is a homogeneous a-grouping:
-\begin{align*}
-&\text{if } \type(t) =  \act \\
- &\qquad\text{then } \sgroup(G, V_{gr},t) = \group(G, V_{gr},t). 
-\end{align*}
+%It is straightforward to show that strict t-grouping reduces to normal grouping if the grouping is a homogeneous a-grouping:
+%\begin{align*}
+%&\text{if } \type(t) =  \act \\
+% &\qquad\text{then } \sgroup(G, V_{gr},t) = \group(G, V_{gr},t). 
+%\end{align*}
 
 
 %
@@ -487,7 +481,7 @@ An experimental evaluation of the actual cost of computing closures in practice 
 However, two factors suggest that the practical complexity will be considerably less than the worst-case.
 Firstly, we can stop the graph traversal as soon as we have visited all $V_{gr}$ nodes. Unless one of those is a sink node, this results in pruning part of the graph. 
 Note also that in this case the abstraction will consist of one single abstract node that represents the entire graph, because the closure will include all nodes, which is unlikely to be a desired outcome.
-And secondly, in a provenance graph not all edges are allowed, in fact the graph is bipartite with respect of the nodes types (entities and activities), and furthermore, there is at most one generating activity per entity. These factors greatly reduce the expected number of edges to much less than the theoretical max $|V|^2$.
+And secondly, in a \jwbtwo{$\guEA$} graph not all edges are allowed, in fact \jwbtwo{$\guEA$ graphs are} bipartite with respect \jwbtwo{to} the nodes types (entities and activities). Furthermore, there is at most one generating activity per entity. These factors greatly reduce the expected number of edges to much less than the theoretical \jwbtwo{maximum} $|V|^2$.
 }
 \paolo{
 Regarding the $\extend()$ operator, note that this requires all nodes in $\pclos(V_{gr}, G)$ to be visited in order to check their type and possibly extend the closure to their immediate successors. 
@@ -500,7 +494,7 @@ This is a linear problem in the worst case, namely when the closure contains all
 \jwb{In this section we have presented operators that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes of the same type, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this work to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node. %Section~\ref{sec:allowing} shows that multiple applications of $\group$ give the same result irrespective of order. 
 }
 
-\jwb{It is clear that, in order to meet our initial requirement of maintaining type-correctness of the abstracted graph, in general more nodes than just the original ones selected will have to hidden. This has implications for the use of this operator, especially given that hidden information may be a critical part of the graph. We address this  problem in~\citep{MBGCD14} where we present a simple policy model and language for controlling abstraction, in the context where provenance owners want to control the disclosure of their provenance graphs. There, the owner defines a policy which results in a sensitivity value being associated with nodes, which gives us a means of evaluating the ``damage'' to a graph caused by the abstraction operator.}
+\jwb{It is clear that, in order to meet our initial requirement of maintaining type-correctness of the abstracted graph, in general more nodes than just the original ones selected will have to \jwbtwo{be} hidden. This has implications for the use of this operator, especially given that hidden information may be a critical part of the graph. We address this  problem in~\citep{MBGCD14} where we present a simple policy model and language for controlling abstraction, in the context where provenance owners want to control the disclosure of their provenance graphs. There, the owner defines a policy which results in a sensitivity value being associated with nodes, which gives us a means of evaluating the ``damage'' to a graph caused by the abstraction operator.}
 \jwb{In~\citep{MBGCD14} we do this by means of defining a property \emph{utility} as a counterpart to sensitivity. It is used to indicate  the interest of the provenance owner in ensuring that a node be retained as part of the graph, as it represents important evidence which is not sensitive.   The utility values associated to different nodes are used to quantify any loss of utility as a result of the application of \emph{group} though a measure of \emph{residual utility}. If we write the utility of a node $n$ as $u(n)$, and  $V_{ret} = V / V_{gr}$ is the set of nodes \emph{not} intended to be hidden, and $V'_{ret} \subset V_{ret}$ the nodes which were in fact retained after grouping, the  residual utility is simply
   \[
   RU_{V} = \frac{\Sigma_{n\in V'_{ret}} u(n)}{\Sigma_{n\in V_{ret}} u(n)}

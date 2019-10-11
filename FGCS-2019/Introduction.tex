@@ -122,6 +122,7 @@ Instead, in our approach a sub-graph is replaced with a new abstract node, which
 
 The main challenge addressed in this paper is to guarantee that abstraction produces PROV-compliant  graphs,   maintaining the interoperability guarantees provided from having standardized PROV and ensuring that the results can be consumed by standard PROV tools. %We provide a proof of this in the Appendix.
 
+
 \subsection{Contributions} \label{sec:contributions}
 
 In this paper we develop a model and algorithm for performing  abstraction over PROV graphs, providing the theoretical underpinning to ensure that the abstraction process satisfies a number of properties.
@@ -138,7 +139,9 @@ Furthermore, by making the abstraction operator closed with respect to the set o
 Finally, note also that $\pg'$ itself has also an associated provenance graph, that is, a record of the provenance abstraction process as it was applied to $\pg$. 
 PROV provides a syntactic facility to maintain the association between a provenance graph and its own provenance, namely using the ``provenance of provenance'' mechanism (i.e., bundles~\citep{w3c-prov-dm}).
 
+\subsection{A terminological aside.}
 
+\jwb{In ZOOM  an abstraction mechanism is a mechanism that presents the most relevant provenance information to a user. }
 
 
 %

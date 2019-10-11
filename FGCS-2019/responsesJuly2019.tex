@@ -16,7 +16,13 @@
 
 \begin{document}
 
-\comment{must redraw fig 9 from events section}
+%\comment{must redraw fig 9 from events section}
+
+\comment{remove appendices}
+
+\comment{ack agents section dropped}
+
+
 Dear Dr. Bryans,
 
 Thank you for submitting your manuscript to Future Generation Computer Systems. I have received comments from reviewers on your manuscript. Your paper should become acceptable for publication pending suitable minor revision and modification of the article in light of the appended reviewer comments.
@@ -24,7 +30,7 @@ Thank you for submitting your manuscript to Future Generation Computer Systems. 
 When resubmitting your manuscript, please carefully consider all issues mentioned in the reviewers' comments, outline every change made point by point, and provide suitable rebuttals for any comments not addressed.
 
 
-section*{Comments from the editors and reviewers:}
+\section*{Comments from the editors and reviewers:}
 \section*{Reviewer 1}
 
 The authors have addressed the concerns, but have indeed raised some others:
@@ -46,17 +52,21 @@ A consequence of this verbiage are the title (Abstracting PROV...) which and the
 It is strongly recommended that authors review the draft from the perspective of these definitions. 
 
 
-\comment{Change abstraction $->$ encapsulation throughout. It should be easy enough. The reviewer clearly feels strongly about it. JWB to do.}
+%\comment{Change abstraction $->$ encapsulation throughout. It should be easy enough. The reviewer clearly feels strongly about it. JWB to do.}
 
-\jwb{I'm not sure about this now. We are imaging a scenario where one PROV graph is transformed into another for consumption by a third party. Some of the nodes on the first graph are not on the second. However, the new node is not encapsulating them, it is replacing them. }
+%\jwb{I'm not sure about this now. We are imaging a scenario where one PROV graph is transformed into another for consumption by a third party. Some of the nodes on the first graph are not on the second. However, the new node is not encapsulating them, it is replacing them. }
 
-\jwb{ Say abstraction is the usual word in this context (PROV) for this work back up with references. (eg)  The second reviewer (more experienced in PROV?) has no difficulty with the term.} I suggest we include a brief discussion on terminology somewhere that makes reviewer ones points.} 
+
+\jwb{Decision: include a brief discussion on terminology somewhere that makes reviewer ones points, but disagree with them. } 
+
+\jwb{ Say abstraction is the usual word in this context (PROV) for this work back up with references. (eg)  The second reviewer (more experienced in PROV?) has no difficulty with the term.} 
+
 
 
 \item The introduction does not mention anything about the trust model between PA and IP on obtained provenance. Specifically if PA does not trust the obtained report, what guarantee does it have for trusting the obtained provenance. The authors must provide explanation as to why they think provided provenance will be trusted by PA. 
 
 
-  \jwb{We have added a discussion in section 1.1 on the trust model. }
+  \jwb{We have added a discussion in the first paragraph in section 1.1 to make the trust model more explicit. }
 
 \item Related Work
 
@@ -254,6 +264,9 @@ Overall, I think the paper presents work that is worth publishing: I started out
 These changes would help to circumscribe the contribution of the paper more clearly, and identify possible areas for further work building on it.
 
 Of course, I would also be happy with more substantial changes that address the concerns above more thoroughly.
+
+\comment{must rework conclusion completely}
+
 
 \subsubsection*{Detailed comments}
 

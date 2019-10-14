@@ -56,9 +56,13 @@ Thus, $e_{N}$ is generated when both generation events $g_{N1}, g_{N3}$ have occ
 Intuitively, it should be possible to map abstract events to corresponding  original events in $G$, in such a way that validity of $G'$ follows from the validity of $G$.
 %
 To formalise this idea, we propose to define the  events in $EV_{G'}$ in terms of events in $EV_{G}$, that is, by means of a function $\psi$ that maps each $ev' \in EV_{G'}$ to a corresponding event in $EV_{G}$:
-\[ \psi: EV_{G'} \rightarrow EV_{G} \]
+\begin{align}
+ \psi: EV_{G'} \rightarrow EV_{G} 
+\end{align}
 Furthermore, we want $\psi$ to be order-preserving, so that the validity of $G'$ relative to temporal constraints can be derived from the validity of $G$ using $\psi$: 
-\[ ev_1' \preorder ev_2' \Rightarrow \psi(ev_1') \preorder \psi(ev_2')  \]
+\begin{align}
+ ev_1' \preorder ev_2' \Rightarrow \psi(ev_1') \preorder \psi(ev_2')  
+\end{align}
 where the same preorder $\preorder$ is used for both sets (because that is defined by the constraints).
 
 We now look for a suitable mapping $\psi$. Consider for instance:
@@ -75,13 +79,19 @@ However, we observe that neither of these relationships hold on $EV_G$, in fact 
 Thus, if we consider all the possible total orderings in $EV_G$ that are consistent with $\preorder$, we see that this choice of mapping function restricts the possible interpretations of $EV_{G'}$, when we assume that $G'$ is valid, to only a subset of these orderings, namely those where the additional relationships (\ref{eq:over-constraints}) also hold.
 
 We use this example to motivate a broader definition of $\psi$ that does not incur such restriction. For this, we first redefine $\psi$ to map each event in $EV_{G'}$ to a \textit{set} of events in $EV_{G}$:
-\[ \psi': EV_{G'} \rightarrow {\cal P}(EV_{G}) \]
+\begin{align}
+ \psi': EV_{G'} \rightarrow {\cal P}(EV_{G}) 
+\end{align}
 (where ${\cal P}(EV_{G})$ denotes a powerset).
 %
 Then, we introduce a new preorder $\preorderprime$ on ${\cal P}(EV_{G})$, such that:
-\[ S_1 \preorderprime S_2 \text{ iff for each } s_1 \in S_1, \exists s_2 \in S_2 \text{ such that } s_1 \preorder s_2 \]
+\begin{align}
+ S_1 \preorderprime S_2 \text{ iff for each } s_1 \in S_1, \exists s_2 \in S_2 \text{ such that } s_1 \preorder s_2 
+ \end{align}
 We can now define mapping $\psi'$ that is order-preserving:
-\[ ev_1' \preorder ev_2' \Rightarrow \psi(ev_1') \preorderprime \psi(ev_2')  \]
+\begin{align} 
+ev_1' \preorder ev_2' \Rightarrow \psi(ev_1') \preorderprime \psi(ev_2')  
+\end{align}
 as follows:
 \begin{equation}
 \psi(g_{N1}) = \{ g_{41}, g_{53} \},  \quad  \psi(u_{N2_1}) =  \psi(u_{N2_4}) = \{ u_{42}, u_{52} \}, \quad \psi(u_{N4}) = \{u_{54} \} \label{eq:psi-real}

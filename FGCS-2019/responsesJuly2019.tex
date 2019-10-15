@@ -50,7 +50,7 @@ It is strongly recommended that authors review the draft from the perspective of
 
 \jwb{I'm not sure about this now. We are imaging a scenario where one PROV graph is transformed into another for consumption by a third party. Some of the nodes on the first graph are not on the second. However, the new node is not encapsulating them, it is replacing them. }
 
-\jwb{ Say abstraction is the usual word in this context (PROV) for this work back up with references. (eg)  The second reviewer (more experienced in PROV?) has no difficulty with the term.} I suggest we include a brief discussion on terminology somewhere that makes reviewer ones points.} 
+\jwb{ Say abstraction is the usual word in this context (PROV) for this work back up with references. (eg)  The second reviewer (more experienced in PROV?) has no difficulty with the term. I suggest we include a brief discussion on terminology somewhere that makes reviewer ones points.} 
 
 
 \item The introduction does not mention anything about the trust model between PA and IP on obtained provenance. Specifically if PA does not trust the obtained report, what guarantee does it have for trusting the obtained provenance. The authors must provide explanation as to why they think provided provenance will be trusted by PA. 
@@ -233,16 +233,24 @@ Overall, I think the paper presents work that is worth publishing: I started out
 
 \item Clarify the discussion of max/min and avoid apparent reliance on the maxima/minima already existing in the event structure for the original document.
 
-  \comment{Dont' know here PM to do.}
+\paolo{
+		We acknowledge that the objection raised by the reviewer regarding the difficulty with max\{\} and min\{\} in common cases such as those in Fig 1 in this document is substantial. While it could have been circumvented as the reviewer themselves suggested, we found a simpler and more natural formalisation. 
+		We have entirely rewritten Section 5 as a consequence. Also, the lengthy Appendix is no longer needed and has been removed. 
+    In essence, in the new formalisation we propose that abstract events be defined in terms of 'ground' events in the original graph, through a function that maps abstract events to \textit{sets} of ground events.
+    Also, a preorder is defined on these events so that PROV-constraint validity can be established. We further introduce a new order relationship on sets of ground events, defined in terms of the original PROV-constraints preorder, and suggest that the mapping should be order-preserving. Finally, we indicate and justify a specific definition for the mapping function.
+}
 
   
 \item Clarify assumptions needed for the existing algorithm to work in the presence of agents.
 
-\comment{OK - mainly that the node types are disjoint JWB to do.}
+\paolo{In view of the reviewers' comments we acknownledge that the agents formalisation section requires substantial additional work. In the interest of time and indeed to ensure proper focus on the paper, and considering that the abstraction model including events still stands without mentioning agents, we decided to remove the section altogether.}
   
 \item Discuss alternative abstraction strategies such as using wasInfluencedBy edges.
 
   \comment{wIb might relax the need for convexity, so we can save more nodes, but the loss on information in the ``lossy'' wIb.}
+  
+  \paolo{the argument here is that there may be a trade-off between a ``convex'' abstraction that preserves the semantics of the relationships but may reduce the residual utility, and an abstraction that simply maps relationships that ``don't work'' to WasInfluencedBy without trying to abstrat nodes that were not intended to be abstracted.
+  In practice we need an example to show how WasInfluencedBy would work and whether this trade-off is real}
 
   
 \item Cite/discuss uncited related work and compare with other formal notions of abstraction correctness such as "sound workflow views"

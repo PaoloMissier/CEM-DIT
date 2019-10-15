@@ -171,24 +171,24 @@ Function $\repl()$ replaces $V^*$ with $v_{new}$ in $V$, and connects $v_{new}$ 
 
 
 
-Let $\vartheta_{out}(V^*)$ denote the \textit{outcut} of $G$ associated with $V^*$, defined as:
 
-\begin{equation}
+\begin{definition}
+\label{def:in-out-int}
+\jwbtwo{
+Let $\vartheta_{out}(V^*)$ denote the \textit{outcut} of $G$ associated with $V^*$, defined as the set of arcs of $G$ pointing out of $V^*$, let $\vartheta_{in}(V^*)$ denote the \textit{incut}  of $G$ associated with $V^*$, i.e., the set of arcs of $G$ leading into $V^*$, and let $\vartheta_{int}(V^*)$ denote internal edges, that connect two nodes inside $V^*$. $\vartheta_{out}(V^*)$, $\vartheta_{in}(V^*)$ and $\vartheta_{int}(V^*)$  are given by:}
+
+\jwbtwo{
+\begin{equation*}
  \vartheta_{out}(V^*) = \{  (v_d \leftarrow v_s) |   v_s \in  V^*, v_d \in V \setminus V^*\}
-\end{equation}
- 
-This is the set of arcs of $G$ pointing out of $V^*$.
-%
-Symmetrically, let $\vartheta_{in}(V^*)$ denote the \textit{incut}  of $G$ associated with $V^*$, i.e., the set of arcs of $G$ leading into $V^*$:
-
-\begin{equation} \vartheta_{in}(V^*) = \{  (v_d\leftarrow v_s) |  v_d \in V^*, v_s \in  V \setminus V^* \}
-\end{equation}
-
-%
-\jwbtwo{Finally, let $\vartheta_{int}(V^*)$ denote internal edges, that connect two nodes inside $V^*$:}
-\begin{equation}
-\vartheta_{int}(V^*) = \{  (v_s\leftarrow v_d) | v_s, v_d \in V^*\}
-\end{equation}
+\end{equation*}
+\begin{equation*} 
+\vartheta_{in}(V^*) = \{  (v_d\leftarrow v_s) |  v_d \in V^*, v_s \in  V \setminus V^* \}
+\end{equation*} 
+\begin{equation*}
+\vartheta_{int}(V^*) = \{  (v_d\leftarrow v_s) | v_d, v_s \in V^*\}
+\end{equation*}
+}
+\end{definition}
 
 \jwb{Function $\repl()$ replaces each arc $(v_d \leftarrow v_s) \in \vartheta_{out}(V^*)$ with a new arc $(v_{d} \leftarrow v_{new})$ of the same type, and replaces each arc $(v_d \leftarrow v_s) \in \vartheta_{in}(V^*)$ with a new arc $(v_{new} \leftarrow v_{d})$ of the same type. Arcs in $\vartheta_{int}(V^*)$ simply disappear along with the nodes in $V^*$.}
 %
@@ -460,19 +460,45 @@ G' & \!\text{if}~~ |\!\!V_{gen}\!| ~~\leq 1  \\
 
 \jwbtwo{\subsection{Justifying relations}} \label{sec:justifying}
 
-\jwbtwo{In this section, we clarify what it means to say that relations in the abstract graph are justified, and show that the relations produced by the $\group$ (more properly, the family of $\group$ operators) are justified.}
- 
+\jwbtwo{In this section, we clarify what it means to say that relations in the abstract graph are justified, and show that the relations produced by the $\group$ operator (more properly, the family of $\group$ operators) are justified.} 
+
+
 
 \begin{definition}
 \label{def:justify}
-\jwbtwo{Consider two graphs: a concrete one, $C$, represented by the graph $G_{C} = (V_C,E_C)$, and an abstract one $A$, represented by the graph $G_{A} = (V_A,E_A)$.
-If $(v^A_d \xleftarrow{t} v^A_s)$ is a relation in $E_A$ of type $t$,  $(v^A_d \xleftarrow{t} v^A_s)$ in $E_A$ is justified if there is a relation $(v^C_{d'} \xleftarrow{t'} v^C_{s'})$ in $E_C$ such that either (i) the relation is unchanged, so 
+\jwbtwo{
+A abstract node is justified by the concrete graph if (i) it appears unchanged in the concrete graph, or (ii) it is a new node representing a set of concrete nodes, and one of the concrete nodes has the same type as the abstract node.
+%
+An abstract relation between two nodes is justified if (i) the nodes are justified (in the sense above) and (ii) the type of the abstract relation is unchanged. 
+%
+An abstract graph is justified if the nodes and relations in it are justified. }
+
+
+ 
+\jwbtwo{To see that the $\group$ operator produces justified abstract graphs, consider two graphs: a concrete one, $C$, represented by the graph $G_{C} = (V_C,E_C)$, and an abstract one $A$, represented by the graph $G_{A} = (V_A,E_A)$.
+If $(v^A_d \xleftarrow{t} v^A_s)$ is a relation in $E_A$ of type $t$,  $(v^A_d \xleftarrow{t} v^A_s)$ in $E_A$ we need to show that there is a relation $(v^C_{d'} \xleftarrow{t'} v^C_{s'})$ in $E_C$ such that either (i) the relation is unchanged, so 
 $v^A_d = v^C_{d'}, t=t'$ and $v^A_s = v^C_{s'}$;
-(ii) either the source of the destination node is a new (and therefore abstract) node which the $Group$ operator has inserted as a replacement for a set of nodes, and the other node is unchanged.
+(ii) one of the source or the destination node is a new (and therefore abstract) node which the $Group$ operator has inserted as a replacement for a set of nodes, and the other node is unchanged.
 In all cases the type of the relation should be unchanged. }
 \end{definition}
 
-\jwbtwo{To see that relations are justified in this sense, consider the $\group$ operator. In particular, inspection of definitions~\ref{def:var-in-out} and~\ref{def:group-replace} shows that }
+\jwbtwo{To see that relations are justified in this sense, consider how the nodes  $v^A_d$ and $v^A_s$  in $(v^A_d \xleftarrow{t} v^A_s)$  were identified.
+%
+% Inspection of Definition~\ref{def:group-replace} shows three possibilities: (i) $v^A_s$ is $v_{new}$, and $v^A_d$ is unchanged (ie $v^A_d = v^C_d$), (ii)  $v^A_d$ is $v_{new}$, and $v^A_s$ is unchanged (ie $v^A_s = v^C_s$), or (iii) both $v^A_s$ and $v^A_d$ are unchanged from the concrete graph, so $v^A_s = v^C_s$ and $v^A_d = v^C_d$.
+}
+
+\jwbtwo{
+Considering (i) first, we need to show that the type of the relation remains unchanged during the abstraction operation. But if $v^A_s$ and $v^A_d$ have not changed, then, by Definition~\ref{def:in-out-int}, $v^A_s \nin \vartheta_{out}(V^*)$, $v^A_s \nin \vartheta_{in}(V^*)$, and $v^A_s \nin \vartheta_{int}(V^*)$  and so, by Definition~\ref{def:group-replace} neither is removed from $E_C$ in the transformation by $\group$ to $E_A$, and so the type of the relation does not change, so $t=t'$. 
+}
+\jwbtwo{
+Considering (ii), $v^A_d$ is the new node $v_{new}$ and $v^A_s$ is unchanged. In this case, to justify the new relation, we need to show that there is a relation $(v^C_{d'} \xleftarrow{t'} v^C_{s'})$  in $E_C$, and that the operation of $\group$ produces the relation $(v_{new} \xleftarrow{t} v^A_{s})$ in $E_A$, where $V^A_s = V^C_{s'}$ and $t=t'$. 
+%
+We see this by considering the definition of $\vartheta_{in}(V^*)$ in Definition~\ref{def:in-out-int}. The source of the relation is unchanged, since $v_s \in V\setminus V^*$, so it is not in the set $V^*$ that has been chosen to be abstracted. The replacement relation is given by the definition of $\vartheta'_{in}(V^*)$ in Definition~\ref{def:var-in-out}, from which we see that the source and type of the relation are unchanged in $E_A$.
+}
+
+\jwbtwo{
+Case (iii) is exactly similar, except that $v^A_s$ is the new node $v_{new}$ and $v^A_d$ is unchanged, and follows from inspection of $\vartheta_{out}(V^*)$ and $\vartheta'_{out}(V^*)$. 
+} 
 
 
 

@@ -16,7 +16,13 @@
 
 \begin{document}
 
-\comment{must redraw fig 9 from events section}
+%\comment{must redraw fig 9 from events section}
+
+\comment{remove appendices and ack}
+
+\comment{ack agents section dropped}
+
+
 Dear Dr. Bryans,
 
 Thank you for submitting your manuscript to Future Generation Computer Systems. I have received comments from reviewers on your manuscript. Your paper should become acceptable for publication pending suitable minor revision and modification of the article in light of the appended reviewer comments.
@@ -24,7 +30,7 @@ Thank you for submitting your manuscript to Future Generation Computer Systems. 
 When resubmitting your manuscript, please carefully consider all issues mentioned in the reviewers' comments, outline every change made point by point, and provide suitable rebuttals for any comments not addressed.
 
 
-section*{Comments from the editors and reviewers:}
+\section*{Comments from the editors and reviewers:}
 \section*{Reviewer 1}
 
 The authors have addressed the concerns, but have indeed raised some others:
@@ -46,17 +52,38 @@ A consequence of this verbiage are the title (Abstracting PROV...) which and the
 It is strongly recommended that authors review the draft from the perspective of these definitions. 
 
 
-\comment{Change abstraction $->$ encapsulation throughout. It should be easy enough. The reviewer clearly feels strongly about it. JWB to do.}
+%\comment{Change abstraction $->$ encapsulation throughout. It should be easy enough. The reviewer clearly feels strongly about it. JWB to do.}
 
-\jwb{I'm not sure about this now. We are imaging a scenario where one PROV graph is transformed into another for consumption by a third party. Some of the nodes on the first graph are not on the second. However, the new node is not encapsulating them, it is replacing them. }
+%\jwb{I'm not sure about this now. We are imaging a scenario where one PROV graph is transformed into another for consumption by a third party. Some of the nodes on the first graph are not on the second. However, the new node is not encapsulating them, it is replacing them. }
 
+%\comment{Decision: include a brief discussion on terminology somewhere that makes reviewer ones points, but disagree with them. JWB to do. } 
+
+\jwb{We argue here that abstraction is the usual word in this context (PROV) for this work. }
+
+\jwb{In Zoom~\cite{DBLP:conf/icde/BitonBDH08} an abstraction mechanism is a mechanism that presents the most relevant provenance information to a user. }
+
+\jwb{It is used in~\cite{Moreau2015}, in which the author discusses a variety of means of abstracting provenance graphs, including~\cite{Missier2014}, in which the term carries the same meaning as in this work.  Also discussed are the Abstract Provenance Graphs from~\cite{ZinnLudascher2010}. In these, abstraction is performed using static analysis of a configured workflow before the provenance is created, and a homomorphism between the abstract and the concrete graph is demonstrated. Although they create their abstraction in a different way, the same effect, of removing unnecessary information, is achieved. }
+%
+\jwb{Finally, ~\cite{Moreau2015} discusses~\cite{Cohen-Boulakiaetal2008}, in which the authors show how the user views that they present allow provenance to be reasoned about at different levels of abstraction. }
+\jwb{This understanding of abstraction, and of the ability to move between different levels of abstraction, is key to our understanding of the term here. }
+
+<<<<<<< HEAD
 \jwb{ Say abstraction is the usual word in this context (PROV) for this work back up with references. (eg)  The second reviewer (more experienced in PROV?) has no difficulty with the term. I suggest we include a brief discussion on terminology somewhere that makes reviewer ones points.} 
+=======
+\jwb{Finally, the second reviewer has offered no objection to the term.} 
+
+%\jwb{~\citep{Moreau2015} also discusses our own previous work~\citep{MBGCD14} uses it, and again raises no objection to the term.}
+
+%Our own previous work used it~\citep{MBGCD14}, and prior to that the work on Zoom~\citep{DBLP:conf/icde/BitonBDH08} and~\citep{Cohen-Boulakiaetal2008} used it, as does~\citep{ZinnLudascher2010}. These approaches are all discussed in~\citep{Moreau2015}. In each case the work is accepted and no issue with terminology is raised. }
+
+\jwb{We have therefore made no change to the term abstraction, but we have replaced the word obfuscation when it occurred.}
+>>>>>>> 4dbbd56d55bd3a3b98a618ab77a90a96ff692454
 
 
 \item The introduction does not mention anything about the trust model between PA and IP on obtained provenance. Specifically if PA does not trust the obtained report, what guarantee does it have for trusting the obtained provenance. The authors must provide explanation as to why they think provided provenance will be trusted by PA. 
 
 
-  \jwb{We have added a discussion in section 1.1 on the trust model. }
+  \jwb{We have added a discussion in the first paragraph in section 1.1 to make the trust model more explicit. }
 
 \item Related Work
 
@@ -114,9 +141,8 @@ Why are edges a1->e1 and a->e3 not left unlabeled because ‘used’ edge label 
  
  \jwb{We've clarified that this equation is the type signature of the group operator, rather than it's definition.}
  
- \jwb{The powerset operator has been named when it is  used, and the equation has been numbered.} 
+ \jwb{The powerset operator has been named when it is  used, and the equations in the paper have been numbered throughout.} 
 
-\comment{DO OTHERS}
 
 % \comment{Overall, I recommend removing fig 6 and the paras beginning ``to get a quick intuition''. Replace with a para on the functional approach then  go into the definition of path closure.}
 
@@ -167,7 +193,7 @@ This paper is about abstracting provenance graphs, using the PROV model promulga
 
 The paper first considers the subcase where there are only two node types (entity/activity) and two edge relationships (usage/generation). Thus, the graph is bipartite.  Formal definitions of the problem and proposed algorithm are given: first the set of nodes is closed-off to include all nodes "between" selected nodes, then additional nodes on the frontier of the selected set are added so that the outside of the selected set matches the intended collapsed node type.  The paper considers the constraints and argues that abstracting a valid graph results in another valid graph.  Next the paper shows how to extend the results to consider PROV graphs with agents, with an unstated assumption that agent nodes are disjoint from entity and activity nodes, so that the agent nodes only interact with the rest of the graph in fairly limited ways and the underlying bipartite abstraction approach still works.
 
-\comment{is this assumption (that agent nodes are disjoint from entity and activity nodes) not always true? PM to clarify.}
+%\comment{is this assumption (that agent nodes are disjoint from entity and activity nodes) not always true? PM to clarify.}
 
 One complication in this setting is that edges from agents to abstracted nodes may no longer make sense, and in this case they are removed.
 
@@ -243,7 +269,7 @@ Overall, I think the paper presents work that is worth publishing: I started out
   
 \item Clarify assumptions needed for the existing algorithm to work in the presence of agents.
 
-\paolo{In view of the reviewers' comments we acknownledge that the agents formalisation section requires substantial additional work. In the interest of time and indeed to ensure proper focus on the paper, and considering that the abstraction model including events still stands without mentioning agents, we decided to remove the section altogether.}
+\paolo{In view of the reviewers' comments we acknowledge that the agents formalisation section requires substantial additional work. In the interest of time and indeed to ensure proper focus on the paper, and considering that the abstraction model including events still stands without mentioning agents, we decided to remove the section altogether.}
   
 \item Discuss alternative abstraction strategies such as using wasInfluencedBy edges.
 
@@ -262,6 +288,9 @@ Overall, I think the paper presents work that is worth publishing: I started out
 These changes would help to circumscribe the contribution of the paper more clearly, and identify possible areas for further work building on it.
 
 Of course, I would also be happy with more substantial changes that address the concerns above more thoroughly.
+
+\comment{must rework conclusion completely}
+
 
 \subsubsection*{Detailed comments}
 
@@ -400,6 +429,11 @@ References
 
 [B] Barbara T. Blaustein, Adriane Chapman, Len Seligman, M. David Allen, Arnon Rosenthal:
 Surrogate Parenthood: Protected and Informative Graphs. PVLDB 4(8): 518-527 (2011)
+
+%\section*{References}
+
+\bibliographystyle{plain}
+\bibliography{prov-abstraction-foundations}
 
 \end{document}
 

@@ -74,9 +74,9 @@ This is checked, presumably to validate and possibly also to remove sensitive in
 Notice that various agents are specified as being responsible for some of the steps, along with their chain of responsibility, i.e., \texttt{Alice} acts as \texttt{Bob}'s delegate, who in turn reports to \texttt{Karen}, along with \texttt{Charlie}}.
 
 
-\paolo{As we can see, the full-fledged provenance graph contains information about IP's internal business processes, including the use of a proprietary database, which IP may consider privileged.
-It is therefore realistic to imagine that IP may want to  obfuscate some of those elements. 
-Using our selective disclosure model, IP marks the sensitive elements, in this case the \texttt{redact} activity as well as the references to the two analytics processes. Note that doing so does not require any knowledge of the graph topology, rather only of the nodes (either activities, entities, or agents) that are to be abstracted out.}
+As we can see, the full-fledged provenance graph contains information about IP's internal business processes, including the use of a proprietary database, which IP may consider privileged.
+It is therefore realistic to imagine that IP may want to \jwbtwo{hide} some of those elements. 
+Using our selective disclosure model, IP marks the sensitive elements, in this case the \texttt{redact} activity as well as the references to the two analytics processes. Note that doing so does not require any knowledge of the graph topology, rather only of the nodes (either activities, entities, or agents) that are to be abstracted out.
 
 \paolo{It is important to note that the PROV document represented in Fig.~\ref{fig:graph-example} is \textit{valid}, in the sense that it satisfies all the constraints specified as part of the PROV standard~\citep{w3c-prov-constraints}.
 As we will see in the rest of the paper, replacing the three selected nodes with a single abstract node (an activity in this case) while preserving the validity  of the document, requires that all other nodes that lie on the directed paths that connect these nodes are also removed. 
@@ -122,12 +122,13 @@ Instead, in our approach a sub-graph is replaced with a new abstract node, which
 
 The main challenge addressed in this paper is to guarantee that abstraction produces PROV-compliant  graphs,   maintaining the interoperability guarantees provided from having standardized PROV and ensuring that the results can be consumed by standard PROV tools. %We provide a proof of this in the Appendix.
 
+
 \subsection{Contributions} \label{sec:contributions}
 
 In this paper we develop a model and algorithm for performing  abstraction over PROV graphs, providing the theoretical underpinning to ensure that the abstraction process satisfies a number of properties.
 %
 Our main contribution is the formal \jwbtwo{functional} definition of a provenance abstraction operator ($\group$) that  rewrites  a PROV graph $\pg$ into a new graph $\pg'$, by \jwbtwo{(a)} mapping a set $V_{gr}$ of nodes (for ``vertex in a group'') in $\pg$ to a new abstract node $v_{new}$, and \jwbtwo{(b)} mapping each relationship involving elements of $V_{gr}$ \jwbtwo{(nodes)} to a new relationship involving $v_{new}$ in $\pg'$. 
-The set $V_{gr}$ is chosen by the user of the abstraction operator as the set of nodes she wishes to obfuscate, \jwbtwo{ and the graph rewriting operator $\group$ is defined in three steps using three subordinate operators, in Section~\ref{sec:grouping}. }
+The set $V_{gr}$ is chosen by the user of the abstraction operator as the set of nodes she wishes to \jwbtwo{hide, and the graph rewriting operator $\group$ is defined in three steps using three subordinate operators, in Section~\ref{sec:grouping}. }
 
 We prove several formal properties of $\pg'$: firstly, schema preservation: if $\pg$ is a PROV graph, that is, it conforms to the PROV data model~\citep{w3c-prov-dm}, then $\pg'$ is also a PROV graph. Secondly, validity preservation: if $\pg$ is \textit{valid}, that is, it satisfies all PROV constraints~\citep{w3c-prov-dm}, then $\pg'$ is also valid. Finally, no spurious dependencies are introduced into $\pg'$: a  relationship involving $v_{new}$ is only created as a result of a mapping from an existing relationship involving elements of $V_{gr}$. Strictly, if $a$ and $e$ are not \textit{directly} related in $\pg$, we guarantee that they are not directly related in $\pg'$. 
 
@@ -137,6 +138,23 @@ Furthermore, by making the abstraction operator closed with respect to the set o
 %
 Finally, note also that $\pg'$ itself has also an associated provenance graph, that is, a record of the provenance abstraction process as it was applied to $\pg$. 
 PROV provides a syntactic facility to maintain the association between a provenance graph and its own provenance, namely using the ``provenance of provenance'' mechanism (i.e., bundles~\citep{w3c-prov-dm}).
+
+%\subsection{A terminological aside.}
+
+%\jwbtwo{In Zoom~\citep{DBLP:conf/icde/BitonBDH08} an abstraction mechanism is a mechanism that presents the most relevant provenance information to a user. }
+
+%\jwbtwo{Our own previous work~\citep{MBGCD14}.}
+
+%\jwbtwo{In~citep{Moreau2015} the author discusses a variety of means of abstracting provenance graphs, including~\citep{MBGCD14}, in which the term carries the same meaning as in this work.  Also discussed are the Abstract Provenance Graphs" from~\citep{ZinnLudascher2010}. In these, abstraction is performed using static analysis of a configured workflow before the provenance is created, and a homomorphism between the abstract and the concrete graph is demonstrated. In~\citep{Cohen-Boulakiaetal2008} the authors show how the user views that they present allow provenance to be reasoned about at different levels of abstraction. }
+
+%\jwbtwo{This understanding of abstraction, and of the ability to move between different levels of abstraction, is key to our understanding of the term here. }
+
+
+
+
+
+
+
 
 
 

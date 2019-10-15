@@ -33,7 +33,7 @@
 
 
 \begin{abstract}
-  Data provenance is a structured form of metadata designed to record the activities and datasets involved in data production, as well as their dependency relationships. The PROV data model, released by the W3C in 2013, defines a schema and constraints that together provide a structural and semantic foundation for provenance. This enables the interoperable exchange of provenance between data producers and consumers. When the provenance content is sensitive and subject to disclosure restrictions, however, a way of partially obfuscating provenance in a principled way before communicating it to certain parties is required. In this paper we present a provenance abstraction operator that achieves this goal. It maps a PROV document $P_1$  to a new abstract version $P_2$, with the properties that (i) if $P_1$ satisfies a certain constraint $C$ then $P_2$ also satisfies $C$, (ii) the dependencies that appear in $P_2$ are \textit{justified} by those in $P_1$, i.e., no spurious dependencies are introduced in $P_2$,  \jwbtwo{and (iii) the resultant graph is ``altered'' as little as possible, while ensuring that  the operator is closed with respect to composition.} \jwbtwo{Closure under composition} makes further abstraction of abstract PROV documents possible.  The operator is implemented as part of a user tool, described in a separate paper, that lets owners of sensitive provenance information control the abstraction by specifying an abstraction policy.
+  Data provenance is a structured form of metadata designed to record the activities and datasets involved in data production, as well as their dependency relationships. The PROV data model, released by the W3C in 2013, defines a schema and constraints that together provide a structural and semantic foundation for provenance. This enables the interoperable exchange of provenance between data producers and consumers. When the provenance content is sensitive and subject to disclosure restrictions, however, \jwbtwo{a way of hiding parts of the} provenance in a principled way before communicating it to certain parties is required. In this paper we present a provenance abstraction operator that achieves this goal. It maps a PROV document $P_1$  to a new abstract version $P_2$, with the properties that (i) if $P_1$ satisfies a certain constraint $C$ then $P_2$ also satisfies $C$, (ii) the dependencies that appear in $P_2$ are \textit{justified} by those in $P_1$, i.e., no spurious dependencies are introduced in $P_2$,  \jwbtwo{and (iii) the resultant graph is ``altered'' as little as possible, while ensuring that  the operator is closed with respect to composition.} \jwbtwo{Closure under composition} makes further abstraction of abstract PROV documents possible.  The operator is implemented as part of a user tool, described in a separate paper, that lets owners of sensitive provenance information control the abstraction by specifying an abstraction policy.
 \end{abstract}
 
 \begin{keyword}
@@ -67,7 +67,7 @@ The support of the ONRG and the EPSRC in funding this research is gratefully ack
 \bibliographystyle{plain}
 \bibliography{prov-abstraction-foundations}
 
-\appendix
+%\appendix
 
 %\section{Proofs}
 %\include{proof}

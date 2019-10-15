@@ -4,7 +4,7 @@
 
 %\comment{fix next two paras.} 
 %
-\comment{need to be clear (again) about assumptions. We have motivated these in Sec~\ref{sec:motivating}. } 
+%\comment{need to be clear (again) about assumptions. We have motivated these in Sec~\ref{sec:motivating}. } 
 
 As mentioned in Sec.~\ref{sec:contributions}, our goal is to define \jwbtwo{a} graph editing operator that selectively removes information from a graph $G \in \guEA$, yielding a new graph $G' \in \guEA$. \jwbtwo{We require the final operator to remove all the chosen nodes, and replace them by a single abstract node.} \jwbtwo{As discussed in Section~\ref{sec:motivating}, this may be to avoid inadvertently revealing any internal business processes or details about the chain of command.}
 
@@ -19,7 +19,7 @@ As mentioned in Sec.~\ref{sec:contributions}, our goal is to define \jwbtwo{a} g
 %
 %\jwbtwo{Let $V$ and $E$ be as defined in Section~\ref{prov-core}. }
 
-$\group$ takes a graph $G \in \guEA$ \jwbtwo{with nodes $V$ and edges $E$} and a subset $V_{gr} \subset V$ of its nodes \jwb{that the user wishes to obfuscate} and produces a modified graph $G' \in \guEA$. The nodes in $V_{gr}$ are ``grouped'' together and replaced by a new single node. \jwbtwo{The $\group$ operator has the following signature, where $\power(V)$ is the powerset of the nodes $V$ of the graph $G$ :}
+$\group$ takes a graph $G \in \guEA$ \jwbtwo{with nodes $V$ and edges $E$} and a subset $V_{gr} \subset V$ of its nodes \jwb{that the user wishes to hide} and produces a modified graph $G' \in \guEA$. The nodes in $V_{gr}$ are ``grouped'' together and replaced by a new single node. \jwbtwo{The $\group$ operator has the following signature, where $\power(V)$ is the powerset of the nodes $V$ of the graph $G$ :}
   
 
 \begin{equation}
@@ -74,7 +74,7 @@ The Path Closure of $V_{gr}$ in $G$ is
 \jwbtwo{Fig.~\ref{fig:convex-ex-1} illustrates $\pclos()$ in the transition from Fig.~\ref{fig:convex-ex-1}(a) to Fig.~\ref{fig:convex-ex-1}(b).  $\pclos()$ is performed on the set $\{e_1, e_3, e_4, e_5\},G)$, resulting in the set $\{e_1, e_3, e_4, e_5, a_1, a_3\}$ in Fig.~\ref{fig:convex-ex-1}(b).
 }
 \jwbtwo{We assume, for the moment, that nodes in $\clos(V_{gr}, G)$ induce a single connected subgraph under $G$.}
-\comment{I don't think we need the extra assumption that each source in the induced graph is connected to at least one of the sinks in the induced graph.} 
+%\comment{I don't think we need the extra assumption that each source in the induced graph is connected to at least one of the sinks in the induced graph.} 
 
 \begin{figure*}
 \centering
@@ -198,14 +198,15 @@ Symmetrically, let $\vartheta_{in}(V^*)$ denote the \textit{incut}  of $G$ assoc
 \jwb{The definitions of $\vartheta_{out}'(V^*)$ and $\vartheta_{in}'(V^*)$ below define the final part of the ``rewiring'' carried out by $\repl()$. }
 
 \begin{definition}
+\label{def:var-in-out}
   Let $ty \in \{\used,  \wgby\}$. Then:
  % \begin{align*}
-\begin{equation}
+\begin{equation*}
 \vartheta_{out}'(V^*) = \{  \jwb{(}v \xleftarrow{ty}  v_{new} \jwb{)}|  v \xleftarrow{ty} v' \in \vartheta_{out}(V^*)  
-\end{equation}
-\begin{equation}
+\end{equation*}
+\begin{equation*}
 \vartheta_{in}'(V^*) = \{  \jwb{(}v_{new} \xleftarrow{ty} v \jwb{)} | v' \xleftarrow{ty} v \in \vartheta_{in}(V^*)  
-\end{equation}
+\end{equation*}
 %\end{align*}
 \label{def:eq:outcut}
 \end{definition}
@@ -306,11 +307,13 @@ Fig.~\ref{fig:e2-a4}(a-1, a-2) illustrates the application of the $\group_{hom}$
    extension leads to the incorporation of $e_5$, which in turn leads to the pattern shown in Fig.~\ref{fig:e2-a4}(e-2), involving two generation events for the new entity $e_{new}$.
 %\comment{do (a or e) nodes on the edge of graphs form any special cases for a- or e-grouping?  }
 Although this is a valid pattern, the two generation events must be simultaneous (this is one of the temporal constraints defined in~\citep{w3c-prov-constraints}): 
-\begin{align*}
+
+%\begin{equation}
+\begin{align}
 ev(\wgby(e_{new}, a_1)) & \preorder ev(\wgby(e_{new}, a_3))  \quad \wedge \\
 ev(\wgby(e_{new}, a_3)) & \preorder ev(\wgby(e_{new}, a_1))
-\end{align*}
-
+\end{align}
+%\end{equation}
 The intuitive interpretation for this pattern is that each of the two activities generated one entity in the group represented by $e_{new}$, and that the abstraction makes these two events indistinguishable.  Formally, nothing further needs to be done to the graph. \jwb{We will explore the implications of the event ordering rules further in Section~\ref{sec:event}.  }  However note that one can restore, if desired, the more natural pattern whereby one single generation event is recorded for $e_{new}$. This is achieved simply by \jwbtwo{extending} the grouping to the set of generating activities.
 In the example, this leads to the graph in Fig.~\ref{fig:e2-a4}(e-3).  
 
@@ -455,6 +458,26 @@ G' & \!\text{if}~~ |\!\!V_{gen}\!| ~~\leq 1  \\
 %
 
 
+\jwbtwo{\subsection{Justifying relations}} \label{sec:justifying}
+
+\jwbtwo{In this section, we clarify what it means to say that relations in the abstract graph are justified, and show that the relations produced by the $\group$ (more properly, the family of $\group$ operators) are justified.}
+ 
+
+\begin{definition}
+\label{def:justify}
+\jwbtwo{Consider two graphs: a concrete one, $C$, represented by the graph $G_{C} = (V_C,E_C)$, and an abstract one $A$, represented by the graph $G_{A} = (V_A,E_A)$.
+If $(v^A_d \xleftarrow{t} v^A_s)$ is a relation in $E_A$ of type $t$,  $(v^A_d \xleftarrow{t} v^A_s)$ in $E_A$ is justified if there is a relation $(v^C_{d'} \xleftarrow{t'} v^C_{s'})$ in $E_C$ such that either (i) the relation is unchanged, so 
+$v^A_d = v^C_{d'}, t=t'$ and $v^A_s = v^C_{s'}$;
+(ii) either the source of the destination node is a new (and therefore abstract) node which the $Group$ operator has inserted as a replacement for a set of nodes, and the other node is unchanged.
+In all cases the type of the relation should be unchanged. }
+\end{definition}
+
+\jwbtwo{To see that relations are justified in this sense, consider the $\group$ operator. In particular, inspection of definitions~\ref{def:var-in-out} and~\ref{def:group-replace} shows that }
+
+
+
+
+
 \subsection{Complexity of grouping operators}  \label{sec:complexity}
 
 \paolo{
@@ -496,9 +519,9 @@ This is a linear problem in the worst case, namely when the closure contains all
 
 \jwb{It is clear that, in order to meet our initial requirement of maintaining type-correctness of the abstracted graph, in general more nodes than just the original ones selected will have to \jwbtwo{be} hidden. This has implications for the use of this operator, especially given that hidden information may be a critical part of the graph. We address this  problem in~\citep{MBGCD14} where we present a simple policy model and language for controlling abstraction, in the context where provenance owners want to control the disclosure of their provenance graphs. There, the owner defines a policy which results in a sensitivity value being associated with nodes, which gives us a means of evaluating the ``damage'' to a graph caused by the abstraction operator.}
 \jwb{In~\citep{MBGCD14} we do this by means of defining a property \emph{utility} as a counterpart to sensitivity. It is used to indicate  the interest of the provenance owner in ensuring that a node be retained as part of the graph, as it represents important evidence which is not sensitive.   The utility values associated to different nodes are used to quantify any loss of utility as a result of the application of \emph{group} though a measure of \emph{residual utility}. If we write the utility of a node $n$ as $u(n)$, and  $V_{ret} = V / V_{gr}$ is the set of nodes \emph{not} intended to be hidden, and $V'_{ret} \subset V_{ret}$ the nodes which were in fact retained after grouping, the  residual utility is simply
-  \[
+\begin{align}
   RU_{V} = \frac{\Sigma_{n\in V'_{ret}} u(n)}{\Sigma_{n\in V_{ret}} u(n)}
-\]
+\end{align}
   which is a measure of the proportion of the graph utility not selected by the grouping operator. 
 }
 

@@ -472,15 +472,18 @@ A abstract node is justified by the concrete graph if (i) it appears unchanged i
 An abstract relation between two nodes is justified if (i) the nodes are justified (in the sense above) and (ii) the type of the abstract relation is unchanged. 
 %
 An abstract graph is justified if the nodes and relations in it are justified. }
+\end{definition}
+
 
 
  
 \jwbtwo{To see that the $\group$ operator produces justified abstract graphs, consider two graphs: a concrete one, $C$, represented by the graph $G_{C} = (V_C,E_C)$, and an abstract one $A$, represented by the graph $G_{A} = (V_A,E_A)$.
-If $(v^A_d \xleftarrow{t} v^A_s)$ is a relation in $E_A$ of type $t$,  $(v^A_d \xleftarrow{t} v^A_s)$ in $E_A$ we need to show that there is a relation $(v^C_{d'} \xleftarrow{t'} v^C_{s'})$ in $E_C$ such that either (i) the relation is unchanged, so 
+If $(v^A_d \xleftarrow{t} v^A_s)$ is a relation in $E_A$ of type $t$,  we need to show that there is a justifying relation $(v^C_{d'} \xleftarrow{t'} v^C_{s'})$ in $E_C$. Observe too that the $\group$ operator removes some nodes from $G_C$ but produces only one new node $v_{new}$ in $G_A$, so there are three cases to consider. Either (i) the relation is unchanged, so 
 $v^A_d = v^C_{d'}, t=t'$ and $v^A_s = v^C_{s'}$;
 (ii) one of the source or the destination node is a new (and therefore abstract) node which the $Group$ operator has inserted as a replacement for a set of nodes, and the other node is unchanged.
-In all cases the type of the relation should be unchanged. }
-\end{definition}
+In all cases the type of the relation must be unchanged, so $t=t'$. }
+
+
 
 \jwbtwo{To see that relations are justified in this sense, consider how the nodes  $v^A_d$ and $v^A_s$  in $(v^A_d \xleftarrow{t} v^A_s)$  were identified.
 %
@@ -488,19 +491,29 @@ In all cases the type of the relation should be unchanged. }
 }
 
 \jwbtwo{
-Considering (i) first, we need to show that the type of the relation remains unchanged during the abstraction operation. But if $v^A_s$ and $v^A_d$ have not changed, then, by Definition~\ref{def:in-out-int}, $v^A_s \nin \vartheta_{out}(V^*)$, $v^A_s \nin \vartheta_{in}(V^*)$, and $v^A_s \nin \vartheta_{int}(V^*)$  and so, by Definition~\ref{def:group-replace} neither is removed from $E_C$ in the transformation by $\group$ to $E_A$, and so the type of the relation does not change, so $t=t'$. 
-}
+Considering (i) first, we need to show that the type of the relation remains unchanged during the abstraction operation. But since $v^A_s$ and $v^A_d$ have not changed from the concrete graph, we know that $v^C_s, v^C_s \in V \setminus V^*$. }
 \jwbtwo{
-Considering (ii), $v^A_d$ is the new node $v_{new}$ and $v^A_s$ is unchanged. In this case, to justify the new relation, we need to show that there is a relation $(v^C_{d'} \xleftarrow{t'} v^C_{s'})$  in $E_C$, and that the operation of $\group$ produces the relation $(v_{new} \xleftarrow{t} v^A_{s})$ in $E_A$, where $V^A_s = V^C_{s'}$ and $t=t'$. 
+From this it follows that none of 
+$\vartheta_{out}(V^*)$,
+$\vartheta_{in}(V^*)$, and $\vartheta_{int}(V^*)$   apply  and so, by Definition~\ref{def:group-replace} neither $v^A_s$ or $v^A_d$ is removed from $E_C$ in the transformation by $\group$ to $E_A$, and so the type of the relation does not change,  $t=t'$.
+}
+
+\jwbtwo{
+Consider next case (ii), in which  $v^A_d$ is the new node $v_{new}$ and $v^A_s$ is unchanged. In this case, to justify the new relation, we need to show that there is a relation $(v^C_{d'} \xleftarrow{t'} v^C_{s'})$  in $E_C$, and that the operation of $\group$ produces the relation $(v_{new} \xleftarrow{t} v^A_{s})$ in $E_A$, where $V^A_s = V^C_{s'}$ and $t=t'$. 
 %
-We see this by considering the definition of $\vartheta_{in}(V^*)$ in Definition~\ref{def:in-out-int}. The source of the relation is unchanged, since $v_s \in V\setminus V^*$, so it is not in the set $V^*$ that has been chosen to be abstracted. The replacement relation is given by the definition of $\vartheta'_{in}(V^*)$ in Definition~\ref{def:var-in-out}, from which we see that the source and type of the relation are unchanged in $E_A$.
+We see this by considering the definition of $\vartheta_{in}(V^*)$ in Definition~\ref{def:in-out-int}. The source of the relation is unchanged, since $v_s \in V\setminus V^*$, so it is not in the set $V^*$ that has been chosen to be abstracted. 
+The type of $v_{new}$ is given by the type of the boundary nodes in $V^*$, and
+the replacement relation is given by the definition of $\vartheta'_{in}(V^*)$ in Definition~\ref{def:var-in-out}, from which we see that the source and type of the relation are unchanged in $E_A$.
 }
 
 \jwbtwo{
 Case (iii) is exactly similar, except that $v^A_s$ is the new node $v_{new}$ and $v^A_d$ is unchanged, and follows from inspection of $\vartheta_{out}(V^*)$ and $\vartheta'_{out}(V^*)$. 
 } 
 
+\jwbtwo{To see that this reasoning applies across all group operators ($group_{hom}$, t-grouping and strict e-grouping), observe that the definitions called upon in the reasoning about are the definitions of $\vartheta_{in},  \vartheta_{out}, \vartheta_{int}, \vartheta'_{in}$, and $\vartheta'_{out}$ in  Definitions~\ref{def:in-out-int} and ~\ref{def:var-in-out}, and the definition of $\repl$ in Definition~\ref{def:group-replace}, and that these do not change across any of the grouping operators. 
+}
 
+%\comment{boundary nodes}
 
 
 

@@ -18,9 +18,9 @@
 
 %\comment{must redraw fig 9 from events section}
 
-\comment{remove appendices and ack}
+%\comment{remove appendices and ack}
 
-\comment{ack agents section dropped}
+%\comment{ack agents section dropped}
 
 
 Dear Dr. Bryans,
@@ -67,9 +67,7 @@ It is strongly recommended that authors review the draft from the perspective of
 \jwb{Finally, ~\cite{Moreau2015} discusses~\cite{Cohen-Boulakiaetal2008}, in which the authors show how the user views that they present allow provenance to be reasoned about at different levels of abstraction. }
 \jwb{This understanding of abstraction, and of the ability to move between different levels of abstraction, is key to our understanding of the term here. }
 
-<<<<<<< HEAD
-\jwb{ Say abstraction is the usual word in this context (PROV) for this work back up with references. (eg)  The second reviewer (more experienced in PROV?) has no difficulty with the term. I suggest we include a brief discussion on terminology somewhere that makes reviewer ones points.} 
-=======
+
 \jwb{Finally, the second reviewer has offered no objection to the term.} 
 
 %\jwb{~\citep{Moreau2015} also discusses our own previous work~\citep{MBGCD14} uses it, and again raises no objection to the term.}
@@ -77,8 +75,6 @@ It is strongly recommended that authors review the draft from the perspective of
 %Our own previous work used it~\citep{MBGCD14}, and prior to that the work on Zoom~\citep{DBLP:conf/icde/BitonBDH08} and~\citep{Cohen-Boulakiaetal2008} used it, as does~\citep{ZinnLudascher2010}. These approaches are all discussed in~\citep{Moreau2015}. In each case the work is accepted and no issue with terminology is raised. }
 
 \jwb{We have therefore made no change to the term abstraction, but we have replaced the word obfuscation when it occurred.}
->>>>>>> 4dbbd56d55bd3a3b98a618ab77a90a96ff692454
-
 
 \item The introduction does not mention anything about the trust model between PA and IP on obtained provenance. Specifically if PA does not trust the obtained report, what guarantee does it have for trusting the obtained provenance. The authors must provide explanation as to why they think provided provenance will be trusted by PA. 
 
@@ -215,9 +211,6 @@ For example, one (unserious) solution could be to abstract the whole graph to a 
   \caption{  \label{fig:example1} no false dependencies}
 \end{figure}
 
-\comment{We are rather vague about ``no false dependencies''. For example in the figure~\ref{fig:example1}, the abstraction introduces an apparent dependency between e1 and e4 that was not there previously.  I suggest we ``refine the assumption'' to be ``no unjustified dependencies'' where a dependency is justified if it is made of individial wgBy and used  relationships all of which are justified and a relationship is justified if it was present in the original graph. The problem then reduces to showing that we introduce no unjustified links in the group operator, which we can do by inspection of replace. JWB to do. }
-
-
 
 In addition, I think the notion of correctness of abstractions in this paper needs to be compared with the notion of "sound" workflow views explored for ZOOM by Liu et al. [A].
 
@@ -255,7 +248,14 @@ Overall, I think the paper presents work that is worth publishing: I started out
 
 \item Clarify what part of the paper proves that that relations in the abstracted graph are "justified", and discuss the issue of how to avoid "abstracting too much".
 
-\comment{I think we can answer this, as I suggest in answer to Point 1. JWB to do.}
+\jwb{In Definition 10 we have clarified what we mean by "justified" relations. Essentially, nodes are justified if they are unchanged or represent a set of nodes where the boundary nodes are of the same type.   Relations are justified if the nodes are justified and the type is unchanged.
+}
+
+\comment{abstracting too much}
+
+%\comment{We are rather vague about ``no false dependencies''. For example in the figure~\ref{fig:example1}, the abstraction introduces an apparent dependency between e1 and e4 that was not there previously.  I suggest we ``refine the assumption'' to be ``no unjustified dependencies'' where a dependency is justified if it is made of individial wgBy and used  relationships all of which are justified and a relationship is justified if it was present in the original graph. The problem then reduces to showing that we introduce no unjustified links in the group operator, which we can do by inspection of replace. JWB to do. }
+
+%\comment{I think we can answer this, as I suggest in answer to Point 1. JWB to do.}
 
 \item Clarify the discussion of max/min and avoid apparent reliance on the maxima/minima already existing in the event structure for the original document.
 
@@ -265,6 +265,8 @@ Overall, I think the paper presents work that is worth publishing: I started out
     In essence, in the new formalisation we propose that abstract events be defined in terms of 'ground' events in the original graph, through a function that maps abstract events to \textit{sets} of ground events.
     Also, a preorder is defined on these events so that PROV-constraint validity can be established. We further introduce a new order relationship on sets of ground events, defined in terms of the original PROV-constraints preorder, and suggest that the mapping should be order-preserving. Finally, we indicate and justify a specific definition for the mapping function.
 }
+
+
 
   
 \item Clarify assumptions needed for the existing algorithm to work in the presence of agents.

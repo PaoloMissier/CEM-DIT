@@ -34,8 +34,10 @@ As the operator is closed under composition, further abstraction can be achieved
 \jwbtwo{We take a functional approach to the definition of $group$, by defining three subordinate functions and then defining $\group$ as the functional composition of these subordinate functions. }
 
 \jwbtwo{In Section~\ref{sec:closure} we make the simplifying assumption that the set of nodes to be removed are all of the same type (either all $\en$ or all $\act$). We refer to this as \emph{homogeneous grouping} and the replacement node is imlicitly of the same type as the nodes selected to be removed.}
-\jwbtwo{In Section~\ref{sec:generalisation} we remove this assumption, so the group of nodes initially selected to be removed can contain both entities and activities. A consequence of this is that the type of the replacement node is no longer implicit, and  must be  explicitly given. This leads to two variants of the operator,  depending on which type ($\en$ or $\act$) is chosen for the final replacement node.   }
+\jwbtwo{In Section~\ref{sec:generalisation} we remove this assumption, so the group of nodes initially selected to be removed can contain both entities and activities. A consequence of this is that the type of the replacement node is no longer implicit, and  must be  explicitly given. This leads to two variants of the operator,  depending on which type ($\en$ or $\act$) is chosen for the final replacement node.  In Section~\ref{sec:generalisation} we also identify an issue arising from simultaneous generation, and show how it may be circumvented, leading to a further varient of $\group$.  }
 
+\jwbtwo{In Section~\ref{sec:justifying} we show that the relations in the abstract graph produced by any of the $\group$ operators are \emph{justified} by the original graph, and in Section~\ref{sec:complexity} we discuss the issue of the complexity of the operator.
+}
 
 %
 %To get a quick intuition of the  problems faced in the definition of the grouping operator, consider the transformation in Fig.~\ref{fig:non-convex-ex-1}, where nodes $V_{gr} = \{e_1, e_3, e_4, e_5\}$ are simply replaced with new node $e'$ in the example graph of Fig.~\ref{fig:baseline-ug-ae}, and all edges in and out of nodes in $V_{gr}$ are just ``rewired'' in and out of $e'$. 
@@ -458,7 +460,8 @@ G' & \!\text{if}~~ |\!\!V_{gen}\!| ~~\leq 1  \\
 %
 
 
-\jwbtwo{\subsection{Justifying relations}} \label{sec:justifying}
+\subsection{Justifying relations}
+\label{sec:justifying}
 
 \jwbtwo{In this section, we clarify what it means to say that relations in the abstract graph are justified, and show that the relations produced by the $\group$ operator (more properly, the family of $\group$ operators) are justified.} 
 
@@ -477,7 +480,7 @@ An abstract graph is justified if the nodes and relations in it are justified. }
 
 
  
-\jwbtwo{To see that the $\group$ operator produces justified abstract graphs, consider two graphs: a concrete one, $C$, represented by the graph $G_{C} = (V_C,E_C)$, and an abstract one $A$, represented by the graph $G_{A} = (V_A,E_A)$.
+\jwbtwo{To see that the $\group$ operator produces justified abstract graphs, consider two graphs: a concrete one, $C$, represented by the graph $G_C = (V_C,E_C)$, and an abstract one $A$, represented by the graph $G_A = (V_A,E_A)$.
 If $(v^A_d \xleftarrow{t} v^A_s)$ is a relation in $E_A$ of type $t$,  we need to show that there is a justifying relation $(v^C_{d'} \xleftarrow{t'} v^C_{s'})$ in $E_C$. Observe too that the $\group$ operator removes some nodes from $G_C$ but produces only one new node $v_{new}$ in $G_A$, so there are three cases to consider. Either (i) the relation is unchanged, so 
 $v^A_d = v^C_{d'}, t=t'$ and $v^A_s = v^C_{s'}$;
 (ii) one of the source or the destination node is a new (and therefore abstract) node which the $Group$ operator has inserted as a replacement for a set of nodes, and the other node is unchanged.
@@ -491,15 +494,15 @@ In all cases the type of the relation must be unchanged, so $t=t'$. }
 }
 
 \jwbtwo{
-Considering (i) first, we need to show that the type of the relation remains unchanged during the abstraction operation. But since $v^A_s$ and $v^A_d$ have not changed from the concrete graph, we know that $v^C_s, v^C_s \in V \setminus V^*$. }
+Considering case (i) first, we need to show that the type of the relation remains unchanged during the abstraction operation. But since $v^A_s$ and $v^A_d$ have not changed from the concrete graph, we know that $v^C_s, v^C_d \in V \setminus V^*$. }
 \jwbtwo{
-From this it follows that none of 
+From this, and observation of Definition~\ref{def:in-out-int},  it follows that none of 
 $\vartheta_{out}(V^*)$,
-$\vartheta_{in}(V^*)$, and $\vartheta_{int}(V^*)$   apply  and so, by Definition~\ref{def:group-replace} neither $v^A_s$ or $v^A_d$ is removed from $E_C$ in the transformation by $\group$ to $E_A$, and so the type of the relation does not change,  $t=t'$.
+$\vartheta_{in}(V^*)$, and $\vartheta_{int}(V^*)$   apply  and so, by Definition~\ref{def:group-replace}, neither $v^A_s$ or $v^A_d$ is removed from $V_C$ in the transformation by $\group$ to $V_A$. Thus the relationship is maintained in $E_A$, and the type of the relation in $E_A$ does not change,  $t=t'$.
 }
 
 \jwbtwo{
-Consider next case (ii), in which  $v^A_d$ is the new node $v_{new}$ and $v^A_s$ is unchanged. In this case, to justify the new relation, we need to show that there is a relation $(v^C_{d'} \xleftarrow{t'} v^C_{s'})$  in $E_C$, and that the operation of $\group$ produces the relation $(v_{new} \xleftarrow{t} v^A_{s})$ in $E_A$, where $V^A_s = V^C_{s'}$ and $t=t'$. 
+Consider next case (ii), in which  $v^A_d$ is the new node $v_{new}$ and $v^A_s$ is unchanged. In this case, to justify the new relation, we need to show that there is a relation $(v^C_{d'} \xleftarrow{t'} v^C_{s'})$  in $E$, and that the operation of $\group$ produces the relation $(v_{new} \xleftarrow{t} v^A_{s})$ in $E_A$, where $V^A_s = V^C_{s'}$ and $t=t'$. 
 %
 We see this by considering the definition of $\vartheta_{in}(V^*)$ in Definition~\ref{def:in-out-int}. The source of the relation is unchanged, since $v_s \in V\setminus V^*$, so it is not in the set $V^*$ that has been chosen to be abstracted. 
 The type of $v_{new}$ is given by the type of the boundary nodes in $V^*$, and
@@ -510,7 +513,7 @@ the replacement relation is given by the definition of $\vartheta'_{in}(V^*)$ in
 Case (iii) is exactly similar, except that $v^A_s$ is the new node $v_{new}$ and $v^A_d$ is unchanged, and follows from inspection of $\vartheta_{out}(V^*)$ and $\vartheta'_{out}(V^*)$. 
 } 
 
-\jwbtwo{To see that this reasoning applies across all group operators ($group_{hom}$, t-grouping and strict e-grouping), observe that the definitions called upon in the reasoning about are the definitions of $\vartheta_{in},  \vartheta_{out}, \vartheta_{int}, \vartheta'_{in}$, and $\vartheta'_{out}$ in  Definitions~\ref{def:in-out-int} and ~\ref{def:var-in-out}, and the definition of $\repl$ in Definition~\ref{def:group-replace}, and that these do not change across any of the grouping operators. 
+\jwbtwo{To see that this reasoning applies across all group operators ($group_{hom}$, t-grouping, e-grouping and strict e-grouping), observe that the definitions called upon in the reasoning above are the definitions of $\vartheta_{in},  \vartheta_{out}, \vartheta_{int}, \vartheta'_{in}$, and $\vartheta'_{out}$ in  Definitions~\ref{def:in-out-int} and ~\ref{def:var-in-out}, and the definition of $\repl$ in Definition~\ref{def:group-replace}, and that these do not change across any of the grouping operators. 
 }
 
 %\comment{boundary nodes}
@@ -553,22 +556,33 @@ This is a linear problem in the worst case, namely when the closure contains all
 
 \subsection{Summary}
 %\comment{finishing para}
-\jwb{In this section we have presented operators that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes of the same type, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this work to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node. %Section~\ref{sec:allowing} shows that multiple applications of $\group$ give the same result irrespective of order. 
-}
+\jwb{We have presented operators that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes of the same type, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this work to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node}\jwbtwo{, and gave a further extension to deal with a problem arising from simultaneous generation of events. Section~\ref{sec:justifying} showed that the newly created relations were justified, and Section~\ref{sec:complexity} discussed the complexity of the new operator.}
 
-\jwb{It is clear that, in order to meet our initial requirement of maintaining type-correctness of the abstracted graph, in general more nodes than just the original ones selected will have to \jwbtwo{be} hidden. This has implications for the use of this operator, especially given that hidden information may be a critical part of the graph. We address this  problem in~\citep{MBGCD14} where we present a simple policy model and language for controlling abstraction, in the context where provenance owners want to control the disclosure of their provenance graphs. There, the owner defines a policy which results in a sensitivity value being associated with nodes, which gives us a means of evaluating the ``damage'' to a graph caused by the abstraction operator.}
-\jwb{In~\citep{MBGCD14} we do this by means of defining a property \emph{utility} as a counterpart to sensitivity. It is used to indicate  the interest of the provenance owner in ensuring that a node be retained as part of the graph, as it represents important evidence which is not sensitive.   The utility values associated to different nodes are used to quantify any loss of utility as a result of the application of \emph{group} though a measure of \emph{residual utility}. If we write the utility of a node $n$ as $u(n)$, and  $V_{ret} = V / V_{gr}$ is the set of nodes \emph{not} intended to be hidden, and $V'_{ret} \subset V_{ret}$ the nodes which were in fact retained after grouping, the  residual utility is simply
+It is clear that, in order to meet our initial requirement of maintaining type-correctness of the abstracted graph, in general more nodes than just the original ones selected will have to \jwbtwo{be} hidden.
+This has implications for the use of this operator, especially given that hidden information may be a critical part of the graph.
+
+\jwbtwo{The approach that we take in this paper is to develop the operator without paying attention to the risk of removing too much information.}
+\jwbtwo{This has the advantage that it allows us to ensure that the operator maintains the PROV-compliance of the new graph, but with the disadvantage that the loss of information cannot be controlled.}
+
+
+Another approach is to break the initial set chosen by the user into multiple smaller sets, thereby reducing the amount of extra information hidden. This could be taken to its logical limit by abstracting individual nodes, but this  would have to be balanced  against the increasing revelation of the structure of the graph. The significance of this trade off would have to be considered in a particular context, and  a full investigation is beyond the scope of this paper.
+  
+
+
+\jwbtwo{One approach to controlling the loss of information is to sub-divide the initial set of chosen nodes into groups, and to apply the operator to each of these groups in turn. The PROV-compliance of the resulting graphs ensures that this is possible, and abstracted graphs can be further abstracted.}
+\jwbtwo{This subdivision could be done manually, at the cost of a greater cognitive load for the user, but ideally would be done automatically, with the algorithm searching for an ``ideal" subdivision.}
+\jwbtwo{Care would be required to develop this automatic approach properly. For example the subdivision could be taken to its logical limit by abstracting individual nodes, but this  would have to be balanced  against the increasing revelation of the structure of the graph. Understanding these trade-offs to develop an automatic approach would require substantial testing and evaluation.}
+
+\jwbtwo{This approach would also require a measure of evaluating the ``damage'' to a graph caused by an application of an abstraction operator. }
+We address \jwbtwo{the issue of damage evaluation}  in~\citep{Missier2014} where we present a simple policy model and language for controlling abstraction, in the context where provenance owners want to control the disclosure of their provenance graphs. There, the owner defines a policy which results in a sensitivity value being associated with nodes, which gives us a means of evaluating the ``damage'' to a graph caused by the abstraction operator.
+In~\citep{Missier2014} we do this by means of defining a property \emph{utility} as a counterpart to sensitivity. It is used to indicate  the interest of the provenance owner in ensuring that a node be retained as part of the graph, as it represents important evidence which is not sensitive.   The utility values associated to different nodes are used to quantify any loss of utility as a result of the application of \emph{group} though a measure of \emph{residual utility}. If we write the utility of a node $n$ as $u(n)$, and  $V_{ret} = V / V_{gr}$ is the set of nodes \emph{not} intended to be hidden, and $V'_{ret} \subset V_{ret}$ the nodes which were in fact retained after grouping, the  residual utility is simply
 \begin{align}
   RU_{V} = \frac{\Sigma_{n\in V'_{ret}} u(n)}{\Sigma_{n\in V_{ret}} u(n)}
 \end{align}
   which is a measure of the proportion of the graph utility not selected by the grouping operator. 
-}
 
 
 
+%\comment{Address: It is not evident what is the impact of hiding information which the user did not select, especially information that was obfuscated to maintain validity?  What if the non selected obfuscated content is actually the information that must be communicated between the two parties. }
 
-\comment{Address: It is not evident what is the impact of hiding information which the user did not select, especially information that was obfuscated to maintain validity?  What if the non selected obfuscated content is actually the information that must be communicated between the two parties. }
-
-\jwb{Another approach is to break the initial set chosen by the user into multiple smaller sets, thereby reducing the amount of extra information hidden. This could be taken to its logical limit by abstracting individual nodes, but this  would have to be balanced  against the increasing revelation of the structure of the graph. The significance of this trade off would have to be considered in a particular context, and  a full investigation is beyond the scope of this paper.
-  }
 

@@ -243,7 +243,9 @@ Overall, I think the paper presents work that is worth publishing: I started out
 \jwb{In Definition 10 we have clarified what we mean by "justified" relations. Essentially, nodes are justified if they are unchanged or represent a set of nodes where the boundary nodes are of the same type.   Relations are justified if the nodes are justified and the type is unchanged.
 }
 
-\comment{abstracting too much}
+\jwb{We address the issue of abstracting too much in Section 4.5. Essentially, our approach in the paper is to ensure the PROV-compliance of the result of the group operator.  In section 4.5 we outline an approach to the issue of abstracting too much. We propose subdividing the nodes selected and applying the group operator to each subdivision in turn. Identifying the "right" subdivision would take substantial care and evaluation of alternatives, and would detract from the focus of the paper.}
+
+
 
 %\comment{We are rather vague about ``no false dependencies''. For example in the figure~\ref{fig:example1}, the abstraction introduces an apparent dependency between e1 and e4 that was not there previously.  I suggest we ``refine the assumption'' to be ``no unjustified dependencies'' where a dependency is justified if it is made of individial wgBy and used  relationships all of which are justified and a relationship is justified if it was present in the original graph. The problem then reduces to showing that we introduce no unjustified links in the group operator, which we can do by inspection of replace. JWB to do. }
 
@@ -288,7 +290,7 @@ Of course, I would also be happy with more substantial changes that address the 
 
 \subsubsection*{Detailed comments}
 
-\comment{Mostly, I can do these.}
+%\comment{Mostly, I can do these.}
 
 The paper is overall in fairly good shape, there were few typos or difficult-to-follow points.
 
@@ -299,7 +301,7 @@ p10: "Further extensions... wasDerivedFrom and wasInformedBy" - while wasInforme
 p12.  I think it would help discussion to clarify that there might be many preorders $(Ev,\preceq)$ that are consistent with a given, valid PROV document, and throughout this and the next section you are fixing one such preorder.  I think it would also be helpful (if you do as I suggest above) to distinguish between the preorder $(Ev,\preceq)$ that is given for the original document, and a new one that you construct $(Ev',\preceq')$, that extends $(Ev,\preceq)$ with any new events needed to describe the new edge relationships introduced for the abstracted node.  Likewise, it would be helpful to state the constraint-preservation result somewhere explicitly as a theorem so that it is clear what formal property corresponds to the informal description given earlier.
 
 
-
+\comment{answer}
 
 p12.  In the formula $\preceq \subset Ex \times Ev$, there should be space between the preorder and subset symbols
 
@@ -326,9 +328,10 @@ p16.  The figures fall off the edge of the page.
 
 \comment{I think this is dealt with sufficiently now.} \comment{print out final and check}
 
-p17.  In definition 3 and following discussion, I had to think for a minute to convince myself that extend correctly ensures that boundary nodes are of type t.  I think this happens to be the case for bipartite $PG_{gu/ea}$ graphs.  The definition ensures that all added nodes are of type t, but if more edges or node types are present then it seems possible that this definition might leave some boundary nodes of other types. \comment{It's because we are assuming here that $t\in\{e,a\}$  } Please say a little more here since this fact is relied on later and then when agents are considered I think the correctness of extend when t = e or a needs to be revisited. \comment{Need to think about this point}
+p17.  In definition 3 and following discussion, I had to think for a minute to convince myself that extend correctly ensures that boundary nodes are of type t.  I think this happens to be the case for bipartite $PG_{gu/ea}$ graphs.  The definition ensures that all added nodes are of type t, but if more edges or node types are present then it seems possible that this definition might leave some boundary nodes of other types.  Please say a little more here since this fact is relied on later and then when agents are considered I think the correctness of extend when t = e or a needs to be revisited. 
 
-\jwb{Decision is to drop the (less mature) work on agents} \comment{Need to implement this decision in paper}
+\jwb{We have chosen to drop the (less mature) work on agents} 
+%\comment{Need to implement this decision in paper}
 
 p21.  In the "if $|V_{gen}| \leq 1$" side condition, there is unnecessary spacing between "|" and "V" and missing spacing between "|" and "$\leq$".
 
@@ -360,39 +363,53 @@ p24. In figure 10, I was uncertain whether your model allows multiple edges of t
 
 p24. "wgby" was elsewhere called genBy as well as wgBy (in figures)
 
+\jwb{fixed}
+
 p27 "Let V* to" - remove "to"
+
+\jwb{fixed}
 
 p27.  "abstracted prov graph" -> "...PROV..."
 
+\jwb{fixed}
+
 p27.  "following equalities, define" remove comma
+
+\jwb{fixed}
 
 p28. Most of the definitions in this section have "e-grouping" in parentheses except definition 11.  This seems inconsistent (though I think you could get rid of all of them).  Also, why isn't definition 11 exactly like definition 9 up to symmetry?
 
-\comment{Don't know..}
+\jwb{fixed}
 
 p30.  In definition 15, the generation events are simultaneous but not necessarily equal. 
 
+\jwb{fixed}
+
 p30. "the event of the invalidation event" - there seem to be extra words
+
+\jwb{fixed}
 
 p34: "agent nodes are always the targets of directed edges" - this relies on the unstated assumption that agent nodes are disjoint from entity/activity nodes.  In general, an agent node that is also an entity or activity could be the source of a directed edge (use, generation etc.)
 
-\comment{must make this assumption clear}
+\jwb{fixed}
 
 p34. "or its symmetric," -> "or its symmetric form,"
 
-p35.  There are occurrences of both "obo" and "abo" as abbreviations for "actedOnBehalfOf", please make consistent.
+\jwb{fixed}
 
+p35.  There are occurrences of both "obo" and "abo" as abbreviations for "actedOnBehalfOf", please make consistent.
+\jwb{fixed}
 
 
 p36.  Removing edges and removing isolated nodes seems undesirably lossy to me.   For example if there was already an isolated agent node in the graph you would discard it even though it was not disconnected as a result of abstraction.
-\comment{good point}
+\jwb{fixed}
 Edges that are no longer well-typed could be replaced with wasInfluencedBy edges which can link any entity/activity/agent nodes.  This would avoid the disconnection problem.
 Anyway, if you solve the disconnection problem by discarding isolated nodes, you might still wind up with a less connected graph (e.g. what if ag4 in figure 15 was also acting on behalf of some ag5). These won't be discarded because they are not isolated.
-\comment{not sure how to solve this one}
+\jwb{fixed}
 
 p37. "will not introduce false information" - as mentioned above, I'm not sure this claim has been supported in the paper; in any case, I think it should be clearer that the claim means "no new edges/nodes are added", but some edges/nodes present in the graph could be deleted, and this might create false impressions that two things are not connected even though they were connected in the original graph.  For example, suppose ag42 has agents acting on behalf of it in two subgraphs.  I abstract subgraph 1 into activity 1 and subgraph 2 into activity 2, so the actedOnBehalfOf edges no longer typecheck and go away.  I also discard ag42 since it is now isolated.  The resulting graph is now two disconnected abstract nodes, and the fact that there was a single agent involved somehow in both of them is no longer present in the graph.  If that was information I wanted to know, then I might indeed think the abstracted graph is misleading unless it is clear that abstraction can discard this kind of information.  (That in turn is a reason, to me at least, to consider retaining such edges as influences if no more specific relationship is appropriate after abstraction).
 
-\comment{Is the assumption we actually work with that agents are on the ``outside'' of the graph? We should make this clear if so.}
+\comment{make sure this is fixed}
 
 p37. "PROV-CONSTR" -> "PROV-CONSTRAINTS"?
 
@@ -402,9 +419,11 @@ p38. Citation 9: include URL
 
 p41.  The discussion at the beginning of the section seems to conflate times and events (e.g. start(a) is referred to as a start time).
 
-\comment{how do we write ``time at which start(a) occurs''?}
+\jwb{removed}
 
 p41. In C2, the goal is to show that generations are equal, not just simultaneous, but this is stronger than needed (which is fine).  This happens again in discussion of C2 for a-grouping on page 44.
+
+\jwb{removed}
 
 p43-46.  There are several chains of equational/relational reasoning that are not typeset very readably.  I suggest reformatting as:
 
@@ -417,6 +436,8 @@ expression 2 \\
  = {reason n-1} \\
 expression n \\
 \end{tabular}
+
+\jwb{removed}
 
 References
 [A] Ziyang Liu, Susan B. Davidson, and Yi Chen. 2011. Generating sound workflow views for correct provenance analysis. ACM Trans. Database Syst. 36, 1, Article 6 (March 2011), 35 pages. DOI: https://doi.org/10.1145/1929934.1929940

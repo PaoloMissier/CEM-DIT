@@ -532,15 +532,18 @@ Firstly, observe that the closure operator can be reduced to a special case of t
 Specifically, given two nodes $v_1, v_2 \in V_{gr}$ such that $v_1$ is reachable from $v_2$, we need to collect all nodes along \textit{all} paths that connect $v_1$ to $v_2$.
 This can be accomplished by enumerating all nodes $x$ that are reachable from each $v \in V_{gr}$ while keeping track of the corresponding paths. Whenever $ x \in V_{gr}$, we collect all nodes along the recorded path from $v$ to $x$.
 }
+
 \paolo{
 It is easy to see that the worst-case scenario occurs when the nodes in $V_{gr}$ are located at the two ends of the graph, i.e., they are either source or sink nodes.
 In such case, the reachability algorithm needs to visit \textit{all} nodes $V$ and \textit{all} edges $E$ in the graph, and it must additionally keep track of all edges it traverses.
 }
+
 \paolo{
 Using a simple BFS approach,  we can solve the reachability problem in $O(\mid V\mid + |E|)$ steps, which in the worst-case is $O(|V|^2)$, with $O(\mid E\mid)$ space complexity for recording all edges. 
 Note that the many algorithms that exist to address the problem aim to strike a balance between the cost of pre-processing the graph in order to efficiently answer multiple reachability queries, and the complexity of each individual query.
 In our case, however, we can dispense with pre-processing as we expect the closure over $V_{gr}$ to be computed only once.\footnote{Note however that, when consecutive abstraction rounds are envisioned, i.e., abstraction over abstracted graphs, pre-processing may be appropriate, but that needs to be balanced against the cost of updating the data structures after each abstraction round.}
 }
+
 \paolo{
 An experimental evaluation of the actual cost of computing closures in practice is beyond the scope of this paper, which is focused on the theoretical underpinnnings of the abstraction operations.
 However, two factors suggest that the practical complexity will be considerably less than the worst-case.
@@ -548,11 +551,36 @@ Firstly, we can stop the graph traversal as soon as we have visited all $V_{gr}$
 Note also that in this case the abstraction will consist of one single abstract node that represents the entire graph, because the closure will include all nodes, which is unlikely to be a desired outcome.
 And secondly, in a \jwbtwo{$\guEA$} graph not all edges are allowed, in fact \jwbtwo{$\guEA$ graphs are} bipartite with respect \jwbtwo{to} the nodes types (entities and activities). Furthermore, there is at most one generating activity per entity. These factors greatly reduce the expected number of edges to much less than the theoretical \jwbtwo{maximum} $|V|^2$.
 }
+
 \paolo{
 Regarding the $\extend()$ operator, note that this requires all nodes in $\pclos(V_{gr}, G)$ to be visited in order to check their type and possibly extend the closure to their immediate successors. 
 This is a linear problem in the worst case, namely when the closure contains all nodes in the graph (in practice, we expect the closure to be much smalller than the graph).
 %}
 }
+
+\subsection{An alternative ``lossy'' approach to abstraction}  \label{sec:influence}
+
+Our entire approach is based on the premise that we aim to preserve the original $\used$ and $\wgby$ relationships, possibly at the expense of incorporating additional nodes into the abstraction, i.e., by means of the $\extend()$ operator.
+For completeness, we mention here one alternative approach involving PROV's influence relationship: \textit{An influence relation between two objects $o_2$ and $o_1$ is a generic dependency of $o_2$ on $o_1$ that signifies some form of influence of $o_1$ on $o_2$}\footnote{https://www.w3.org/TR/prov-dm/\#term-influence}.
+
+The generic nature of the influence relationship, denoted $\influence$, is captured formally in the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}, specifically Inference 15\footnote{https://www.w3.org/TR/2013/REC-prov-constraints-20130430/\#influence-inference}  which states that $\influence(id; e, a, attrs)$ follows from both $\used(id; a,e,_t,attrs)$ and from $\wgby(id; e,a,_t,attrs)$, and that $\influence(id; a2, a1, attrs)$ follows from $\wasInfBy(id; a2,a1,attrs)$.
+
+This inference rule justifies replacing $\used$ and $\wgby$ relationships as needed. 
+Consider Fig.~\ref{fig:influence}, where the starting point is the same as in Fig.~\ref{fig:e2-a4} and the goal is to abstract the set $\{e_2, a_2\}$. As we have seen, this can be accomplished through either e-grouping or a-grouping. 
+Considering first a-grouping (left in the figure), first we generalise $e_4 ~wgby ~a_1$ to $e_4 ~\influence ~ a_1$ as shown on the left hand side. At this point, $a_2$ and $e_4$ are collapsed into the new $a_{new}$ node, but notice that there is no need to expand the grouping set, i.e., to include $a_1$, because the new PROV graph at the bottom left is already type-correct. In particular, note that $a_{new2} ~ \used ~ a_5$ is a legal relationship, and is justified according to the argument in the previous section.
+
+Similarly, we can easily construct a valid abstract PROV graph for e-grouping without using $\extend()$, by first generalising $a_2~\used~e_5$ to $a_2~\influence~e_5$, then creating the abstract entity node $e_{new}$, and connecting the node to the rest of the graph as shown in the bottom right part of the figure.
+
+With this approach we relax the requirement that the original relationships be preserved, accepting to use the more generic $\influence$ relationship in return for not having to expand the grouping set to include ``boundary'' nodes to ensure type-correctness.
+
+
+\begin{figure*}
+	\centering
+	%\includegraphics[scale=.5]{figures/convex-a-only-revision.pdf} 
+	\includegraphics[scale=.5]{wasInfluencedBy-example.pdf} 
+	\caption{Abstraction by relationship generalisation} \label{fig:influence}
+\end{figure*}
+
 
 \subsection{Summary}
 %\comment{finishing para}

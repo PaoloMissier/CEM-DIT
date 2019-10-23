@@ -560,18 +560,20 @@ This is a linear problem in the worst case, namely when the closure contains all
 
 \subsection{An alternative ``lossy'' approach to abstraction}  \label{sec:influence}
 
-Our entire approach is based on the premise that we aim to preserve the original $\used$ and $\wgby$ relationships, possibly at the expense of incorporating additional nodes into the abstraction, i.e., by means of the $\extend()$ operator.
-For completeness, we mention here one alternative approach involving PROV's influence relationship: \textit{An influence relation between two objects $o_2$ and $o_1$ is a generic dependency of $o_2$ on $o_1$ that signifies some form of influence of $o_1$ on $o_2$}\footnote{https://www.w3.org/TR/prov-dm/\#term-influence}.
+\paolotwo{Our entire approach is based on the premise that we aim to preserve the original $\used$ and $\wgby$ relationships, possibly at the expense of incorporating additional nodes into the abstraction, i.e., by means of the $\extend()$ operator.
+For completeness, we mention here one alternative approach involving PROV's influence relationship: \textit{An influence relation between two objects $o_2$ and $o_1$ is a generic dependency of $o_2$ on $o_1$ that signifies some form of influence of $o_1$ on $o_2$}\footnote{https://www.w3.org/TR/prov-dm/\#term-influence}.}
 
-The generic nature of the influence relationship, denoted $\influence$, is captured formally in the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}, specifically Inference 15\footnote{https://www.w3.org/TR/2013/REC-prov-constraints-20130430/\#influence-inference}  which states that $\influence(id; e, a, attrs)$ follows from both $\used(id; a,e,_t,attrs)$ and from $\wgby(id; e,a,_t,attrs)$, and that $\influence(id; a2, a1, attrs)$ follows from $\wasInfBy(id; a2,a1,attrs)$.
+\paolotwo{The generic nature of the influence relationship, denoted $\influence$, is captured formally in the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}, specifically Inference 15\footnote{https://www.w3.org/TR/2013/REC-prov-constraints-20130430/\#influence-inference}  which states that $\influence(id; e, a, attrs)$ follows from both $\used(id; a,e,_t,attrs)$ and from $\wgby(id; e,a,_t,attrs)$, and that $\influence(id; a2, a1, attrs)$ follows from $\wasInfBy(id; a2,a1,attrs)$.}
 
-This inference rule justifies replacing $\used$ and $\wgby$ relationships as needed. 
+\paolotwo{This inference rule justifies replacing $\used$ and $\wgby$ relationships as needed. 
 Consider Fig.~\ref{fig:influence}, where the starting point is the same as in Fig.~\ref{fig:e2-a4} and the goal is to abstract the set $\{e_2, a_2\}$. As we have seen, this can be accomplished through either e-grouping or a-grouping. 
 Considering first a-grouping (left in the figure), first we generalise $e_4 ~wgby ~a_1$ to $e_4 ~\influence ~ a_1$ as shown on the left hand side. At this point, $a_2$ and $e_4$ are collapsed into the new $a_{new}$ node, but notice that there is no need to expand the grouping set, i.e., to include $a_1$, because the new PROV graph at the bottom left is already type-correct. In particular, note that $a_{new2} ~ \used ~ a_5$ is a legal relationship, and is justified according to the argument in the previous section.
+}
 
-Similarly, we can easily construct a valid abstract PROV graph for e-grouping without using $\extend()$, by first generalising $a_2~\used~e_5$ to $a_2~\influence~e_5$, then creating the abstract entity node $e_{new}$, and connecting the node to the rest of the graph as shown in the bottom right part of the figure.
+\paolotwo{Similarly, we can easily construct a valid abstract PROV graph for e-grouping without using $\extend()$, by first generalising $a_2~\used~e_5$ to $a_2~\influence~e_5$, then creating the abstract entity node $e_{new}$, and connecting the node to the rest of the graph as shown in the bottom right part of the figure.
+}
 
-With this approach we relax the requirement that the original relationships be preserved, accepting to use the more generic $\influence$ relationship in return for not having to expand the grouping set to include ``boundary'' nodes to ensure type-correctness.
+\paolotwo{With this approach we relax the requirement that the original relationships be preserved, accepting to use the more generic $\influence$ relationship in return for not having to expand the grouping set to include ``boundary'' nodes to ensure type-correctness.}
 
 
 \begin{figure*}
@@ -589,17 +591,15 @@ With this approach we relax the requirement that the original relationships be p
 It is clear that, in order to meet our initial requirement of maintaining type-correctness of the abstracted graph, in general more nodes than just the original ones selected will have to \jwbtwo{be} hidden.
 This has implications for the use of this operator, especially given that hidden information may be a critical part of the graph.
 
-\jwbtwo{The approach that we take in this paper is to develop the operator without paying attention to the risk of removing too much information.}
-\jwbtwo{This has the advantage that it allows us to ensure that the operator maintains the PROV-compliance of the new graph, but with the disadvantage that the loss of information cannot be controlled.}
+\jwbtwo{The choice that we make in this paper is to develop the abstraction operator without paying attention to the risk of removing too much information.}
+\jwbtwo{This has the advantage that it allows us to ensure that the operator maintains the PROV-compliance of the new graph, but the disadvantage that the loss of information cannot be controlled.}
 
-
-Another approach is to break the initial set chosen by the user into multiple smaller sets, thereby reducing the amount of extra information hidden. This could be taken to its logical limit by abstracting individual nodes, but this  would have to be balanced  against the increasing revelation of the structure of the graph. The significance of this trade off would have to be considered in a particular context, and  a full investigation is beyond the scope of this paper.
+\jwbtwo{An alternative} approach is to \jwbtwo{sub-divide} the initial set chosen by the user into multiple smaller sets, thereby reducing the amount of extra information hidden. \jwbtwo{This subdivision could be done manually, at the cost of a greater cognitive load for the user, but ideally would be done automatically, with the algorithm searching for an ``ideal" subdivision according to some optimisation function.} 
+\jwbtwo{Care would be required to develop this algorithm. For example the subdivision could be taken to its logical limit by abstracting individual nodes, but this  would have to be balanced  against the increasing revelation of the structure of the graph. Understanding these trade-offs to develop an automatic approach would require substantial testing and evaluation.}  The significance of this trade off would have to be considered in a particular context, and  a full investigation is beyond the scope of this paper.
   
 
 
-\jwbtwo{One approach to controlling the loss of information is to sub-divide the initial set of chosen nodes into groups, and to apply the operator to each of these groups in turn. The PROV-compliance of the resulting graphs ensures that this is possible, and abstracted graphs can be further abstracted.}
-\jwbtwo{This subdivision could be done manually, at the cost of a greater cognitive load for the user, but ideally would be done automatically, with the algorithm searching for an ``ideal" subdivision.}
-\jwbtwo{Care would be required to develop this automatic approach properly. For example the subdivision could be taken to its logical limit by abstracting individual nodes, but this  would have to be balanced  against the increasing revelation of the structure of the graph. Understanding these trade-offs to develop an automatic approach would require substantial testing and evaluation.}
+%\jwbtwo{One approach to controlling the loss of information is to sub-divide the initial set of chosen nodes into groups, and to apply the operator to each of these groups in turn. 
 
 \jwbtwo{This approach would also require a measure of evaluating the ``damage'' to a graph caused by an application of an abstraction operator. }
 We address \jwbtwo{the issue of damage evaluation}  in~\citep{Missier2014} where we present a simple policy model and language for controlling abstraction, in the context where provenance owners want to control the disclosure of their provenance graphs. There, the owner defines a policy which results in a sensitivity value being associated with nodes, which gives us a means of evaluating the ``damage'' to a graph caused by the abstraction operator.

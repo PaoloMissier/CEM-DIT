@@ -1,14 +1,45 @@
 \section{Related Work}  \label{sec:related}
 
-Work related to our research is broadly motivated either by the need to simplify provenance graphs to facilitate their understanding by humans, or to enforce access control over parts of the graph, or to summarise a collection of similar provenance graphs in order to reduce both space and query complexity.
+%Work on provenance abstraction generally combines two elements, namely a technique or algorithm for graph editing, and a policy to drive the algorithm. As mentioned, in this paper we focus exclusively on the former, while the latter is described in a separate paper\jwb{~\citep{Missier2014}.}
 
-\subsection{Creating views over provenance}
+\paolotwo{Multiple  strands of research relate to our work.
+These include creating views over a provenance graph to reduce its complexity, redacting a graph (including non-provenance graphs, such as a social media network) to obfuscate or remove some its sensitive elements, and summarising a collection of graphs. 
+We also mention graph access control and anonymisation techniques, which are more peripheral to our work.}
 
-Work on provenance abstraction generally combines two elements, namely a technique or algorithm for graph editing, and a policy framework to drive the algorithm. As mentioned, in this paper we focus exclusively on the former, while the latter is described in a separate paper\jwb{~\citep{Missier2014}.}
+\paolotwo{\subsection{Provenance views and graph redaction}}
 
- 
+\paolotwo{
+	Graph redaction is used in ~\citep{Blaustein:2011:SPP:2002974.2002979} to rewrite a graph where particular nodes, node properties, or relationship instances are sensitive. The technique relies on the notion of \textit{surrogates}, which are less sensitive versions of the graph where some information has been either removed or replaced, depending on the clearance level of the user who has access to the graph. 
+If a measure of \textit{utility} is associated with elements of the graph, removing or redacting graph elements may reduce the residual utility, and may also result in loss of connectivity. The paper 
+paper describes techniques for generating surrogates that achieve a desired protection level, while maximizing graph connectivity and minimising utility loss. 
+The technique applies to generic graphs, for instance a social media network, and is also demonstrated on a provenance graph.}
 
-Work to create views over provenance graphs for the purpose of either reducing their complexity, and/or removing sensitive information, was arguably pioneered by the Zoom system~\citep{DBLP:conf/icde/BitonBDH08}. In Zoom, the main assumption is that  the graph is a trace that specifically represents the execution of a dataflow. This is a common occurrence in e-science, where workflows that follow the  dataflow model are a popular high level programming paradigm.
+\paolotwo{Similar elements, namely a technique for graph editing, a user clearance policy based on nodes sensitivity and user clearance levels, and a quantitative measure of utility, are indeed at the core of our own ProvAbs system~\citep{Missier2014}. 
+This paper extends ProvAbs, but policies and utility maximisation are not discussed as the focus is on proving validity-preservation properties of the redaction operator (i.e., grouping). This is indeed the main distinctive feature that sets our work apart from  ~\citep{Blaustein:2011:SPP:2002974.2002979}, where there are no such notion of a \textit{valid} graph.}
+
+\paolotwo{Also close to our abstraction model, both in motivation and in its technical approach, is the ProPub system~\citep{springerlink:10.1007/978-3-642-22351-8_13}, which computes views over provenance graphs that are suitable for publication by meeting  certain privacy requirements. In ProPub, users specify edit operations on a graph, such as anonymizing, abstracting, and hiding certain parts of it.
+% (here the term ``abstracting'' is interpreted as ``zooming out'', much as in~\citep{DBLP:conf/icde/BitonBDH08} mentioned above).
+%
+The operations are specified as logic rules, and are interpreted natively by the Datalog-based prototype implementation. ProPub adopts an ``apply--detect--repair'' approach, whereby user rules are applied to the graph first, then consistency violations that may occur in the resulting new graph are detected, and a final set of edits are applied to the graph in order to repair such violations. In some cases, this causes nodes that the user wanted removed to be reintroduced, and it is not always possible to satisfy all rules. 
+%
+In contrast, our grouping involves more simply a set of nodes to be abstracted (but note that anonymization is a particular case, when the group contains a single element). In return for this simplicity in the specification of the nodes to be grouped, our method always produces a valid abstract graph while ensuring that the nodes specified in the policy are removed. 
+%, as described in detail in the next section. In order to further clarify the relationship between the two approaches, in Appendix~\ref{sec:appendix} we show how our algorithm computes an abstraction over the same example graph used in the ProPub paper.
+}
+
+\paolotwo{Techniques for \textit{provenance redaction} that are based on graph grammars in combination with a redaction policy language are discussed in~\citep{Cadenhead:2011:TPU:1998441.1998456}, where they are deployed to edit provenance that is expressed using the Open Provenance Model~\citep{Moreau2010a} (a precursor to PROV).
+%
+Although the authors claim that the redaction operators ensure that specific relationships are preserved, this critical issue is not addressed formally in the paper, i.e., with reference to the OPM semantics.
+%
+In contrast, the formal schema and set of constraints that come with PROV~\citep{w3c-prov-dm,w3c-prov-constraints} provide the necessary grounding for reasoning about the validity-preservation properties of the editing operations.
+%Cadenhead, Tyrone, Vaibhav Khadilkar, Murat Kantarcioglu, and Bhavani Thuraisingham. “Transforming Provenance Using Redaction.” In Proceedings of the 16th ACM Symposium on Access Control Models and Technologies, 93–102. New York, NY, USA: ACM, 2011. doi:10.1145/1998441.1998456.
+}
+
+\paolo{ZOOM -- discuss ``sound'' workflow views and discuss wrt correctness of abstraction.}
+
+%Work related to our research is broadly motivated either by the need to (simplify provenance graphs to facilitate their understanding by humans, or to enforce access control over parts of the graph, or to summarise a collection of similar provenance graphs in order to reduce both space and query complexity.
+
+
+was arguably pioneered by the Zoom system~\citep{DBLP:conf/icde/BitonBDH08}. In Zoom, the main assumption is that  the graph is a trace that specifically represents the execution of a dataflow. This is a common occurrence in e-science, where workflows that follow the  dataflow model are a popular high level programming paradigm.
 %
 In this setting views over provenance are effectively a form of abstraction and are computed based on the user's indication of which workflow modules (tasks) are relevant, or perhaps based on which modules the user has access to. Thus, key to this approach is knowledge of the underlying workflow structure, which is used to specify the nodes in the graphs to be abstracted. This sets Zoom apart from our work, which instead investigates the properties of a grouping operator \textit{independently of the origins of the trace to which it is applied}. 
 
@@ -19,20 +50,7 @@ It applies anonymization techniques specifically to provenance graphs and is aga
 %Secondly, Zoom too has a notion of consistency, i.e., views must be valid provenance graphs. The main difference with our work is that in Zoom, provenance views are really a by-product of user views over the workflow whose execution the provenance graph represents, whereas our approach is based on a ``PROV-lite'' provenance model that makes no assumptions on the structure of the process that generates the graph.
 %
 
-Closer to our abstraction model, both in motivation and in its technical approach, is the ProPub system~\citep{springerlink:10.1007/978-3-642-22351-8_13}, which computes views over provenance graphs that are suitable for publication by meeting  certain privacy requirements. In ProPub, users specify edit operations on a graph, such as anonymizing, abstracting, and hiding certain parts of it.
-% (here the term ``abstracting'' is interpreted as ``zooming out'', much as in~\citep{DBLP:conf/icde/BitonBDH08} mentioned above).
-%
-The operations are specified as logic rules, and are interpreted natively by the Datalog-based prototype implementation. ProPub adopts an ``apply--detect--repair'' approach, whereby user rules are applied to the graph first, then consistency violations that may occur in the resulting new graph are detected, and a final set of edits are applied to the graph in order to repair such violations. In some cases, this causes nodes that the user wanted removed to be reintroduced, and it is not always possible to satisfy all rules. 
-%
-In contrast, our grouping involves more simply a set of nodes to be abstracted (but note that anonymization is a particular case, when the group contains a single element). In return for this simplicity in the specification of the nodes to be grouped, our method always produces a valid abstract graph while ensuring that the nodes specified in the policy are removed. 
-%, as described in detail in the next section. In order to further clarify the relationship between the two approaches, in Appendix~\ref{sec:appendix} we show how our algorithm computes an abstraction over the same example graph used in the ProPub paper.
 
-Finally, \textit{provenance redaction}~\citep{Cadenhead:2011:TPU:1998441.1998456} employs a graph grammar technique to edit provenance that is expressed using the Open Provenance Model~\citep{Moreau2010a} (a precursor to PROV), as well as a redaction policy language.
-%
-Although the authors claim that the redaction operators ensure that specific relationships are preserved, this critical issue is not addressed formally in the paper, i.e., with reference to the OPM semantics.
-%
-In contrast, the formal schema and set of constraints that come with PROV~\citep{w3c-prov-dm,w3c-prov-constraints} provide the necessary grounding for reasoning about the validity-preservation properties of the editing operations.
-%Cadenhead, Tyrone, Vaibhav Khadilkar, Murat Kantarcioglu, and Bhavani Thuraisingham. “Transforming Provenance Using Redaction.” In Proceedings of the 16th ACM Symposium on Access Control Models and Technologies, 93–102. New York, NY, USA: ACM, 2011. doi:10.1145/1998441.1998456.
 
 \subsection{Provenance Access Control}
 

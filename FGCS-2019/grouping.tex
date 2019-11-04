@@ -161,9 +161,11 @@ However, \jwbtwo{ while the application of $\pclos()$ ensures that the group to 
  \extend(\{e_1, e_3, e_4, e_5, a_1, a_3\}, G, \en) = \{e_1, e_3, e_4, e_5, a_1, a_3, e_2, e_6\}
 \]
  as shaded in Fig.~\ref{fig:convex-ex-1}(c). 
+ \jwbtwo{ To see that this is a minimal extension, in the sense that nodes are only included if necessary, observe that a new node is only included if i) it is of type $t$ and ii) it is adjacent to a node already in the set.}
+%    to ensure that all boundary nodes of the group are of the same type.
+% }
 %\jwbtwo{Note that all boundary nodes in $\extend(V_{gr}, G, t)$ are of type $t$ by construction.}
 %\footnote{A boundary node is any node in the extended set with a link to a node not in the set.}
-
 \jwbtwo{Finally, we can replace the collected nodes with a new abstract node, as shown in Fig.~\ref{fig:convex-ex-1}(d). }  \jwbtwo{The function $\repl()$ is defined to do this.}
 
 Let $V^* \subset V$ be obtained using $\pclos()$ then $\extend()$, as outlined above, and let $v_{new}$ be a new node that does not appear in $V$.
@@ -572,7 +574,7 @@ For completeness, we mention here one alternative approach involving PROV's infl
 
 \paolotwo{This inference rule justifies replacing $\used$ and $\wgby$ relationships as needed. 
 Consider Fig.~\ref{fig:influence}, where the starting point is the same as in Fig.~\ref{fig:e2-a4} and the goal is to abstract the set $\{e_2, a_2\}$. As we have seen, this can be accomplished through either e-grouping or a-grouping. 
-Considering first a-grouping (left in the figure), first we generalise $e_4 \wgby ~a_1$ to $e_4 ~\influence ~ a_1$ as shown on the left hand side. At this point, $a_2$ and $e_4$ are collapsed into the new $a_{new}$ node, but notice that there is no need to expand the grouping set, i.e., to include $a_1$, because the new PROV graph at the bottom left is already type-correct. In particular, note that $a_{new2} ~ \used ~ a_5$ is a legal relationship, and is justified according to the argument in the previous section.
+Considering first a-grouping (left in the figure), first we generalise $e_4 ~ \wgby ~a_1$ to $e_4 ~\influence ~ a_1$ as shown on the left hand side. At this point, $a_2$ and $e_4$ are collapsed into the new $a_{new}$ node, but notice that there is no need to expand the grouping set, i.e., to include $a_1$, because the new PROV graph at the bottom left is already type-correct. In particular, note that $a_{new2} ~ \used ~ a_5$ is a legal relationship, and is justified according to the argument in the previous section.
 }
 
 \paolotwo{Similarly, we can easily construct a valid abstract PROV graph for e-grouping without using $\extend()$, by first generalising $a_2~\used~e_5$ to $a_2~\influence~e_5$, then creating the abstract entity node $e_{new}$, and connecting the node to the rest of the graph as shown in the bottom right part of the figure.
@@ -591,12 +593,19 @@ Considering first a-grouping (left in the figure), first we generalise $e_4 \wgb
 
 \subsection{Summary}
 %\comment{finishing para}
-\jwb{We have presented operators that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes of the same type, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this work to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node}\jwbtwo{, and gave a further extension to deal with a problem arising from simultaneous generation of events. Section~\ref{sec:justifying} showed that the newly created relations were justified, and Section~\ref{sec:complexity} discussed the complexity of the new operator.}
+\jwb{We have presented operators that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes of the same type, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this work to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node}\jwbtwo{, and gave a further extension to deal with a problem arising from simultaneous generation of events. Section~\ref{sec:justifying} showed that the newly created relations were justified by the original graph. Section~\ref{sec:complexity} discussed the complexity of the new operator, and Section~\ref{sec:influence} briefly discussed an alternative means of abstraction using the $\influence$ operator. }
+
+
+\jwbtwo{The $\group$ operator preserves schema validity: the $\extend$ operator ensures that all the nodes to be replaced have the same type  and so the $\repl$ operator maintains type consistency.  This is true because of the restricted focus of this work: we are considering $\guEA$ graphs which contain only entities and activities.  
+%
+Section~\ref{sec:events} shows how event validity is ensured by identifying an order-preserving mapping between from abstract  to concrete events. 
+} 
 
 It is clear that, in order to meet our initial requirement of maintaining type-correctness of the abstracted graph, in general more nodes than just the original ones selected will have to \jwbtwo{be} hidden.
 This has implications for the use of this operator, especially given that hidden information may be a critical part of the graph.
-
-\jwbtwo{The choice that we make in this paper is to develop the abstraction operator without paying attention to the risk of removing too much information.}
+%
+\jwbtwo{The choice that we make in this paper is to develop the abstraction operator ensuring first of all that abstract graph produced is valid and justified. Minimality remains a guiding principle, enforced by the fact that the $\extend$ operator only extends the set to be abstracted where necessary.}
+%
 \jwbtwo{This has the advantage that it allows us to ensure that the operator maintains the PROV-compliance of the new graph, but the disadvantage that the loss of information cannot be controlled.}
 
 \jwbtwo{An alternative} approach is to \jwbtwo{sub-divide} the initial set chosen by the user into multiple smaller sets, thereby reducing the amount of extra information hidden. \jwbtwo{This subdivision could be done manually, at the cost of a greater cognitive load for the user, but ideally would be done automatically, with the algorithm searching for an ``ideal" subdivision according to some optimisation function.} 

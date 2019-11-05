@@ -10,7 +10,7 @@
 We now introduce the core elements of the PROV model, which forms the basis for the grouping operator.
 %
 We maintain a dual view of provenance, both as a relational model (with binary relations) and as a graph model. Viewed as a relational model, PROV includes three types of elements: Entities ($\en$), Activities ($\act$), and Agents ($\ag$), and several types of relations amongst them. 
-In line with the description in~\citep{w3c-prov-dm} (sec. 2), PROV is defined by the following core relations, with common abbreviations in brackets. 
+In line with the description in~\citep{w3c-prov-dm} (Section 2), PROV is defined by the following core relations, with common abbreviations in brackets. 
 
 \begin{eqnarray*}
 Used~~(\used)  & \subseteq & \act \times \en \\
@@ -72,7 +72,7 @@ Fig.~\ref{fig:baseline-ug-ae} portrays a simple $\guEA$ graph that we will be us
 
 Central to PROV is the notion that provenance is marked by events. A partial order is defined over events, so that it may or may not be possible to establish whether or not one event precedes another. 
 %
-Events occur instantaneously, and they mark the lifetime boundaries of Entities (generation, invalidation), Activities (start, end), and Agents (start, end), as well as some of the interactions amongst those elements. These include the generation and usage of an entity by an activity, attribution of an entity to an agent, and more. More specifically, the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints} defines the following types of events (quoted verbatim from Sec. 2.2):
+Events occur instantaneously, and they mark the lifetime boundaries of Entities (generation, invalidation), Activities (start, end), and Agents (start, end), as well as some of the interactions amongst those elements. These include the generation and usage of an entity by an activity, attribution of an entity to an agent, and more. More specifically, the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints} defines the following types of events (quoted verbatim from Section 2.2):
 
 \begin{itemize} %
 	\item\textbf{An activity start event} is the instantaneous event that marks the instant an activity starts.

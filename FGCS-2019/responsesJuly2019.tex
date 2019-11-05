@@ -175,6 +175,8 @@ Why are edges a1->e1 and a->e3 not left unlabeled because ‘used’ edge label 
 
 \subsection*{Reviewer 2}
 
+\paolo{the reviewer kindly summarised the detailed comments here towards the end (``Overall...'') so all responses are given there. }
+
    \subsubsection*{Summary}
 
 This paper is about abstracting provenance graphs, using the PROV model promulgated by the W3C.  PROV graphs include nodes that can be entities, activities or agents, and edge relationships indicating usage, generation, invalidation, association, attribution, delegation, and other relationships between them.  Given such a graph, describing a history or trace of a process, a common concern is to hide information according to some policy.  Provenance abstraction is a subproblem arising when we have identified a set of nodes we wish to abstract (i.e. collapse into a single node).  This paper considers the problem: if the input graph is a "valid" one according to the PROV standard (specifically, the validity constraints in the PROV-CONSTRAINTS standard), what other nodes/edges need to be collapsed, or other changes to the graph made, so that the result is still valid?  There are several difficulties: collapsing nodes of different types into a single node (of a given type) may result in edge relationships needing to be adjusted,  additional nodes may also need to be collapsed in order to avoid cycles, etc.
@@ -206,18 +208,16 @@ For example, one (unserious) solution could be to abstract the whole graph to a 
 
 In addition, I think the notion of correctness of abstractions in this paper needs to be compared with the notion of "sound" workflow views explored for ZOOM by Liu et al. [A].
 
-
 \item I did not really follow the discussion of preservation of constraints in section 5.  I consider myself fairly familiar with the constraints specification.  The specification (and the accompanying semantics) does not assume the events are linearly ordered, and the authors correctly point this out.  However, the argument that the constraints are satisfied by the abstracted document seems to hinge on being able to compute maxima and minima among (finite) sets of events.  This may not be possible in a general preorder, so using the notation for "max" and "min" is not necessarily meaningful, since the max or min of a set may not exist. As a simple example, suppose we have two parallel chains e1 wgb a1 used e2 and e3 wgb a2 used e4.  Then the events related to e1/a1/e2 are unrelated to those for e3/a2/e4, for example the max and min of the two concurrent usage events doesn't exist.
 
-  \comment{This is Figure~\ref{fig:example1}, but I don't follow the argument. max and min of finite sets exist. PM to deal with. Note: the issue is that if max / min are evaluated over pre-orders they do not always exist. }
+%  \comment{This is Figure~\ref{fig:example1}, but I don't follow the argument. max and min of finite sets exist. PM to deal with. Note: the issue is that if max / min are evaluated over pre-orders they do not always exist. }
 
 Another (more minor but relevant) nitpick is that the ordering in a PROV graph is a preorder (aka quasiorder), so that there can be nontrivial cycles in the $\leq$ relation (for example for "simultaneous" generation events).  This means that if an upper bound or lower bound exists for a set of events, it may not be unique.
 This also seems likely to lead to strange situations, for example if abstraction leads to two generation events becoming simultaneous, it will seem strange if they have different timestamps (though there is nothing wrong with this vis a vis validity since the timestamps are just uninterpreted data as far as PROV validity is concerned.)  Yet in several places the paper assumes that simultaneous events are necessarily equal, which is not the case in PROV.
 
-\comment{I'm lost here too. PM to deal with.}
+%\comment{I'm lost here too. PM to deal with.}
 
 I think this difficulty can be overcome by, for example, assuming that you are given an event preorder consistent with the original PROV instance and constructing from that another preorder consistent with the abstracted instance in which the needed maximal or minimal events exist, adding them if necessary, and choosing the maximum or minimum of a set of events arbitrarily if there is more than one possibility.  
-
 
 
 \item It is fine and reasonable that the paper mostly focuses on the entity/activity/generation/use subset of PROV.  The later section on extending to include agents, however, implicitly relies on some simplifying assumptions.  In PROV, entity and activity are disjoint classes, but agent is not assumed to be disjoint from either entity or activity.  So, a node could be both entity and agent, or both entity and activity (just not entity and activity or all three).  I think this possibility would lead to some complications compared to the simple case discussed in the paper, and this simplifying assumption (that agents, entities and activities are disjoint) should be made explicit.
@@ -230,7 +230,13 @@ Another related point is that by assuming that nodes/edges have exactly one PROV
 
 \item A relatively minor point is that there is some further uncited work on provenance sanitization/abstraction/redaction [A,B,C,D].  The notion of convexity mentioned here appears also in [B] for example, which only considers activity abstraction for a simplified form of OPM.  There is also a short survey [E] which already discusses/compares work up to circa 2014.
 
-\comment{Only A and B are mentioned below. Maybe we could track the others down, or ask the editor for clarification? PM to do a lit survey. } 
+\paolo{please note that only references A and B are resolved below. C,D are not clear, while we believe E to be:}
+	
+\paolo{Cheney J, Perera R. An Analytical Survey of Provenance Sanitization. In: Ludäscher B, Plale B, editors. Provenance and Annotation of Data and Processes. Cham: Springer International Publishing; 2015. p. 113–26.}
+
+\paolo{ which we now have considered.}
+
+ 
 \end{enumerate}
 
 
@@ -271,7 +277,9 @@ Overall, I think the paper presents work that is worth publishing: I started out
   
 \item Cite/discuss uncited related work and compare with other formal notions of abstraction correctness such as "sound workflow views"
 
- \comment{perhaps do a search for these. PM to do lit survey.}
+\paolo{a reference to [A] along with a discussion as suggested here has been added to Sec.2.1 (Related work). Also [B] is now discussed quite extensively in the same section. 
+	E is cited with brief comments. As mentioned above, B and C which the reviewer refers to are undefined in the review.}	
+	
   
 \end{enumerate}
 

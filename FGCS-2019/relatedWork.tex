@@ -4,7 +4,8 @@
 
 \paolotwo{Multiple  strands of research relate to our work.
 These include creating views over a provenance graph to reduce its complexity, redacting a graph (including non-provenance graphs, such as a social media network) to obfuscate or remove some its sensitive elements, and summarising a collection of graphs. 
-We also mention graph access control and anonymisation techniques, which are more peripheral to our work.}
+We also mention graph access control and anonymisation techniques, which are more peripheral to our work.
+A more comprehensive recent survey on approaches for \textit{provenance sanitisation} is available~\citep{10.1007/978-3-319-16462-5_9}.}
 
 \paolotwo{\subsection{Provenance views and graph redaction}}
 
@@ -34,12 +35,16 @@ In contrast, the formal schema and set of constraints that come with PROV~\citep
 %Cadenhead, Tyrone, Vaibhav Khadilkar, Murat Kantarcioglu, and Bhavani Thuraisingham. “Transforming Provenance Using Redaction.” In Proceedings of the 16th ACM Symposium on Access Control Models and Technologies, 93–102. New York, NY, USA: ACM, 2011. doi:10.1145/1998441.1998456.
 }
 
-\paolo{ZOOM -- discuss ``sound'' workflow views and discuss wrt correctness of abstraction.}
 
-%Work related to our research is broadly motivated either by the need to (simplify provenance graphs to facilitate their understanding by humans, or to enforce access control over parts of the graph, or to summarise a collection of similar provenance graphs in order to reduce both space and query complexity.
+\paolotwo{The concept of \textit{sound workflow views} proposed in \citep{Liu:2011:GSW:1929934.1929940} is closely related to our notion of \textit{justified relations} (cf. Sec.~\ref{sec:justifying}), by which we show that only certain new relations can be added to a provenance graph as a consequence of abstraction by grouping.
+A view over a workflow that consists of multiple interconnected tasks, is obtained by forming groups of such tasks. The groups are connected based on the underlying original dependencies, to form a new, higher-level workflow. By doing so, however, one may create new paths between tasks that were previously not reachable from each other. As a result, lineage queries that operate on the workflow view, and essentially compute node reachability by transitive closure, return spurious results.
+In this context, a \textit{sound} view is one where the groupings do not produce any spurious lineage results.
+As the number of possible groupings is combinatiorial, the paper explores heuristics for detecting and generating sound views. }
 
+\paolotwo{The problem does not directly apply to our approach to abstraction, essentially because the abstraction is performed \textit{on the provenance graph itself}, rather than on the workflow whose execution the provenance graph represents. In particular, while it is true that new paths are created, it is easy to see that these always involve  both a concrete and an abstract node either at the source or at the destination, that is, they involve new relations (see for instance the example in Fig.~\ref{fig:e2-a4} on page \pageref{fig:e2-a4}). As these relations on the abstract graph are justified (see Sec.~\ref{sec:justifying}),  we conclude, intuitively, that the new paths encode dependencies that are similarly justified by the underlying graph.
+}
 
-was arguably pioneered by the Zoom system~\citep{DBLP:conf/icde/BitonBDH08}. In Zoom, the main assumption is that  the graph is a trace that specifically represents the execution of a dataflow. This is a common occurrence in e-science, where workflows that follow the  dataflow model are a popular high level programming paradigm.
+Related to~\citep{Liu:2011:GSW:1929934.1929940} is Zoom~\citep{DBLP:conf/icde/BitonBDH08}, from some of the same authors. In Zoom, the main assumption is that  the graph is a trace that specifically represents the execution of a dataflow. This is a common occurrence in e-science, where workflows that follow the  dataflow model are a popular high level programming paradigm.
 %
 In this setting views over provenance are effectively a form of abstraction and are computed based on the user's indication of which workflow modules (tasks) are relevant, or perhaps based on which modules the user has access to. Thus, key to this approach is knowledge of the underlying workflow structure, which is used to specify the nodes in the graphs to be abstracted. This sets Zoom apart from our work, which instead investigates the properties of a grouping operator \textit{independently of the origins of the trace to which it is applied}. 
 

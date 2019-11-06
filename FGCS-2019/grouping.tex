@@ -31,10 +31,10 @@ Group : PG_{gu/ea} \times \power(V)  \rightarrow PG_{gu/ea}
 As the operator is closed under composition, further abstraction can be achieved by repeated grouping, either on multiple disjoint sets $V_{gr}$, or on sets that include abstract nodes (abstraction of abstraction).
 
 
-\jwbtwo{We take a functional approach to the definition of $group$, by defining three subordinate functions and then defining $\group$ as the functional composition of these subordinate functions. }
+\jwbtwo{We take a functional approach to the definition of $\group$, by defining three subordinate functions and then defining $\group$ as the functional composition of these subordinate functions. }
 
-\jwbtwo{In Section~\ref{sec:closure} we make the simplifying assumption that the set of nodes to be removed are all of the same type (either all $\en$ or all $\act$). We refer to this as \emph{homogeneous grouping} and the replacement node is imlicitly of the same type as the nodes selected to be removed.}
-\jwbtwo{In Section~\ref{sec:generalisation} we remove this assumption, so the group of nodes initially selected to be removed can contain both entities and activities. A consequence of this is that the type of the replacement node is no longer implicit, and  must be  explicitly given. This leads to two variants of the operator,  depending on which type ($\en$ or $\act$) is chosen for the final replacement node.  In Section~\ref{sec:generalisation} we also identify an issue arising from simultaneous generation, and show how it may be circumvented, leading to a further varient of $\group$.  }
+\jwbtwo{In Section~\ref{sec:closure} we make the simplifying assumption that the set of nodes to be removed are all of the same type (either all $\en$ or all $\act$). We refer to this as \emph{homogeneous grouping} and the replacement node is implicitly of the same type as the nodes selected to be removed.}
+\jwbtwo{In Section~\ref{sec:generalisation} we remove this assumption, so the group of nodes initially selected to be removed can contain both entities and activities. A consequence of this is that the type of the replacement node is no longer implicit, and  must be  explicitly given. This leads to two variants of the operator,  depending on which type ($\en$ or $\act$) is chosen for the final replacement node.  In Section~\ref{sec:generalisation} we also identify an issue arising from simultaneous generation, and show how it may be circumvented, leading to a further variant of $\group$.  }
 
 \jwbtwo{In Section~\ref{sec:justifying} we show that the relations in the abstract graph produced by any of the $\group$ operators are \emph{justified} by the original graph, and in Section~\ref{sec:complexity} we discuss the issue of the complexity of the operator.
 }
@@ -551,12 +551,12 @@ An experimental evaluation of the actual cost of computing closures in practice 
 However, two factors suggest that the practical complexity will be considerably less than the worst-case.
 Firstly, we can stop the graph traversal as soon as we have visited all $V_{gr}$ nodes. Unless one of those is a sink node, this results in pruning part of the graph. 
 Note also that in this case the abstraction will consist of one single abstract node that represents the entire graph, because the closure will include all nodes, which is unlikely to be a desired outcome.
-And secondly, in a \jwbtwo{$\guEA$} graph not all edges are allowed, in fact \jwbtwo{$\guEA$ graphs are} bipartite with respect \jwbtwo{to} the nodes types (entities and activities). Furthermore, there is at most one generating activity per entity. These factors greatly reduce the expected number of edges to much less than the theoretical \jwbtwo{maximum} $|V|^2$.
+And secondly, in a \jwbtwo{$\guEA$} graph not all edges are allowed, in fact \jwbtwo{$\guEA$ graphs are} bipartite with respect \jwbtwo{to} the nodes types (entities and activities). Furthermore, there is at most one generating activity per entity. These factors greatly reduce the expected number of edges to much less than the theoretical \jwbtwo{maximum} $|\!\!V\!|^2$.
 }
 
 \paolo{
 Regarding the $\extend()$ operator, note that this requires all nodes in $\pclos(V_{gr}, G)$ to be visited in order to check their type and possibly extend the closure to their immediate successors. 
-This is a linear problem in the worst case, namely when the closure contains all nodes in the graph (in practice, we expect the closure to be much smalller than the graph).
+This is a linear problem in the worst case, namely when the closure contains all nodes in the graph (in practice, we expect the closure to be much smaller than the graph).
 %}
 }
 

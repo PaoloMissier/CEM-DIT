@@ -9,9 +9,10 @@ The abstraction acts on and results in provenance graphs which are PROV complian
 
 %\comment{summarise contributions}
 
+\jwbtwo{Our grouping operators ensure the validity of the resulting abstracted graph: if $\pg$ is a PROV graph, that is, it conforms to the PROV data model, meeting the constraints  outlined in ~\citep{w3c-prov-dm}.} 
+%$\pg'$ is also a PROV graph, and constraint preservation: if $\pg$ satisfies all PROV constraints~\citep{w3c-prov-dm}, then $\pg'$  also satisfies these. 
+\jwbtwo{Secondly, no \jwbtwo{unjustified} dependencies are introduced into $\pg'$: a  relationship involving $v_{new}$ is only created as a result of a mapping from an existing relationship involving elements of $V_{gr}$.}~ \jwbtwo{Strictly, if $a'$ and $e'$ are  \textit{directly} related in $\pg'$, we guarantee that for each of $a'$ and $e'$, either they or an element in their abstracted set are directly related in $\pg$. }
 
-\jwbtwo{Our grouping operators ensure the validity of the resulting abstracted graph, made up of  schema preservation: if $\pg$ is a PROV graph, that is, it conforms to the PROV data model~\citep{w3c-prov-dm}, then $\pg'$ is also a PROV graph, and constraint preservation: if $\pg$ satisfies all PROV constraints~\citep{w3c-prov-dm}, then $\pg'$  also satisfies these. Finally, no \jwbtwo{unjustified} dependencies are introduced into $\pg'$: a  relationship involving $v_{new}$ is only created as a result of a mapping from an existing relationship involving elements of $V_{gr}$.} \jwbtwo{Strictly, if $a'$ and $e'$ are  \textit{directly} related in $\pg'$, we guarantee that for each of $a'$ and $e'$, either they or an element in their abstracted set are directly related in $\pg$. 
-}
 
 The work described in this paper is progressing in \jwbtwo{two} main directions.
 %

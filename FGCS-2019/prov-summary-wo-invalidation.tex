@@ -83,7 +83,7 @@ Events occur instantaneously, and they mark the lifetime boundaries of Entities 
 	
 	\item\textbf{An entity usage event}  is the instantaneous event that marks the first instant of an entity's consumption timespan by an activity. The described usage had not started before this instant, although the activity could potentially have used the same entity at a different time.
 	
-	\item\textbf{An entity invalidation event} is the instantaneous event that marks the initial instant of the destruction, invalidation, or cessation of an entity, after which the entity is no longer available for use. The entity no longer exists after this event.
+% \item\textbf{An entity invalidation event} is the instantaneous event that marks the initial instant of the destruction, invalidation, or cessation of an entity, after which the entity is no longer available for use. The entity no longer exists after this event.
 	
 \end{itemize}
 %\end{description}
@@ -92,9 +92,11 @@ We formally express events by introducing a set $\Ev$ of event symbols, with a p
 \begin{align*}
 start: \act \rightarrow \Ev \\
 end: \act \rightarrow \Ev \\
-ev: \wgby \cup \used \cup \inv \rightarrow \Ev
+%ev: \wgby \cup \used \cup \inv \rightarrow \Ev
+ev: \wgby \cup \used  \rightarrow \Ev
 \end{align*}	
-As an example, in the graph of Fig.~\ref{fig:baseline-ug-ae} the generation relation $\wgby(e_4, a_1)$ has an associated generation event $ev(\wgby(e_4, a_1))$, whilst $a_1$ has start and / or end events, written $start(a_1)$ and $end(a_1)$, respectively. Similarly, usage of $e_4$ by $a_2$ is marked by event $ev(\used(a_2, e_4))$. Finally, if $e_4$ had been invalidated by some $a$ (not in the figure), this would be represented by an invalidation event $ev(\inv(e_4,a))$.
+As an example, in the graph of Fig.~\ref{fig:baseline-ug-ae} the generation relation $\wgby(e_4, a_1)$ has an associated generation event $ev(\wgby(e_4, a_1))$, whilst $a_1$ has start and / or end events, written $start(a_1)$ and $end(a_1)$, respectively. Similarly, usage of $e_4$ by $a_2$ is marked by event $ev(\used(a_2, e_4))$. 
+%Finally, if $e_4$ had been invalidated by some $a$ (not in the figure), this would be represented by an invalidation event $ev(\inv(e_4,a))$.
 
 Temporal constraints involving events, and expressed by means of their pre-order relation $\preorder$, play a key role in the definition of \textit{valid} provenance instances, as described next.
 
@@ -126,37 +128,37 @@ With reference to a graph $\pg$, these are (including constraint (55) above, and
 	%
 	For any $a \in \act$ such that $\used(a,e) \in \pg$, \[	ev(\wgby(e, a)) \preorder ev(\used(a,e))\] must hold.
 	
-	\item\textbf{C4: generation-precedes-invalidation (Constraint 36):} The generation event (or, more accurately, the set of simultaneous generation events) for an entity must precede the invalidation event.
+%	\item\textbf{C4: generation-precedes-invalidation (Constraint 36):} The generation event (or, more accurately, the set of simultaneous generation events) for an entity must precede the invalidation event.
 	
-	For any $a,a' \in \act$ such that $\wgby(e, a))$, $\inv(e,a') \in \pg$ :
-	\[ ev(\wgby(e, a)) \preorder ev(\inv(e,a')) \]
+%	For any $a,a' \in \act$ such that $\wgby(e, a))$, $\inv(e,a') \in \pg$ :
+%	\[ ev(\wgby(e, a)) \preorder ev(\inv(e,a')) \]
 	
-	\item\textbf{C5: usage-precedes-invalidation (Constraint 38):} Any usage event for an entity must precede the invalidation event.
+%	\item\textbf{C5: usage-precedes-invalidation (Constraint 38):} Any usage event for an entity must precede the invalidation event.
 %	
-	For any $a,a' \in \act$ such that $\used(a,e))$, $\inv(e,a') \in \pg$ :
-	\[ ev(\used(a,e)) \preorder ev(\inv(e,a')) \]
+%	For any $a,a' \in \act$ such that $\used(a,e))$, $\inv(e,a') \in \pg$ :
+%	\[ ev(\used(a,e)) \preorder ev(\inv(e,a')) \]
 	
-	\item\textbf{C6: usage-within-activity (Constraint 33):} Any usage of $e$ by $a$ cannot precede the start of $a$ and must precede the end of $a$. For any $e\in \en, a \in \act$ such that $\used(a,e) \in \pg$:
+	\item\textbf{C4: usage-within-activity (Constraint 33):} Any usage of $e$ by $a$ cannot precede the start of $a$ and must precede the end of $a$. For any $e\in \en, a \in \act$ such that $\used(a,e) \in \pg$:
 	\[start(a) \preorder ev(\used(a,e))   \preorder end(a)\]
 	
-	\item\textbf{C7: generation-within-activity (Constraint 34):} The generation of $e$ by $a$ cannot precede the start of $a$ and must precede the end of $a$.
+	\item\textbf{C5: generation-within-activity (Constraint 34):} The generation of $e$ by $a$ cannot precede the start of $a$ and must precede the end of $a$.
 	Let $\wgby(e,a) \in \pg$:
 	\[ start(a) \preorder ev(\wgby(e,a))  \preorder end(a)\]
 	
-	\item\textbf{C8: invalidation-invalidation-ordering (Constraint 40):}	If an entity is invalidated by more than one activity, the events must all be simultaneous. \jwbtwo{If $\inv(e,a_1), \inv(e,a_2) \in \pg$, then }
-	  \begin{align*}
-          &\jwbtwo{ev(\inv(e,a_1)) \preorder  ev(\inv(e,a_2)) ~~\mathrm{and}} \\
-          &\jwbtwo{ev(\inv(e,a_2)) \preorder  ev(\inv(e,a_1))}
-          \end{align*}
-\jwbtwo{must hold.}
+%	\item\textbf{C8: invalidation-invalidation-ordering (Constraint 40):}	If an entity is invalidated by more than one activity, the events must all be simultaneous. \jwbtwo{If $\inv(e,a_1), \inv(e,a_2) \in \pg$, then }
+%	  \begin{align*}
+ %         &\jwbtwo{ev(\inv(e,a_1)) \preorder  ev(\inv(e,a_2)) ~~\mathrm{and}} \\
+ %         &\jwbtwo{ev(\inv(e,a_2)) \preorder  ev(\inv(e,a_1))}
+  %        \end{align*}
+%\jwbtwo{must hold.}
 
 \end{itemize}
 
-Additional relevant constraints state that multiple start (resp. end, invalidation) events must all be simultaneous, and that the start event of an activity must precede the end event for that activity.
+Additional relevant constraints state that multiple start (resp. end) events must all be simultaneous, and that the start event of an activity must precede the end event for that activity.
 \\
 
 \begin{definition}[Validity]
- A graph $G \in \guEA$ is valid iff it satisfies constraints C1-C8.
+ A graph $G \in \guEA$ is valid iff it satisfies constraints C1-C5.
 	\label{def:valid-guea}
 \end{definition}
 

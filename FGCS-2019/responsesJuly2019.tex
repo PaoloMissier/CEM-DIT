@@ -374,59 +374,63 @@ p23. In section 5 it is implied that we can reason about ordering constraints (i
 
 p24. In figure 10, I was uncertain whether your model allows multiple edges of the same kind between two nodes.  The formal definition of the model doesn't appear to allow this; PROV does, but does so by assigning identifiers to use/generation/etc relations, which are not modeled explicitly here.  (but then on page 24 you say you are going to use such identifiers for convenience anyway).
 
-\comment{PM we use multiple identifiers in section 5. }
+\jwb{We have now made clear in the revised section 5 that using identifiers is required at this point since the abstraction mechanism can merge relations and we require a preorder that is consistent with all original relations.}
+%\comment{PM we use multiple identifiers in section 5. }
 
 p24. "wgby" was elsewhere called genBy as well as wgBy (in figures)
 
-\jwb{fixed}
+\jwb{Fixed}
 
 p27 "Let V* to" - remove "to"
 
-\jwb{fixed}
+\jwb{Fixed}
 
 p27.  "abstracted prov graph" -> "...PROV..."
 
-\jwb{fixed}
+\jwb{Fixed}
 
 p27.  "following equalities, define" remove comma
 
-\jwb{fixed}
+\jwb{Fixed}
 
 p28. Most of the definitions in this section have "e-grouping" in parentheses except definition 11.  This seems inconsistent (though I think you could get rid of all of them).  Also, why isn't definition 11 exactly like definition 9 up to symmetry?
 
-\jwb{fixed}
+\jwb{Fixed}
 
 p30.  In definition 15, the generation events are simultaneous but not necessarily equal. 
 
-\jwb{fixed}
+\jwb{Fixed}
 
 p30. "the event of the invalidation event" - there seem to be extra words
 
-\jwb{fixed}
+\jwb{Fixed}
 
 p34: "agent nodes are always the targets of directed edges" - this relies on the unstated assumption that agent nodes are disjoint from entity/activity nodes.  In general, an agent node that is also an entity or activity could be the source of a directed edge (use, generation etc.)
 
-\jwb{fixed}
+\jwb{Fixed}
 
 p34. "or its symmetric," -> "or its symmetric form,"
 
-\jwb{fixed}
+\jwb{Fixed}
 
 p35.  There are occurrences of both "obo" and "abo" as abbreviations for "actedOnBehalfOf", please make consistent.
-\jwb{fixed}
+\jwb{Fixed}
 
 
 p36.  Removing edges and removing isolated nodes seems undesirably lossy to me.   For example if there was already an isolated agent node in the graph you would discard it even though it was not disconnected as a result of abstraction.
-\jwb{fixed}
 Edges that are no longer well-typed could be replaced with wasInfluencedBy edges which can link any entity/activity/agent nodes.  This would avoid the disconnection problem.
 Anyway, if you solve the disconnection problem by discarding isolated nodes, you might still wind up with a less connected graph (e.g. what if ag4 in figure 15 was also acting on behalf of some ag5). These won't be discarded because they are not isolated.
-\jwb{fixed}
+
+\jwb{Fixed by restriction our attention to Entities and Activities. }
 
 p37. "will not introduce false information" - as mentioned above, I'm not sure this claim has been supported in the paper; in any case, I think it should be clearer that the claim means "no new edges/nodes are added", but some edges/nodes present in the graph could be deleted, and this might create false impressions that two things are not connected even though they were connected in the original graph.  For example, suppose ag42 has agents acting on behalf of it in two subgraphs.  I abstract subgraph 1 into activity 1 and subgraph 2 into activity 2, so the actedOnBehalfOf edges no longer typecheck and go away.  I also discard ag42 since it is now isolated.  The resulting graph is now two disconnected abstract nodes, and the fact that there was a single agent involved somehow in both of them is no longer present in the graph.  If that was information I wanted to know, then I might indeed think the abstracted graph is misleading unless it is clear that abstraction can discard this kind of information.  (That in turn is a reason, to me at least, to consider retaining such edges as influences if no more specific relationship is appropriate after abstraction).
 
 \jwb{We have clarified here using the concept of "justified" relations, and restricted our attention to bipartite graphs to avoid this problem. }
 
 p37. "PROV-CONSTR" -> "PROV-CONSTRAINTS"?
+
+
+\jwb{Fixed.}
 
 p38. Citation 9: include URL
 

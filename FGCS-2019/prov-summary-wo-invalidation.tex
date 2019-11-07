@@ -35,10 +35,10 @@ WasInformedBy~~(\wasInfBy) & \subseteq & \act \times \act
 These are summarized in Fig.~\ref{fig:prov-core}.
 %
 
-\jwbtwo{In this paper} we are going to restrict ourselves to an even simpler model, consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.
-% Agents and the relations that involve them are introduced in Sec.~\ref{sec:agents-abstraction}.
-%
-Further extensions to the additional relations --- $\wdf$ and $\wasInfBy$ --- are straightforward and are not considered in detail.
+\paolotwo{In this paper we are going to restrict ourselves to an even simpler model, consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.
+We note that, when considering other commonly used relations including $\wasInfBy$ and $\wdf$, there is no loss of generality, because we can use inference rules from  PROV-CONSTRAINTS~\citep{w3c-prov-constraints} to replace those relations with patterns involving only $\used$ and $\wgby$. These are Inference 5 (communication-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/\#communication-generation-use-inference}} and Inference 11 (derivation-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/\#derivation-generation-use-inference}}.
+%%
+Thus, in the rest of the paper we focus exclusively on $\used$ and $\wgby$.}
 
 %
 An instance  of the model is a provenance document $D$, consisting of sets $en \in \en$ and $act \in \act$ of symbols, and sets of relation instances $\{ \wgby(e,a)  | e \in \en, a \in \act \} \cup   \{ \used(a,e)  | e \in \en, a \in \act\}$. 

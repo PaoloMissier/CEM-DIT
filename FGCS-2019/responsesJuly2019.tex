@@ -178,7 +178,7 @@ Why are edges a1->e1 and a->e3 not left unlabeled because ‘used’ edge label 
 
 \subsection*{Reviewer 2}
 
-\paolo{the reviewer kindly summarised the detailed comments here towards the end (``Overall...'') so all responses are given there. }
+\paolo{the reviewer kindly summarised the detailed comments here towards the end (``Overall...'') so  responses are primarily given there. }
 
    \subsubsection*{Summary}
 
@@ -307,9 +307,9 @@ Of course, I would also be happy with more substantial changes that address the 
 
 The paper is overall in fairly good shape, there were few typos or difficult-to-follow points.
 
-p10: "Further extensions... wasDerivedFrom and wasInformedBy" - while wasInformedBy in Prov is just an abbreviation for a 2-step generation/use path, wasDerivedFrom is a little more complicated (it can correspond to a chain of use/generation steps) and has a special status in PROV-CONSTRAINTS: it is the only relationship where event ordering cycles are strictly forbidden.  Incidentally, this means that in the absence of wasDerivedFrom, it's easy in some sense for a document to be valid, as long as it is well-formed, all of the events can be simultaneous.  
+p10: "Further extensions... wasDerivedFrom and wasInformedBy" - while wasInformedBy in Prov is just an abbreviation for a 2-step generation/use path, wasDerivedFrom is a little more complicated (it can correspond to a chain of use/generation steps) and has a special status in PROV-CONSTRAINTS: it is the only relationship where event ordering cycles are strictly forbidden.  Incidentally, this means that in the absence of wasDerivedFrom, it's easy in some sense for a document to be valid, as long as it is well-formed, all of the events can be simultaneous.  \\
 
-\comment{Not sure what to do about this one. What are we being asked to do? Still not sure here. This relates to section 3.}
+\paolo{We have re-worded text in sec 3.1 to say that those two relations can be removed using inference 5 and 6 from PROV-CONSTRAINTS}\\
 
 
 p12.  I think it would help discussion to clarify that there might be many preorders $(Ev,\preceq)$ that are consistent with a given, valid PROV document, and throughout this and the next section you are fixing one such preorder.  I think it would also be helpful (if you do as I suggest above) to distinguish between the preorder $(Ev,\preceq)$ that is given for the original document, and a new one that you construct $(Ev',\preceq')$, that extends $(Ev,\preceq)$ with any new events needed to describe the new edge relationships introduced for the abstracted node.  Likewise, it would be helpful to state the constraint-preservation result somewhere explicitly as a theorem so that it is clear what formal property corresponds to the informal description given earlier.

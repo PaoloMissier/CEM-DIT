@@ -11,12 +11,12 @@ A more comprehensive recent survey on approaches for \textit{provenance sanitisa
 
 \paolotwo{
 	Graph redaction is used in~\citep{Blaustein:2011:SPP:2002974.2002979} to rewrite a graph where particular nodes, node properties, or relationship instances are sensitive. The technique relies on the notion of \textit{surrogates}, which are less sensitive versions of the graph where some information has been either removed or replaced, depending on the clearance level of the user who has access to the graph. 
-If a measure of \textit{utility} is associated with elements of the graph, removing or redacting graph elements may reduce the residual utility, and may also result in loss of connectivity. The 
+If a measure of utility is associated with elements of the graph, removing or redacting graph elements may reduce the residual utility, and may also result in loss of connectivity. The 
 paper describes techniques for generating surrogates that achieve a desired protection level, while maximizing graph connectivity and minimising utility loss. 
 The technique applies to generic graphs, for instance a social media network, and is also demonstrated on a provenance graph.}
 
 \paolotwo{Similar elements, namely a technique for graph editing, a user clearance policy based on nodes sensitivity and user clearance levels, and a quantitative measure of utility, are indeed at the core of our own ProvAbs system~\citep{Missier2014}. 
-The current paper extends ProvAbs, but policies and utility maximisation are not discussed as the focus is on proving validity-preservation properties of the redaction operator (i.e., grouping). This is indeed the main distinctive feature that sets our work apart from~\citep{Blaustein:2011:SPP:2002974.2002979}, where there are no such notion of a \textit{valid} graph.}
+The current paper extends ProvAbs, but policies and utility maximisation are not discussed as the focus is on proving validity-preservation properties of the redaction operator (i.e., grouping). This is indeed the main distinctive feature that sets our work apart from~\citep{Blaustein:2011:SPP:2002974.2002979}, where there is no such notion of a \textit{valid} graph.}
 
 \paolotwo{Also close to our abstraction model, both in motivation and in its technical approach, is the ProPub system~\citep{springerlink:10.1007/978-3-642-22351-8_13}, which computes views over provenance graphs that are suitable for publication by meeting  certain privacy requirements. In ProPub, users specify edit operations on a graph, such as anonymizing, abstracting, and hiding certain parts of it.
 % (here the term ``abstracting'' is interpreted as ``zooming out'', much as in~\citep{DBLP:conf/icde/BitonBDH08} mentioned above).
@@ -36,13 +36,13 @@ In contrast, the formal schema and set of constraints that come with PROV~\citep
 }
 
 
-\paolotwo{The concept of \textit{sound workflow views} proposed in \citep{Liu:2011:GSW:1929934.1929940} is closely related to our notion of \textit{justified relations} (cf. Section~\ref{sec:justifying}), by which we show that only certain new relations can be added to a provenance graph as a consequence of abstraction by grouping.
+\paolotwo{The concept of \textit{sound workflow views} proposed in \citep{Liu:2011:GSW:1929934.1929940} is closely related to our notion of \textit{justified relations} (cf. Section~\ref{sec:justifying}), by which we impose that only certain new relations can be added to a provenance graph as a consequence of abstraction by grouping.
 A view over a workflow that consists of multiple interconnected tasks, is obtained by forming groups of such tasks. The groups are connected based on the underlying original dependencies, to form a new, higher-level workflow. By doing so, however, one may create new paths between tasks that were previously not reachable from each other. As a result, lineage queries that operate on the workflow view, and essentially compute node reachability by transitive closure, return spurious results.
-In this context, a \textit{sound} view is one where the groupings do not produce any spurious lineage results.
+A \textit{sound} view is one where the groupings do not produce any spurious lineage results.
 As the number of possible groupings is combinatiorial, the paper explores heuristics for detecting and generating sound views. }
 
 \paolotwo{The problem does not directly apply to our approach to abstraction, essentially because in our case the abstraction is performed \textit{on the provenance graph itself}, rather than on the workflow whose execution the provenance graph represents.} 
-\jwbtwo{It is computed over a graph using a user-chosen set of nodes, with the purpose of obscuring information.}
+\paolotwo{It is computed over a graph using a user-chosen set of nodes, with the purpose of obscuring information.}
 \paolotwo{In particular, while it is true that new paths are created, it is easy to see that these always involve  both a concrete and an abstract node either at the source or at the destination, that is, they involve new relations (see for instance the example in Fig.~\ref{fig:e2-a4} on page \pageref{fig:e2-a4}). As these relations on the abstract graph are justified (see Section~\ref{sec:justifying}),  we conclude, intuitively, that the new paths encode dependencies that are similarly justified by the underlying graph.}
 
 

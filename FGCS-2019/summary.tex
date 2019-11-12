@@ -5,13 +5,13 @@
 We have proposed a model for the principled \jwbtwo{hiding} of provenance based on a formal definition of abstraction, in which elements of a provenance graph are grouped together and replaced by a single abstract node.  
 %The presentation is incremental: first we develop the model for the case when the nodes of provenance graphs are restricted to entities and activities, and then consider the case where nodes may also be agents.  
 A guiding principle  throughout is that we avoid the introduction of \emph{\jwbtwo{unjustified} dependencies}: our abstraction will reduce the information content of a provenance graph, but it will not introduce information \jwbtwo{that is not justified by the combination of the abstraction and the information in the original graph}.  
-The abstraction acts on and results in provenance graphs which are PROV compliant.   A separate paper presents the tool implementing this model in detail.
+The abstraction acts on and results in provenance graphs which are PROV compliant.   A separate paper~\citep{Missier2014} presents the tool implementing this model in detail.
 
 %\comment{summarise contributions}
 
 \jwbtwo{Our grouping operators ensure the validity of the resulting abstracted graph: if $\pg$ is a PROV graph, that is, it conforms to the PROV data model, meeting the constraints  outlined in ~\citep{w3c-prov-dm}.} 
 %$\pg'$ is also a PROV graph, and constraint preservation: if $\pg$ satisfies all PROV constraints~\citep{w3c-prov-dm}, then $\pg'$  also satisfies these. 
-\jwbtwo{Secondly, no \jwbtwo{unjustified} dependencies are introduced into $\pg'$: a  relationship involving $v_{new}$ is only created as a result of a mapping from an existing relationship involving elements of $V_{gr}$.}~ \jwbtwo{Strictly, if $a'$ and $e'$ are  \textit{directly} related in $\pg'$, we guarantee that for each of $a'$ and $e'$, either they or an element in their abstracted set are directly related in $\pg$. }
+\jwbtwo{Also, no \jwbtwo{unjustified} dependencies are introduced into $\pg'$: a  relationship involving $v_{new}$ is only created as a result of a mapping from an existing relationship involving elements of $V_{gr}$.}~ \jwbtwo{Strictly, if $a'$ and $e'$ are  \textit{directly} related in $\pg'$, we guarantee that for each of $a'$ and $e'$, either they or an element in their abstracted set are directly related in $\pg$. }
 
 
 The work described in this paper is progressing in \jwbtwo{two} main directions.

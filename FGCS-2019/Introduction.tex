@@ -3,7 +3,7 @@
 \section{Introduction}
 
 \paolo{
-The provenance of data is a form of structured metadata that records the processes involved in data production. In addition to containing references to data generation or transformation processes, a \textit{provenance trace} typically includes input  or intermediate data products as well as references to \textit{agents}, that is the humans or software systems who were responsible to enact those processes.
+The provenance of data is a form of structured metadata that records the processes involved in data production. In addition to containing references to data generation or transformation processes, a \textit{provenance trace} typically includes input  or intermediate data products as well as references to \textit{agents}, that is the humans or software systems who were responsible for  those processes.
 %
 	In multi-party collaboration settings that involve data sharing, as well as in third party auditing of data and processes, there is a broad expectation that 
 shipping the available provenance to collaborators, or more generally publishing it along with the data, may help data consumers, including auditors, form judgements regarding the reliability of the data itself.
@@ -12,7 +12,7 @@ shipping the available provenance to collaborators, or more generally publishing
 %
 \paolo{
 	Offering to disclose the provenance of  data as evidential basis for establishing data quality and reliability is particularly important when data products are exchanged as part of transactions that involve parties with limited mutual trust. 
-This is the case for instance of \textit{dynamic coalitions}~\citep{BFJM06}, ad hoc collaborative partnerships that are created 
+This is the case for instance of \textit{dynamic coalitions}~\citep{BFJM06}. These are ad hoc collaborative partnerships that are created 
 to pursue a common goal, in scenarios such as multi-agency emergency/threat responses, as well as the exchange of intelligence information. 
 Despite the need to share data of a possibly sensitive nature, these coalitions are characterized by a lack of established interaction protocols and by limited trust amongst the partners. 
 }
@@ -69,7 +69,7 @@ The results are fed to two analytics sub-processes, each of which generates a re
 %
 Note that \texttt{analytics\_1} only uses Twitter data, while \texttt{analytics\_2} also uses query results of the proprietary database.
 A \texttt{consolidate} step follows, which produces a master \texttt{IP\_report}.
-This is checked, presumably to validate and possibly also to remove sensitive information, before the final \texttt{PA\_report} is generated for the customer.
+This is checked, to validate and possibly also to remove sensitive information, before the final \texttt{PA\_report} is generated for the customer.
 %
 Notice that various agents are specified as being responsible for some of the steps, along with their chain of responsibility, i.e., \texttt{Alice} acts as \texttt{Bob}'s delegate, who in turn reports to \texttt{Karen}, along with \texttt{Charlie}}.
 
@@ -78,7 +78,7 @@ As we can see, the full-fledged provenance graph contains information about IP's
 It is therefore realistic to imagine that IP may want to \jwbtwo{hide} some of those elements. 
 Using our selective disclosure model, IP marks the sensitive elements, in this case the \texttt{redact} activity as well as the references to the two analytics processes. Note that doing so does not require any knowledge of the graph topology, rather only of the nodes (either activities, entities, or agents) that are to be abstracted out.
 
-\paolo{It is important to note that the PROV document represented in Fig.~\ref{fig:graph-example} is \textit{valid}, in the sense that it satisfies all the constraints specified as part of the PROV standard~\citep{w3c-prov-constraints}.
+\paolo{The PROV document represented in Fig.~\ref{fig:graph-example} is \textit{valid}, in the sense that it satisfies all the constraints specified as part of the PROV standard~\citep{w3c-prov-constraints}.
 As we will see in the rest of the paper, replacing the three selected nodes with a single abstract node (an activity in this case) while preserving the validity  of the document, requires that all other nodes that lie on the directed paths that connect these nodes are also removed. 
 In this example, the result of such abstraction operation is shown in Fig.~\ref{fig:graph-example-abs-1}.
 }
@@ -108,7 +108,7 @@ Note that, to PA, while still informative, the report now appears as if it had b
 \end{figure*}	
 
 \paolo{The mechanisms by which the data and provenance owner selects the nodes to be abstracted are not discussed in this paper, however a policy-based model is described in detail in our previous work~\citep{Missier2014}.
-	Briefly, the idea, inspired by the Bell-Lapadula model~\citep{bell1996bell},	is that the owner assigns a sensitivity value to each node, and nodes are selected to be abstracted out based on a specific  recipient's clearance level. Thus, different recipients will potentially receive different abstract versions of the same graph.
+	Briefly, the idea, which makes use of the Bell-Lapadula model~\citep{bell1996bell},	is that the owner assigns a sensitivity value to each node, and nodes are selected to be abstracted out based on a specific  recipient's clearance level. Thus, different recipients will potentially receive different abstract versions of the same graph.
 Note also that forcefully removing nodes that were not marked for abstraction has implications, too, as some of those non-sensitive nodes may have had evidential value that is now lost.
 To model this problem we associate a utility value to each node, and then compute the \textit{residual utility} of the abstracted graph. 
 The paper cited above~\citep{Missier2014} provides further details. 

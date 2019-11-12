@@ -6,9 +6,8 @@
 %
 %\comment{need to be clear (again) about assumptions. We have motivated these in Sec~\ref{sec:motivating}. } 
 
-As mentioned in Section~\ref{sec:contributions}, our goal is to define \jwbtwo{a} graph editing operator that selectively removes information from a graph $G \in \guEA$, yielding a new graph $G' \in \guEA$. \jwbtwo{We require the final operator to remove all the chosen nodes, and replace them by a single abstract node.} \jwbtwo{As discussed in Section~\ref{sec:motivating}, this may be to avoid inadvertently revealing any internal business processes or details about the chain of command.}
-
-\jwbtwo{Furthermore, we wish the modified graph to be a valid PROV graph, in the sense that the relations and constraints from Section~\ref{sec:prov-background} are respected. This will allow the output to be consumed by any system capable of reading the PROV language.}
+As mentioned in Section~\ref{sec:contributions}, our goal is to define \jwbtwo{a} graph editing operator that selectively removes information from a graph $G \in \guEA$, yielding a new graph $G' \in \guEA$. \jwbtwo{We require the final operator to remove all the chosen nodes, and replace them by a single abstract node.} \jwbtwo{As discussed in Section~\ref{sec:motivating}, this may be to avoid inadvertently revealing any internal business processes or details about the chain of command.
+	Furthermore, we wish the modified graph to be a valid PROV graph, in the sense that the relations and constraints from Section~\ref{sec:prov-background} are respected. This will allow the output to be consumed by any system capable of reading the PROV language.}
 
 %
 %\jwbtwo{It is important to note, however, that} simply reconnecting the remaining nodes generally may lead to an invalid graph. 
@@ -18,7 +17,6 @@ As mentioned in Section~\ref{sec:contributions}, our goal is to define \jwbtwo{a
 \jwbtwo{In this section, we focus exclusively on the definition of the} $\group$ graph transformation operator as the prime way to achieve abstraction over provenance graphs.
 %
 %\jwbtwo{Let $V$ and $E$ be as defined in Section~\ref{prov-core}. }
-
 $\group$ takes a graph $G \in \guEA$ \jwbtwo{with nodes $V$ and edges $E$} and a subset $V_{gr} \subset V$ of its nodes \jwb{that the user wishes to hide} and produces a modified graph $G' \in \guEA$. The nodes in $V_{gr}$ are ``grouped'' together and replaced by a new single node. \jwbtwo{The $\group$ operator has the following signature, where $\power(V)$ is the powerset of the nodes $V$ of the graph $G$ :}
   
 
@@ -94,7 +92,7 @@ However, \jwbtwo{ while the application of $\pclos()$ ensures that the group to 
 %\jwbtwo{The purpose of the $\extend$ operator will be to ensure that 
 
 \jwbtwo{To ensure that the eventual node replacement preserves the type-consistency of graph, we also require all the set boundary nodes (nodes in the defined set connected to nodes outside the set) to be of the same type.}
-\jwbtwo{In the example in Fig.~\ref{fig:convex-ex-1} we must extend the shaded set in Fig.~\ref{fig:convex-ex-1}(b) to include e-nodes $e_2$, $e_6$, as shown in   Fig.~\ref{fig:convex-ex-1}(c). We therefore define a second operator $\extend()$ to do this.}
+\jwbtwo{In the example in Fig.~\ref{fig:convex-ex-1} we must extend the shaded set in Fig.~\ref{fig:convex-ex-1}(b) to include e-nodes $e_2$, $e_6$, as shown in   Fig.~\ref{fig:convex-ex-1}(c). We define a second operator $\extend()$ to do this.}
 
 
 
@@ -345,7 +343,7 @@ Then:
 
 Note that the assumption that \jwb{boundary} nodes in the closure are homogeneous still holds in this case. 
 
-\jwbtwo{Strict e-grouping} performs the further step illustrated in the transition from Fig.~\ref{fig:e2-a4}(e-2) to Fig.~\ref{fig:e2-a4}(e-3). \jwbtwo{Note that that the $Group$ operator can only produce a multiple generation pattern if $type(v_{new})=En$.}
+\jwbtwo{Strict e-grouping} performs the further step illustrated in the transition from Fig.~\ref{fig:e2-a4}(e-2) to Fig.~\ref{fig:e2-a4}(e-3). \jwbtwo{Note that the $Group$ operator can only produce a multiple generation pattern if $type(v_{new})=En$.}
 
 
 %\comment{need to remove any  genBy}
@@ -472,7 +470,7 @@ G' & \!\text{if}~~ |\!\!V_{gen}\!| ~~\leq 1  \\
 \begin{definition}
 \label{def:justify}
 \jwbtwo{
-A abstract node is justified by the concrete graph if (i) it appears unchanged in the concrete graph, or (ii) it is a new node representing a set of concrete nodes, and one of the concrete nodes has the same type as the abstract node.
+An abstract node is justified by the concrete graph if (i) it appears unchanged in the concrete graph, or (ii) it is a new node representing a set of concrete nodes, and one of the concrete nodes has the same type as the abstract node.
 %
 An abstract relation between two nodes is justified if (i) the nodes are justified (in either sense (i) or (ii) above) and (ii) the type of the abstract relation is unchanged. 
 %
@@ -536,14 +534,14 @@ This can be accomplished by enumerating all nodes $x$ that are reachable from ea
 }
 
 \paolo{
-It is easy to see that the worst-case scenario occurs when the nodes in $V_{gr}$ are located at the two ends of the graph, i.e., they are either source or sink nodes.
-In such case, the reachability algorithm needs to visit \textit{all} nodes $V$ and \textit{all} edges $E$ in the graph, and it must additionally keep track of all edges it traverses.
+It is easy to see that the worst-case scenario occurs when the nodes in $V_{gr}$ are either source or sink nodes.
+In such case, the reachability algorithm needs to visit all nodes $V$ and all edges $E$ in the graph, and it must additionally keep track of all edges it traverses.
 }
 
 \paolo{
 Using a simple BFS approach,  we can solve the reachability problem in $O(\mid V\mid + |E|)$ steps, which in the worst-case is $O(|V|^2)$, with $O(\mid E\mid)$ space complexity for recording all edges. 
 Note that the many algorithms that exist to address the problem aim to strike a balance between the cost of pre-processing the graph in order to efficiently answer multiple reachability queries, and the complexity of each individual query.
-In our case, however, we can dispense with pre-processing as we expect the closure over $V_{gr}$ to be computed only once.\footnote{Note however that, when consecutive abstraction rounds are envisioned, i.e., abstraction over abstracted graphs, pre-processing may be appropriate, but that needs to be balanced against the cost of updating the data structures after each abstraction round.}
+In our case, however, there is little advantage in pre-processing as we expect the closure over $V_{gr}$ to be computed only once.\footnote{Note however that, when consecutive abstraction rounds are envisioned, i.e., abstraction over abstracted graphs, pre-processing may be appropriate, but that needs to be balanced against the cost of updating the data structures after each abstraction round.}
 }
 
 \paolo{
@@ -551,7 +549,7 @@ An experimental evaluation of the actual cost of computing closures in practice 
 However, two factors suggest that the practical complexity will be considerably less than the worst-case.
 Firstly, we can stop the graph traversal as soon as we have visited all $V_{gr}$ nodes. Unless one of those is a sink node, this results in pruning part of the graph. 
 Note also that in this case the abstraction will consist of one single abstract node that represents the entire graph, because the closure will include all nodes, which is unlikely to be a desired outcome.
-And secondly, in a \jwbtwo{$\guEA$} graph not all edges are allowed, in fact \jwbtwo{$\guEA$ graphs are} bipartite with respect \jwbtwo{to} the nodes types (entities and activities). Furthermore, there is at most one generating activity per entity. These factors greatly reduce the expected number of edges to much less than the theoretical \jwbtwo{maximum} $|\!\!V\!|^2$.
+And secondly, in a \jwbtwo{$\guEA$} graph not all edges are allowed, and there is at most one generating activity per entity. These factors reduce the expected number of edges to much less than the theoretical \jwbtwo{maximum} $|\!\!V\!|^2$.
 }
 
 \paolo{
@@ -568,13 +566,13 @@ This is a linear problem in the worst case, namely when the closure contains all
 %}
 
 \paolotwo{Our entire approach is based on the premise that we aim to preserve the original $\used$ and $\wgby$ relationships, possibly at the expense of incorporating additional nodes into the abstraction, i.e., by means of the $\extend()$ operator.
-For completeness, we mention here one alternative approach involving PROV's influence relationship: \textit{An influence relation between two objects $o_2$ and $o_1$ is a generic dependency of $o_2$ on $o_1$ that signifies some form of influence of $o_1$ on $o_2$}\footnote{https://www.w3.org/TR/prov-dm/\#term-influence}.}
+For completeness, we mention here one alternative approach involving PROV's \textsf{influence} relationship: \textit{An influence relation between two objects $o_2$ and $o_1$ is a generic dependency of $o_2$ on $o_1$ that signifies some form of influence of $o_1$ on $o_2$}\footnote{https://www.w3.org/TR/prov-dm/\#term-influence}.}
 
 \paolotwo{The generic nature of the influence relationship, denoted $\influence$, is captured formally in the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}, specifically Inference 15\footnote{https://www.w3.org/TR/2013/REC-prov-constraints-20130430/\#influence-inference}  which states that $\influence(id; e, a, attrs)$ follows from both $\used(id; a,e,_t,attrs)$ and from $\wgby(id; e,a,_t,attrs)$, and that $\influence(id; a2, a1, attrs)$ follows from $\wasInfBy(id; a2,a1,attrs)$.}
 
 \paolotwo{This inference rule justifies replacing $\used$ and $\wgby$ relationships as needed. 
 Consider Fig.~\ref{fig:influence}, where the starting point is the same as in Fig.~\ref{fig:e2-a4} and the goal is to abstract the set $\{e_2, a_2\}$. As we have seen, this can be accomplished through either e-grouping or a-grouping. 
-Considering first a-grouping (left in the figure), first we generalise $e_4 ~ \wgby ~a_1$ to $e_4 ~\influence ~ a_1$ as shown on the left hand side. At this point, $a_2$ and $e_4$ are collapsed into the new $a_{new}$ node, but notice that there is no need to expand the grouping set, i.e., to include $a_1$, because the new PROV graph at the bottom left is already type-correct. In particular, note that $a_{new2} ~ \used ~ a_5$ is a legal relationship, and is justified according to the argument in the previous section.
+Considering first a-grouping (left in the figure), first we generalise $e_4 ~ \wgby ~a_1$ to $e_4 ~\influence ~ a_1$ as shown on the left hand side. At this point, $a_2$ and $e_4$ are collapsed into the new $a_{new}$ node, but notice that there is no need to expand the grouping set, i.e., to include $a_1$, because the new PROV graph at the bottom left is already type-correct. In particular, $a_{new2} ~ \used ~ a_5$ is a legal relationship, and is justified according to the argument in the previous section.
 }
 
 \paolotwo{Similarly, we can easily construct a valid abstract PROV graph for e-grouping without using $\extend()$, by first generalising $a_2~\used~e_5$ to $a_2~\influence~e_5$, then creating the abstract entity node $e_{new}$, and connecting the node to the rest of the graph as shown in the bottom right part of the figure.

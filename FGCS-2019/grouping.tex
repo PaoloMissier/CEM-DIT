@@ -34,7 +34,7 @@ As the operator is closed under composition, further abstraction can be achieved
 \jwbtwo{In Section~\ref{sec:closure} we make the simplifying assumption that the set of nodes to be removed are all of the same type (either all $\en$ or all $\act$). We refer to this as \emph{homogeneous grouping} and the replacement node is implicitly of the same type as the nodes selected to be removed.}
 \jwbtwo{In Section~\ref{sec:generalisation} we remove this assumption, so the group of nodes initially selected to be removed can contain both entities and activities. A consequence of this is that the type of the replacement node is no longer implicit, and  must be  explicitly given. This leads to two variants of the operator,  depending on which type ($\en$ or $\act$) is chosen for the final replacement node.  In Section~\ref{sec:generalisation} we also identify an issue arising from simultaneous generation, and show how it may be circumvented, leading to a further variant of $\group$.  }
 
-\jwbtwo{In Section~\ref{sec:justifying} we show that the relations in the abstract graph produced by any of the $\group$ operators are \emph{justified} by the original graph, and in Section~\ref{sec:complexity} we discuss the issue of the complexity of the operator.
+\jwbtwo{In Section~\ref{sec:justifying} we show that the relations in the abstract graph produced by any of the $\group$ operators are \emph{justified} by the original graph. In Section~\ref{sec:complexity} we discuss the complexity of the operator, and in Section~\ref{sec:influence} we explore an alternative approach to abstraction using the \textsf{influence} relation. 
 }
 
 %
@@ -54,7 +54,7 @@ As the operator is closed under composition, further abstraction can be achieved
 
 \jwbtwo{In this subsection we present the homogeneous version of the $\group$ operator that will replace a selected set of nodes with an abstracted one, working under the simplifying assumption that all the nodes selected to be removed are of the same type.  As stated previously, we also wish to ensure that the final abstracted graph is a valid PROV graph.}
 
- \jwbtwo{Let the set of nodes to be replaced in a graph $G$ be $V_{gr}$. An issue, pointed out in the description of the ProPub system~\citep{springerlink:10.1007/978-3-642-22351-8_13}, mentioned earlier, is that removing $V_{gr}$ and replacing it with a single node can lead to cycles in the modified graph. Intuitively, this occurs when $V_{gr}$ is not``convex'', that is, there are paths in the graph that lead out of $V_{gr}$ and then back in again.}
+ \jwbtwo{Let the set of nodes to be replaced in a graph $G$ be $V_{gr}$. An issue, pointed out in the description of the ProPub system~\citep{springerlink:10.1007/978-3-642-22351-8_13}, mentioned earlier, is that removing $V_{gr}$ and replacing it with a single node can lead to cycles in the modified graph. Intuitively, this occurs when $V_{gr}$ is not ``convex'', that is, there are paths in the graph that lead out of $V_{gr}$ and then back in again.}
 
 This suggests the introduction of a preliminary closure operation \textit{pclos}(), which ensures acyclicity by capturing \jwbtwo{and including all the nodes on paths between nodes in the initial group}. It is defined as follows.
 
@@ -538,8 +538,9 @@ It is easy to see that the worst-case scenario occurs when the nodes in $V_{gr}$
 In such case, the reachability algorithm needs to visit all nodes $V$ and all edges $E$ in the graph, and it must additionally keep track of all edges it traverses.
 }
 
+%$|\!\!V\!|^2$.
 \paolo{
-Using a simple BFS approach,  we can solve the reachability problem in $O(\mid V\mid + |E|)$ steps, which in the worst-case is $O(|V|^2)$, with $O(\mid E\mid)$ space complexity for recording all edges. 
+Using a simple BFS approach,  we can solve the reachability problem in $O(|\!\!V\!\!| + |\!\!E\!\!|)$ steps, which in the worst-case is $O(|\!\!V\!\!|^2)$, with $O(|\!\! E\!\!|)$ space complexity for recording all edges. 
 Note that the many algorithms that exist to address the problem aim to strike a balance between the cost of pre-processing the graph in order to efficiently answer multiple reachability queries, and the complexity of each individual query.
 In our case, however, there is little advantage in pre-processing as we expect the closure over $V_{gr}$ to be computed only once.\footnote{Note however that, when consecutive abstraction rounds are envisioned, i.e., abstraction over abstracted graphs, pre-processing may be appropriate, but that needs to be balanced against the cost of updating the data structures after each abstraction round.}
 }

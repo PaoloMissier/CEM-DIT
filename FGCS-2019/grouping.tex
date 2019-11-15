@@ -534,8 +534,8 @@ This can be accomplished by enumerating all nodes $x$ that are reachable from ea
 }
 
 \paolo{
-It is easy to see that the worst-case scenario occurs when the nodes in $V_{gr}$ are either source or sink nodes.
-In such case, the reachability algorithm needs to visit all nodes $V$ and all edges $E$ in the graph, and it must additionally keep track of all edges it traverses.
+It is easy to see that the worst-case scenario occurs when the nodes in $V_{gr}$ are located at the two ends of the graph, i.e., they are either source or sink nodes.
+In such case, the reachability algorithm needs to visit \textit{all} nodes $V$ and \textit{all} edges $E$ in the graph, and it must additionally keep track of all edges it traverses.
 }
 
 %$|\!\!V\!|^2$.
@@ -550,7 +550,7 @@ An experimental evaluation of the actual cost of computing closures in practice 
 However, two factors suggest that the practical complexity will be considerably less than the worst-case.
 Firstly, we can stop the graph traversal as soon as we have visited all $V_{gr}$ nodes. Unless one of those is a sink node, this results in pruning part of the graph. 
 Note also that in this case the abstraction will consist of one single abstract node that represents the entire graph, because the closure will include all nodes, which is unlikely to be a desired outcome.
-And secondly, in a \jwbtwo{$\guEA$} graph not all edges are allowed, and there is at most one generating activity per entity. These factors reduce the expected number of edges to much less than the theoretical \jwbtwo{maximum} $|\!\!V\!|^2$.
+And secondly, in a \jwbtwo{$\guEA$} graph not all edges are allowed, in fact \jwbtwo{$\guEA$ graphs are} bipartite with respect \jwbtwo{to} the nodes types (entities and activities). Furthermore, there is at most one generating activity per entity. These factors greatly reduce the expected number of edges to much less than the theoretical \jwbtwo{maximum} $|\!\!V\!|^2$.
 }
 
 \paolo{

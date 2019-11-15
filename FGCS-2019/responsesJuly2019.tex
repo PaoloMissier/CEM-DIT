@@ -7,7 +7,7 @@
 \newcommand{\note}[2]{\ifthenelse{\equal{\showColour}{yes}}{\textcolor{#1}{#2}}{#2}}
 \newcommand{\jwb}[1]{\note{blue}{#1}}
 
-\newcommand{\paolo}[1]{\note{magenta}{#1}}
+\newcommand{\paolo}[1]{\note{blue}{#1}}
 
 
 \newcommand{\com}[2]{\ifthenelse{\equal{\showComments}{yes}}{\textcolor{#1}{#2}}{}}
@@ -22,12 +22,28 @@
 
 %\comment{ack agents section dropped}
 
+\noindent
+\jwb{
+Dear Editor, 
+}
 
-Dear Dr. Bryans,
+\vspace{5pt}
 
-Thank you for submitting your manuscript to Future Generation Computer Systems. I have received comments from reviewers on your manuscript. Your paper should become acceptable for publication pending suitable minor revision and modification of the article in light of the appended reviewer comments.
+\noindent
+%\hspace{55pt}
+\jwb{
+Thank you for the through and careful comments from the reviewers, and the opportunity to revise and resubmit our article to Future Generation Computer Systems. We have revised and modified the article in the light of these comments. 
+}
 
-When resubmitting your manuscript, please carefully consider all issues mentioned in the reviewers' comments, outline every change made point by point, and provide suitable rebuttals for any comments not addressed.
+\jwb{
+The comments from the second reviewer were particularly perceptive, and after consideration of these we have made some more substantial changes. 
+It was clear that our approach to explaining the grouping operator by beginning with an example of the pitfalls faced in designing the operator was misleading. As a consequence we have taken a much more direct approach in Section 4.  We have also removed our reliance on pre-existing minima and maxima in section on events, and so have re-written section 5. We have also removed the section discussing the extension of our work to agents, acknowledging with reviewer two that substantial extra work would have been required to make this section consistent with the rest of the paper. We believe the paper stands without this extension. 
+}
+
+\jwb{
+Below we reproduce the reviewer comments. Our responses to them and the changes we have made are inline in blue.
+}
+
 
 
 \section*{Comments from the editors and reviewers:}
@@ -104,13 +120,13 @@ The above sentence must be made more specific.
 
 
 %  \comment{Fig 6. is an example of what goes wrong. A couple of reviewers have had a problem with this (or the same one twice). We should either remove it or flag very carefully that it is a strawman.}
-  \jwb{Dealt with by the removal of Fig 6.}
+  \jwb{We have dealt with this by the removal of Fig 6.}
 
   
 
 \item In group, the authors use the term “rewired” but do not explain what that means. If rewired means ALL incoming and outgoing edges are connected back again, then what happened to edge a1->e1 and a3->e3? The explanations are confusing: it seems the direction of the edge is introduced but this edge is also relabeled ‘wgBy’. Why? 
 
-\jwb{"rewired" is a poor choice of term and has been removed. The labels for edges in each of the diagrams in the paper are now clear.} 
+\jwb{"Rewired" is a poor choice of term and has been removed. The labels for edges in each of the diagrams in the paper are now clear.} 
 
 It might be helpful in that Figure to show how each edge in the left hand side of the diagram is mapped to each edge in the right hand side of the diagram.  
 
@@ -139,7 +155,7 @@ Why are edges a1->e1 and a->e3 not left unlabeled because ‘used’ edge label 
 
 \item The definition of Group operator is a node grouping operator; the definition does not include edges.
 
-\jwb{The definition of Group is in terms of extend, closure and replace, and the edges are dealt with by the replace operator. Group is thus a rewriting operator and the definition includes edges.}
+\jwb{The definition of Group is in terms of extend, closure and replace, and the edges are dealt with by the replace operator. We have clarified this at the start of section 1.2. Group is thus a rewriting operator and the definition includes edges.}
 
   
 \item Explain why these cycles cannot be broken by simply keeping timing information or “happens before” relationship. 
@@ -150,7 +166,7 @@ Why are edges a1->e1 and a->e3 not left unlabeled because ‘used’ edge label 
 
 \item refers to “issue”. Which one? Previous para states two issues. 
 
-  \jwb{This is referring to the para before section 4.1 begins. Both problems are caused by the nodes $a_1$ and $a_3$.
+  \jwb{This is referring to the paragraph before section 4.1 begins. Both problems are caused by the nodes $a_1$ and $a_3$.
   }
   \jwb{We have reworked the text in Section 4 to introduce the issues (the introduction of cycles and badly typed relations) separately, and to deal with them in turn. }
 % \comment{This is another example of Fig 6 being a problem (at least for this reviewer)}
@@ -242,11 +258,7 @@ Another related point is that by assuming that nodes/edges have exactly one PROV
 
 \item A relatively minor point is that there is some further uncited work on provenance sanitization/abstraction/redaction [A,B,C,D].  The notion of convexity mentioned here appears also in [B] for example, which only considers activity abstraction for a simplified form of OPM.  There is also a short survey [E] which already discusses/compares work up to circa 2014.
 
-\paolo{please note that only references A and B are resolved below. C,D are not clear, while we believe E to be:}
-	
-\paolo{Cheney J, Perera R. An Analytical Survey of Provenance Sanitization. In: Ludäscher B, Plale B, editors. Provenance and Annotation of Data and Processes. Cham: Springer International Publishing; 2015. p. 113–26.}
-
-\paolo{ which we now have considered.}
+\paolo{Please note that only references A and B are resolved below. C,D are not clear, while we believe E to be~\cite{cheneyetal2015} which we now have considered.}
 
  
 \end{enumerate}
@@ -289,7 +301,7 @@ Overall, I think the paper presents work that is worth publishing: I started out
   
 \item Cite/discuss uncited related work and compare with other formal notions of abstraction correctness such as "sound workflow views"
 
-\paolo{a reference to [A] along with a discussion as suggested here has been added to Sec.2.1 (Related work). Also [B] is now discussed quite extensively in the same section. 
+\paolo{A reference to [A] along with a discussion as suggested here has been added to Sec.2.1 (Related work). Also [B] is now discussed quite extensively in the same section. 
 	E is cited with brief comments. As mentioned above, B and C which the reviewer refers to are undefined in the review.}	
 	
   
@@ -314,7 +326,7 @@ p10: "Further extensions... wasDerivedFrom and wasInformedBy" - while wasInforme
 
 p12.  I think it would help discussion to clarify that there might be many preorders $(Ev,\preceq)$ that are consistent with a given, valid PROV document, and throughout this and the next section you are fixing one such preorder.  I think it would also be helpful (if you do as I suggest above) to distinguish between the preorder $(Ev,\preceq)$ that is given for the original document, and a new one that you construct $(Ev',\preceq')$, that extends $(Ev,\preceq)$ with any new events needed to describe the new edge relationships introduced for the abstracted node.  Likewise, it would be helpful to state the constraint-preservation result somewhere explicitly as a theorem so that it is clear what formal property corresponds to the informal description given earlier.
 
-\paolo{rephrased sec 3.3 to clarify}
+\paolo{We have rephrased sec 3.3 to clarify}
 
 p12.  In the formula $\preceq \subset Ex \times Ev$, there should be space between the preorder and subset symbols
 
@@ -442,7 +454,7 @@ p41.  The discussion at the beginning of the section seems to conflate times and
 
 p41. In C2, the goal is to show that generations are equal, not just simultaneous, but this is stronger than needed (which is fine).  This happens again in discussion of C2 for a-grouping on page 44.
 
-\jwb{removed}
+\jwb{Removed}
 
 p43-46.  There are several chains of equational/relational reasoning that are not typeset very readably.  I suggest reformatting as:
 

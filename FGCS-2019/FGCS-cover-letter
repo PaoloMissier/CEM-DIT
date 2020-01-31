@@ -1,0 +1,45 @@
+% -*- mode: LaTeX; mode: FlySpell; -*-
+
+\documentclass[12pt]{letter}
+\usepackage[text={150mm,255mm},centering]{geometry}
+
+% latin modern 
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\renewcommand*\familydefault{\sfdefault} %% Only if the base font of the document is to be sans serif
+
+\linespread{0.9}
+\pagestyle{empty}
+
+\address{Coventry University\\
+  Coventry, CV1 5FB\\
+UK         }
+
+\signature{Dr. Jeremy Bryans}
+
+\begin{document}
+
+\begin{letter}{FGCS }
+
+\opening{Dear Professor Sloot,}
+
+\begin{center}
+  {\bf    Abstracting PROV provenance graphs: a validity-preserving approach \\ Original submission number: FGCS\_2018\_2110\_R1}
+\end{center}
+
+I am writing to submit the above paper to you. It was previously submitted (submission number: FGCS\_2018\_2110\_R1).  We have made some substantial and very specific changes requested by the reviewers,  which we detail thoroughly in our response to their reviews. %For this reason we would greatly appreciate the new version being reviewed by the same reviewers. 
+
+The revisions required more time than given by the FGCS submission system. I requested an extension (to the end of November) to allow us time to carry out these changes, but received no reply. I contacted researcher support (support@elsivier.com) several times. Each time they've assured me that the matter would be dealt with. The submission has now expired on the FGCS submission system. 
+
+On my last contact with FGCS the Journal Manager, Iyshwarya Gopinath, advised me to submit our revised document as a new manuscript.
+% and assured me that the submission would be dealt with by the original reviewers. 
+We would be very grateful if our submission was dealt with by the original reviewers.
+I include a record of my email correspondence with Elsivier as part of this submission. 
+
+\closing{Yours sincerely,}
+
+\end{letter}
+
+\end{document}
+
+

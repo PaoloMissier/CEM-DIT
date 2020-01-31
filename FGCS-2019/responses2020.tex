@@ -1,0 +1,134 @@
+\documentclass{article}
+\usepackage{color}
+\usepackage{pdfpages}
+\usepackage{ifthen}
+\newcommand{\showColour}{yes} % {yes}
+\newcommand{\showComments}{yes} % {yes}
+\newcommand{\note}[2]{\ifthenelse{\equal{\showColour}{yes}}{\textcolor{#1}{#2}}{#2}}
+\newcommand{\jwb}[1]{\note{blue}{#1}}
+
+\newcommand{\paolo}[1]{\note{blue}{#1}}
+
+
+\newcommand{\com}[2]{\ifthenelse{\equal{\showComments}{yes}}{\textcolor{#1}{#2}}{}}
+\newcommand{\comment}[1]{\com{red}{#1}}
+
+
+\begin{document}
+
+%\comment{must redraw fig 9 from events section}
+
+%\comment{remove appendices and ack}
+
+%\comment{ack agents section dropped}
+
+\noindent
+\jwb{
+Dear Editor, 
+}
+
+\vspace{5pt}
+
+\noindent
+%\hspace{55pt}
+\jwb{
+Thank you for the through and careful comments from both reviewers, and the opportunity to revise and resubmit our article to Future Generation Computer Systems. We have revised and modified the article in the light of these comments. 
+}
+
+
+\jwb{
+Below we reproduce the reviewer comments. Our responses to them and the changes we have made are inline in blue.
+}
+
+Comments from the editors and reviewers:
+-Reviewer 1
+
+  - Summary
+
+This is a revised version of a previously-submitted paper, and the contents are largely the same as before.  Section 4 has been revised and extended, and Section 5 has been entirely rewritten.
+
+Evaluation
+
+I think the paper is now in good shape, and I appreciate the effort that has gone in to the revision.  I do have a few lingering questions which I hope could be addressed fairly easily.
+
+1. In section 5 I wasn't sure of the reason for considering mappings from $G_A$ events to (sets of) $G_C$ events, as opposed to considering order-preserving maps from $G_C$ events to $G_A$ events, which seems a bit more natural.  I think it would clarify the section if this alternative was considered and it was explained why the chosen approach is appropriate.
+
+2. Perhaps part of the reason for my confusion is that I misunderstand what the intended properties are that the mappings should establish (which are not clearly stated).  Reading between the lines, I think the intention is to show that if $G_C$ has events and a preorder consistent with the constraints, then so does $G_A$.  But I am not sure how establishing that whenever grouping is performed, there exists a phi' having property (15) accomplishes this.  I would appreciate if the punch line of the section (e.g. a property clearly relating grouping and $\psi$') could be stated even if the proof is straightforward.
+
+Detailed comments
+
+p1. abstract. "of abstract PROV documents *is* possible"
+
+p2. "than then" -> "than the"
+
+p8. "solutiions" sp.
+
+p9. "combinatiorial" sp.
+
+p12. "documenbt" sp.
+
+p12. Inference 5 (together with 6) in PROV-CONSTRAINTS gives inferences in both directions relating wasInformedBy with generation and use, but Inference 11 only gives one direction and there is no inference in the other direction. So communication can be defined in terms of generation and use (at least in the absence of attributes) but derivation cannot. 
+
+p19.  There seem to be missing closing braces in the equations defining $\vartheta'_out$ and $\vartheta'_in$.
+
+p19.  In definition 7, I think "$V_gr \in V$" should be "$V_gr \subseteq V$".
+
+p24.  The word "exactly" in "Case (iii) is exactly similar, except" seems unnecessary
+
+p25.  in $"wgBt(id;e,a,_t,attrs)"$ there is a stray subscript.  Also a1,a2 could be subscripted later in the sentence.
+
+p29.  I'm not sure what the remark "because that is defined by the constraints" means here.  The constraints specify what ordering relationships must hold among events but there could be additional ordering relationships that are not entailed by the data in a PROV instance.
+
+p30. "incur such *a* restriction"
+
+
+p30.  In (14), powerset is written  $\mathcal{P}$ but on page 16 it was introduced using mathbb{P}.
+
+p30. In (17), what is $\psi'(g_N2)$??  Same as $\psi'(g_N1)$?  Or empty?  More generally, do the sets in the range of $\psi'$ have to satisfy any other properties, such as being nonempty or partitioning the nodes of $G_C$?  If $\psi'(e)$ is allowed to be empty then it is easy to satisfy (15) by mapping $\psi(e)$ to the empty set for every e.
+
+p30. "The algorithmic specification... details are omitted": I would appreciate at least a clear statement of what you are asserting here, for example a statement of a property saying that if $G_A$ is obtained by grouping some nodes in $G_C$, then there exists a psi' mapping events of $G_C$ to sets of nodes of $G_C$ such that (15) holds.  
+
+p31. the text after the colon in the first sentence of the second paragraph is not a complete sentence; either remove the colon or rewrite the second part.
+
+p33. citation 13: "Dadvidson"
+
+
+-Reviewer 2
+
+  -
+
+In the paper the authors present their approach for removing elements from a (W3C) PROV provenance graph where there is a requirement for hide sensitive elements and/or for commercial reasons while maintaining validity.  The authors solution considers only entities, activities, and agents, and the wgBy and used relationships, a restriction that is reasoned/justified and, as noted by the authors, their work can be extended beyond this restriction.  An approach abstraction via “grouping” is presented, consisting of path closure (pclos), extend, and replace operators, allowing authors to select elements of a complete PROV graph to be eliminated and replaced with abstract elements, first reasoned for homogeneous elements, then extended to heterogeneous elements.  Finally, the authors consider extension of the PROV constraints to incorporate the validation of the resulting abstract PROV graphs.
+
+Overall the paper is sound and presents the research in a well-reasoned manner.  The comments of previous reviewers, and more specifically the authors responses to those comments, have resulted in good improvements.  Below I have highlighted a number of relatively minor issues that require further attention.
+
+The following elements of the paper need some attention:
+
+The abstract, whilst acceptable, discusses the research in terms of mapping a PROV document P1 to a new abstract version P2.  This notation/referencing is inconsistent with/not used within the body of the paper.
+The early sections of the document consider agents, which do not appear to be considered (or potentially relevant) to most of the research presented.  In responding to earlier reviews, the authors indicate that content on agents has been removed, suggesting this is potentially anomalous content.
+On pp7, second last paragraph “Strictly, if a and e are not directly related in PG”, the variables ‘a’ and ‘e’ are not (yet) defined.
+On pp10, fourth paragraph, the acronym RBAC is not defined.  Although probably general knowledge, this should not be assumed and doesn’t need to be.
+On pp21, the discussion of why Figure 8(e-2) could (or should) be further improved to Figure 8(e-3) could use some attention to improve its clarity.  The argument put forward is that Figure 8(e-3) is “more natural” however it is not clearly stated what is achieved by this additional step.
+On pp24, paragraph three, the authors present a discussion of Case (iii), however only two cases are introduced on pp23 in the third last paragraph – Cases (ii) and (iii) on pp24 are introduced collectively as Case (ii) on pp23.
+On pp25 in the third paragraph you indicate that you “expect the closure to be much smaller than the graph”, however it is not stated why this is a reasonable expectation.
+Section 4.5 presents an ‘alternative “lossy” approach’, however it could also be argued that this approach preserves more structure of the original graph at the expense (noted by the authors) of no longer preserving the original relationships.  It is therefore strictly ‘lossy’?  Section 4.5 may also require additional clarification to more clearly distinguish it from primary research, as it does extend beyond the restricted focus on PGgu/ea bipartite graphs considered elsewhere.  It does provide useful perspective on the research, however the paper may benefit from considering a minor rearrangement to consolidate the discussion of this alternative approach with the discussion of a second alternative covered in Section 4.6.
+Section 5, when introducing of the notation uNij the text should indicate that the variable j is only used/required when multiple used relationships are involved.
+The abstract and introduction discuss the work in the context of PROV documents, after which the text focuses on their representation as graphs.  A sentence or two may be needed in the summary just to return to/recontextualise the research in the context of PROV documents for completeness.
+There are also some trivial issues that should be corrected/considered:
+
+pp2, end of second paragraph – grammar “more sensitive information than then data product itself”
+pp6 Figure 3 title – typo “gropuping".  Moreover, does ‘abstraction-by-grouping’ need to be mentioned here?
+Pp12, final paragraph – typo “documenbt”
+Pp14, second last paragraph, there is a space missing after the term ‘definition’: “by definition(1)”
+Pp18 and Pp20, Figure 6 and Figure 7 serve the same fundamental purpose (except entity versus activity), should the captions be similar?
+Pp26, the graphs presented in Figure 9 should be labelled and referenced in the same manner as other figures rather than “left” and “right”.
+Pp29, last paragraph, there appears to be an extra space at the beginning of ‘where the same preorder < is used for both sets (because that is defined by the constraints)’
+Pp30, second last paragraph, there appears to be an extra space at the beginning of ‘It is easy to see for example that,”
+
+
+
+%\section*{References}
+
+\bibliographystyle{plain}
+\bibliography{prov-abstraction-foundations}
+
+\end{document}

@@ -89,35 +89,59 @@ p31. the text after the colon in the first sentence of the second paragraph is n
 p33. citation 13: "Dadvidson"
 
 
--Reviewer 2
+\section*{Reviewer 2}
 
-  -
 
 In the paper the authors present their approach for removing elements from a (W3C) PROV provenance graph where there is a requirement for hide sensitive elements and/or for commercial reasons while maintaining validity.  The authors solution considers only entities, activities, and agents, and the wgBy and used relationships, a restriction that is reasoned/justified and, as noted by the authors, their work can be extended beyond this restriction.  An approach abstraction via “grouping” is presented, consisting of path closure (pclos), extend, and replace operators, allowing authors to select elements of a complete PROV graph to be eliminated and replaced with abstract elements, first reasoned for homogeneous elements, then extended to heterogeneous elements.  Finally, the authors consider extension of the PROV constraints to incorporate the validation of the resulting abstract PROV graphs.
 
 Overall the paper is sound and presents the research in a well-reasoned manner.  The comments of previous reviewers, and more specifically the authors responses to those comments, have resulted in good improvements.  Below I have highlighted a number of relatively minor issues that require further attention.
 
-The following elements of the paper need some attention:
+\subsection*{The following elements of the paper need some attention:}
 
-The abstract, whilst acceptable, discusses the research in terms of mapping a PROV document P1 to a new abstract version P2.  This notation/referencing is inconsistent with/not used within the body of the paper.
+\begin{itemize}
+
+\item The abstract, whilst acceptable, discusses the research in terms of mapping a PROV document P1 to a new abstract version P2.  This notation/referencing is inconsistent with/not used within the body of the paper.
+
+\jwb{Fixed}
+
+\item
 The early sections of the document consider agents, which do not appear to be considered (or potentially relevant) to most of the research presented.  In responding to earlier reviews, the authors indicate that content on agents has been removed, suggesting this is potentially anomalous content.
-On pp7, second last paragraph “Strictly, if a and e are not directly related in PG”, the variables ‘a’ and ‘e’ are not (yet) defined.
-On pp10, fourth paragraph, the acronym RBAC is not defined.  Although probably general knowledge, this should not be assumed and doesn’t need to be.
-On pp21, the discussion of why Figure 8(e-2) could (or should) be further improved to Figure 8(e-3) could use some attention to improve its clarity.  The argument put forward is that Figure 8(e-3) is “more natural” however it is not clearly stated what is achieved by this additional step.
-On pp24, paragraph three, the authors present a discussion of Case (iii), however only two cases are introduced on pp23 in the third last paragraph – Cases (ii) and (iii) on pp24 are introduced collectively as Case (ii) on pp23.
-On pp25 in the third paragraph you indicate that you “expect the closure to be much smaller than the graph”, however it is not stated why this is a reasonable expectation.
+
+\jwb{We argue here that: we are providing context, then zooming in on the parts that we have changed. Work on agents is still an important open question. Paper stands on it's own. We will provide text HERE and HERE to explain this clearly within the paper. }
+
+\item On pp7, second last paragraph “Strictly, if a and e are not directly related in PG”, the variables ‘a’ and ‘e’ are not (yet) defined.
+
+\item On pp10, fourth paragraph, the acronym RBAC is not defined.  Although probably general knowledge, this should not be assumed and doesn’t need to be.
+
+\item On pp21, the discussion of why Figure 8(e-2) could (or should) be further improved to Figure 8(e-3) could use some attention to improve its clarity.  The argument put forward is that Figure 8(e-3) is “more natural” however it is not clearly stated what is achieved by this additional step.
+
+\item On pp24, paragraph three, the authors present a discussion of Case (iii), however only two cases are introduced on pp23 in the third last paragraph – Cases (ii) and (iii) on pp24 are introduced collectively as Case (ii) on pp23.
+
+\item On pp25 in the third paragraph you indicate that you “expect the closure to be much smaller than the graph”, however it is not stated why this is a reasonable expectation.
 Section 4.5 presents an ‘alternative “lossy” approach’, however it could also be argued that this approach preserves more structure of the original graph at the expense (noted by the authors) of no longer preserving the original relationships.  It is therefore strictly ‘lossy’?  Section 4.5 may also require additional clarification to more clearly distinguish it from primary research, as it does extend beyond the restricted focus on PGgu/ea bipartite graphs considered elsewhere.  It does provide useful perspective on the research, however the paper may benefit from considering a minor rearrangement to consolidate the discussion of this alternative approach with the discussion of a second alternative covered in Section 4.6.
-Section 5, when introducing of the notation uNij the text should indicate that the variable j is only used/required when multiple used relationships are involved.
+
+\item Section 5, when introducing of the notation uNij the text should indicate that the variable j is only used/required when multiple used relationships are involved.
 The abstract and introduction discuss the work in the context of PROV documents, after which the text focuses on their representation as graphs.  A sentence or two may be needed in the summary just to return to/recontextualise the research in the context of PROV documents for completeness.
-There are also some trivial issues that should be corrected/considered:
+
+\end{itemize}
+
+\subsection*{There are also some trivial issues that should be corrected/considered:}
 
 pp2, end of second paragraph – grammar “more sensitive information than then data product itself”
-pp6 Figure 3 title – typo “gropuping".  Moreover, does ‘abstraction-by-grouping’ need to be mentioned here?
+
+pp6 Figure 3 title – typo “gropuping".  Moreover, does ‘abstraction-by-grouping’ need to 
+be mentioned here?
+
 Pp12, final paragraph – typo “documenbt”
+
 Pp14, second last paragraph, there is a space missing after the term ‘definition’: “by definition(1)”
+
 Pp18 and Pp20, Figure 6 and Figure 7 serve the same fundamental purpose (except entity versus activity), should the captions be similar?
+
 Pp26, the graphs presented in Figure 9 should be labelled and referenced in the same manner as other figures rather than “left” and “right”.
+
 Pp29, last paragraph, there appears to be an extra space at the beginning of ‘where the same preorder < is used for both sets (because that is defined by the constraints)’
+
 Pp30, second last paragraph, there appears to be an extra space at the beginning of ‘It is easy to see for example that,”
 
 

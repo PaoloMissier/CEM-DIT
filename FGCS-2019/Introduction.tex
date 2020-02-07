@@ -127,6 +127,12 @@ The main challenge addressed in this paper is to guarantee that abstraction prod
 
 In this paper we develop a model and algorithm for performing  abstraction over PROV graphs, providing the theoretical underpinning to ensure that the abstraction process satisfies a number of properties.
 %
+\jwbthree{For the model development we restrict our attention almost completely to provenance graphs that contain only activities and entities, and exclude agents. The relevant relationships $\wgby$ and $\used$. The $\influence$ relation is a superproperty of both $\wgby$ and $\used$ and  we explore the advantages of incorporating it in Section~\ref{sec:influence}. 
+}
+
+
+
+%
 Our main contribution is the formal \jwbtwo{functional} definition of a provenance abstraction operator ($\group$) that  rewrites  a PROV graph $\pg$ into a new graph $\pg'$, by \jwbtwo{(a)} mapping a set $V_{gr}$ of nodes (for ``vertex in a group'') in $\pg$ to a new abstract node $v_{new}$, and \jwbtwo{(b)} mapping each relationship involving elements of $V_{gr}$ \jwbtwo{(nodes)} to a new relationship involving $v_{new}$ in $\pg'$. 
 The set $V_{gr}$ is chosen by the user of the abstraction operator as the set of nodes she wishes to \jwbtwo{hide, and the graph rewriting operator $\group$ is defined in three steps using three subordinate operators, detailed in Section~\ref{sec:grouping}. }
 
@@ -148,8 +154,7 @@ Furthermore, by making the abstraction operator closed with respect to the set o
 Finally, note also that $\pg'$ itself has also an associated provenance graph, that is, a record of the provenance abstraction process as it was applied to $\pg$. 
 PROV provides a syntactic facility to maintain the association between a provenance graph and its own provenance, namely using the ``provenance of provenance'' mechanism (i.e., bundles~\citep{w3c-prov-dm}).
 
-\jwbtwo{Within this paper we restrict our attention almost completely to provenance graphs that contain only activities and entities and to the relationships $\wgby$ and $\used$. The $\influence$ relation is a superproperty of both $\wgby$ and $\used$ and  we explore the advantages of incorporating it in Section~\ref{sec:influence}. 
-}
+
 
 %\subsection{A terminological aside.} 
 

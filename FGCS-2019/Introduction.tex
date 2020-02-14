@@ -127,10 +127,7 @@ The main challenge addressed in this paper is to guarantee that abstraction prod
 
 In this paper we develop a model and algorithm for performing  abstraction over PROV graphs, providing the theoretical underpinning to ensure that the abstraction process satisfies a number of properties.
 %
-\jwbthree{For the model development we restrict our attention almost completely to provenance graphs that contain only activities and entities, and exclude agents. The relevant relationships $\wgby$ and $\used$. The $\influence$ relation is a superproperty of both $\wgby$ and $\used$ and  we explore the advantages of incorporating it in Section~\ref{sec:influence}. 
-}
-
-
+\jwbthree{For the model development we restrict our attention almost completely to provenance graphs that contain only activities and entities, and  the relevant relationships $\wgby$ and $\used$. Work on extending the model to agents is less mature, and we have chosen to exclude consideration of agents in this paper.} The $\influence$ relation is a superproperty of both $\wgby$ and $\used$ and  we explore the advantages of incorporating it in Section~\ref{sec:influence}.
 
 %
 Our main contribution is the formal \jwbtwo{functional} definition of a provenance abstraction operator ($\group$) that  rewrites  a PROV graph $\pg$ into a new graph $\pg'$, by \jwbtwo{(a)} mapping a set $V_{gr}$ of nodes (for ``vertex in a group'') in $\pg$ to a new abstract node $v_{new}$, and \jwbtwo{(b)} mapping each relationship involving elements of $V_{gr}$ \jwbtwo{(nodes)} to a new relationship involving $v_{new}$ in $\pg'$. 

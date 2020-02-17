@@ -102,28 +102,38 @@ Overall the paper is sound and presents the research in a well-reasoned manner. 
 
 \item The abstract, whilst acceptable, discusses the research in terms of mapping a PROV document P1 to a new abstract version P2.  This notation/referencing is inconsistent with/not used within the body of the paper.
 
-\jwb{Fixed}
+\jwb{The notation in the abstract has been made consistent with the rest of the paper.}
 
 \item
 The early sections of the document consider agents, which do not appear to be considered (or potentially relevant) to most of the research presented.  In responding to earlier reviews, the authors indicate that content on agents has been removed, suggesting this is potentially anomalous content.
 
-\jwb{We agree with the reviewer that the core of this work does not directly address agents in this paper, as that part of the work is still too immature, as discussed with reviewers in previous reviewing rounds. However, we choose to retaining this work was to give the full context of our work in a provenance setting in the introduction, before focusing from section 1.2 onwards on the parts of the PROV language directly affected by our work.  
-The applicability of this work to the context of agents is still an important open question, however we believe that the paper stands on it's own.  We have provided text in Section 1.2, where we explain our limitation to entities and activities. We have also removed references to agents in section 3 (and re-drawn figure four) to retain this focus clearly within the paper. }
-
-\jwb{finish last sentence} 
+\jwb{We agree with the reviewer that the core of this work in the paper does not directly address agents. The reason is that that part of the work is still too immature, as discussed with reviewers in previous reviewing rounds. The applicability of this work to the context of agents is still an important open question, however we believe that the paper stands on it's own. However, we choose to retain the references to agents in the introduction, in order to give the full context of our work in a provenance setting, before focusing from section 1.2 onwards on the parts of the PROV language directly (entities and activities) affected by our work.  
+\\
+  We have provided text in Section 1.2, where we explain the limitation to entities and activities. We have also removed references to agents in section 3 (and re-drawn figure four) to retain this focus clearly throughout the subsequent parts of the paper. We trust that this solution is acceptable to the reviewer.}
 
 
 \item On pp7, second last paragraph “Strictly, if a and e are not directly related in PG”, the variables ‘a’ and ‘e’ are not (yet) defined.
 
+\jwb{Fixed}
+
 \item On pp10, fourth paragraph, the acronym RBAC is not defined.  Although probably general knowledge, this should not be assumed and doesn’t need to be.
+
+\jwb{Fixed}
 
 \item On pp21, the discussion of why Figure 8(e-2) could (or should) be further improved to Figure 8(e-3) could use some attention to improve its clarity.  The argument put forward is that Figure 8(e-3) is “more natural” however it is not clearly stated what is achieved by this additional step.
 
+\jwb{The natural thing in a PROV graph is for a single activity to generate an entity via a single generating event. We have clarified this in the text.}
+
+\jwb{PAOLO PLS CHECK THIS ONE}
+
+
 \item On pp24, paragraph three, the authors present a discussion of Case (iii), however only two cases are introduced on pp23 in the third last paragraph – Cases (ii) and (iii) on pp24 are introduced collectively as Case (ii) on pp23.
+
+\jwb{Fixed, by making the three cases explicit}
 
 \item On pp25 in the third paragraph you indicate that you “expect the closure to be much smaller than the graph”, however it is not stated why this is a reasonable expectation.
 
-\jwb{TODO: rm paren}
+\jwb{We've removed the reference to our expectation, and allowed the rest of the section to stand.}
 
 \item Section 4.5 presents an ‘alternative “lossy” approach’, however it could also be argued that this approach preserves more structure of the original graph at the expense (noted by the authors) of no longer preserving the original relationships.  It is therefore strictly ‘lossy’?  
 
@@ -134,8 +144,12 @@ The applicability of this work to the context of agents is still an important op
 
 Section 4.5 may also require additional clarification to more clearly distinguish it from primary research, as it does extend beyond the restricted focus on PGgu/ea bipartite graphs considered elsewhere.  It does provide useful perspective on the research, however the paper may benefit from considering a minor rearrangement to consolidate the discussion of this alternative approach with the discussion of a second alternative covered in Section 4.6.
 
+\jwb{To do}
+
 \item Section 5, when introducing of the notation uNij the text should indicate that the variable j is only used/required when multiple used relationships are involved.
 The abstract and introduction discuss the work in the context of PROV documents, after which the text focuses on their representation as graphs.  A sentence or two may be needed in the summary just to return to/recontextualise the research in the context of PROV documents for completeness.
+
+\jwb{To do}
 
 \end{itemize}
 

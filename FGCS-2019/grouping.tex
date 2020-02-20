@@ -570,7 +570,7 @@ This is a linear problem in the worst case, namely when the closure contains all
 
 \paolotwo{Our entire approach is based on the premise that we aim to preserve the original $\used$ and $\wgby$ relationships, possibly at the expense of incorporating additional nodes into the abstraction, i.e., by means of the $\extend()$ operator.
 For completeness, we mention here one alternative approach 
-\jwbthree{which replaces affected $\wgby$ and $\used$ relationships with a weaker generic relationship: the PROV \textsf{influence} relationship}: \textit{An influence relation between two objects $o_2$ and $o_1$ is a generic dependency of $o_2$ on $o_1$ that signifies some form of influence of $o_1$ on $o_2$}\footnote{https://www.w3.org/TR/prov-dm/\#term-influence}.}
+\jwbthree{which replaces affected $\wgby$ and $\used$ relationships with a weaker generic relationship.  The PROV \textsf{influence} relationship} is defined as \textit{An influence relation between two objects $o_2$ and $o_1$ is a generic dependency of $o_2$ on $o_1$ that signifies some form of influence of $o_1$ on $o_2$}\footnote{https://www.w3.org/TR/prov-dm/\#term-influence}.}
 
 \paolotwo{The generic nature of the influence relationship, denoted $\influence$, is captured formally in the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}, specifically Inference 15\footnote{https://www.w3.org/TR/2013/REC-prov-constraints-20130430/\#influence-inference}  which states that $\influence(id; e, a, attrs)$ follows from both $\used(id; a,e,_t,attrs)$ and from $\wgby(id; e,a,_t,attrs)$, and that $\influence(id; a2, a1, attrs)$ follows from $\wasInfBy(id; a2,a1,attrs)$.}
 

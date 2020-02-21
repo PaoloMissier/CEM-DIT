@@ -556,10 +556,9 @@ And secondly, in a \jwbtwo{$\guEA$} graph not all edges are allowed, in fact \jw
 
 \paolo{
 Regarding the $\extend()$ operator, note that this requires all nodes in $\pclos(V_{gr}, G)$ to be visited in order to check their type and possibly extend the closure to their immediate successors. 
-This is a linear problem in the worst case, namely when the closure contains all nodes in the graph.
+This is a linear problem in the worst case, namely when the closure contains all nodes in the graph.}
 % (in practice, we expect the closure to be much smaller than the graph).
 %}
-}
 
 \jwbthree{\subsection{An alternative weaker approach to abstraction} } \label{sec:influence}
 
@@ -577,8 +576,7 @@ For completeness, we mention here one alternative approach
 
 \paolotwo{This inference rule justifies replacing $\used$ and $\wgby$ relationships \jwbthree{with the weaker $\influence$} as needed. 
 Consider Fig.~\ref{fig:influence}, where the starting point is the same as in Fig.~\ref{fig:e2-a4} and the goal is to abstract the set $\{e_2, a_2\}$. As we have seen, this can be accomplished through either e-grouping or a-grouping. 
-Considering first a-grouping (left in the figure), first we generalise $e_4 ~ \wgby ~a_1$ to $e_4 ~\influence ~ a_1$ as shown on the left hand side. At this point, $a_2$ and $e_4$ are collapsed into the new $a_{new}$ node, but notice that there is no need to expand the grouping set, i.e., to include $a_1$, because the new PROV graph at the bottom left is already type-correct. In particular, $a_{new2} ~ \used ~ \jwbthree{e}_5$ is a legal relationship, and is justified according to the argument in the previous section.
-}
+Considering first a-grouping (left in the figure), first we generalise $e_4 ~ \wgby ~a_1$ to $e_4 ~\influence ~ a_1$ as shown on the left hand side. At this point, $a_2$ and $e_4$ are collapsed into the new $a_{new}$ node, but notice that there is no need to expand the grouping set, i.e., to include $a_1$, because the new PROV graph at the bottom left is already type-correct. In particular, $a_{new2} ~ \used ~ \jwbthree{e}_5$ is a legal relationship, and is justified according to the argument in the previous section.}
 
 \paolotwo{Similarly, we can easily construct a valid abstract PROV graph for e-grouping without using $\extend()$, by first generalising $a_2~\used~e_5$ to $a_2~\influence~e_5$, then creating the abstract entity node $e_{new}$, and connecting the node to the rest of the graph as shown in the bottom right part of the figure.
 }
@@ -593,7 +591,7 @@ Considering first a-grouping (left in the figure), first we generalise $e_4 ~ \w
 	\caption{Abstraction by relationship generalisation} \label{fig:influence}
 \end{figure*}
 
-
+\vspace{10pt}
 \subsection{Summary}
 %\comment{finishing para}
 \jwb{We have presented operators that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes of the same type, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this work to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node}\jwbtwo{, and gave a further extension to deal with a problem arising from simultaneous generation of events. Section~\ref{sec:justifying} showed that the newly created relations were justified by the original graph. Section~\ref{sec:complexity} discussed the complexity of the new operator, and Section~\ref{sec:influence} briefly discussed an alternative means of abstraction using the $\influence$ operator. }

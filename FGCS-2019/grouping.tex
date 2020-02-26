@@ -560,7 +560,9 @@ This is a linear problem in the worst case, namely when the closure contains all
 % (in practice, we expect the closure to be much smaller than the graph).
 %}
 
-\jwbthree{\subsection{An alternative weaker approach to abstraction} } \label{sec:influence}
+\subsection{Alternative approaches} \label{sec:influence}
+
+\paragraph{An alternative weaker approach to abstraction}  
 
 %\paolotwo{
 %Our entire approach is based on the premise that we aim to preserve the original $\used$ and $\wgby$ relationships, possibly at the expense of incorporating additional nodes into the abstraction, i.e., by means of the $\extend()$ operator.
@@ -569,7 +571,7 @@ This is a linear problem in the worst case, namely when the closure contains all
 
 \paolotwo{Our entire approach is based on the premise that we aim to preserve the original $\used$ and $\wgby$ relationships, possibly at the expense of incorporating additional nodes into the abstraction, i.e., by means of the $\extend()$ operator.
 For completeness, we mention here one alternative approach 
-\jwbthree{which replaces affected $\wgby$ and $\used$ relationships with a weaker generic relationship.  The PROV \textsf{influence} relationship} is defined as \textit{An influence relation between two objects $o_2$ and $o_1$ is a generic dependency of $o_2$ on $o_1$ that signifies some form of influence of $o_1$ on $o_2$}\footnote{https://www.w3.org/TR/prov-dm/\#term-influence}.}
+\jwbthree{which replaces affected $\wgby$ and $\used$ relationships with a weaker generic relationship.  The PROV \textit{influence} relationship} is defined as \textit{An influence relation between two objects $o_2$ and $o_1$ is a generic dependency of $o_2$ on $o_1$ that signifies some form of influence of $o_1$ on $o_2$}\footnote{https://www.w3.org/TR/prov-dm/\#term-influence}.}
 
 \paolotwo{The generic nature of the influence relationship, denoted $\influence$, is captured formally in the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}, specifically Inference 15\footnote{https://www.w3.org/TR/2013/REC-prov-constraints-20130430/\#influence-inference}  which states that $\influence(id; e, a, attrs)$ follows from both $\used(id; a,e,_t,attrs)$ and from $\wgby(id; e,a,_t,attrs)$, and that $\influence(id; a2, a1, attrs)$ follows from $\wasInfBy(id; a2,a1,attrs)$.}
 
@@ -592,9 +594,40 @@ Considering first a-grouping (left in the figure), first we generalise $e_4 ~ \w
 \end{figure*}
 
 \vspace{10pt}
-\subsection{Summary}
+
+
+
+
+
+\medskip
+
+\jwbthree{
+{\textit{Note on subdivision of input set.}}} \jwbthree{A second alternative} approach is to \jwbtwo{sub-divide} the initial set chosen by the user into multiple smaller sets, thereby reducing the amount of extra information hidden. \jwbtwo{This subdivision could be done manually, at the cost of a greater cognitive load for the user, but ideally would be done automatically, with the algorithm searching for an ``ideal" subdivision according to some optimisation function.} 
+\jwbtwo{Care would be required to develop this algorithm. For example the subdivision could be taken to its logical limit by abstracting individual nodes, but this  would have to be balanced  against the increasing revelation of the structure of the graph. Understanding these trade-offs to develop an automatic approach would require substantial testing and evaluation.}  
+%The significance of this trade off would have to be considered in a particular context, and  a full investigation is beyond the scope of this paper.
+  
+
+
+%\jwbtwo{One approach to controlling the loss of information is to sub-divide the initial set of chosen nodes into groups, and to apply the operator to each of these groups in turn. 
+
+\jwbtwo{This approach would also require a measure of evaluating the ``damage'' to a graph caused by an application of an abstraction operator. }
+We address \jwbtwo{the issue of damage evaluation}  in~\citep{Missier2014} where we present a simple policy model and language for controlling abstraction, in the context where provenance owners want to control the disclosure of their provenance graphs. There, the owner defines a policy which results in a sensitivity value being associated with nodes, which gives us a means of evaluating the ``damage'' to a graph caused by the abstraction operator.
+In~\citep{Missier2014} we do this by means of defining a property \emph{utility} as a counterpart to sensitivity. It is used to indicate  the interest of the provenance owner in ensuring that a node be retained as part of the graph, as it represents important evidence which is not sensitive.   The utility values associated to different nodes are used to quantify any loss of utility as a result of the application of \emph{group} though a measure of \emph{residual utility}. If we write the utility of a node $n$ as $u(n)$, and  $V_{ret} = V / V_{gr}$ is the set of nodes \emph{not} intended to be hidden, and $V'_{ret} \subset V_{ret}$ the nodes which were in fact retained after grouping, the  residual utility is simply
+\begin{align}
+  RU_{V} = \frac{\Sigma_{n\in V'_{ret}} u(n)}{\Sigma_{n\in V_{ret}} u(n)}
+\end{align}
+  which is a measure of the proportion of the graph utility not selected by the grouping operator. 
+  
+  \jwbthree{We believe that subdivision of the initial user input will be valuable in situations where the users requires a further dimension of control over provenance disclosure, but that the costs and benefits would be explored with respect to a particular user context.  Thus, we regard further investigation of this approach as out of scope for the present paper. 
+  }
+
+
+
+
+\subsection{Summary} \label{sec:summary}
 %\comment{finishing para}
-\jwb{We have presented operators that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes of the same type, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this work to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node}\jwbtwo{, and gave a further extension to deal with a problem arising from simultaneous generation of events. Section~\ref{sec:justifying} showed that the newly created relations were justified by the original graph. Section~\ref{sec:complexity} discussed the complexity of the new operator, and Section~\ref{sec:influence} briefly discussed an alternative means of abstraction using the $\influence$ operator. }
+\jwb{We have presented operators that abstract information in a provenance  graph.  We first presented  \emph{homogeneous grouping}  (in Section~\ref{sec:closure}), in which the user selects a set of nodes of the same type, and for which the new, abstract node retains that type. Section~\ref{sec:generalisation} extended this work to allow the user to select any nodes, at the expense of having to chose the type of the final, abstract, node}\jwbtwo{, and gave a further extension to deal with a problem arising from simultaneous generation of events. Section~\ref{sec:justifying} showed that the newly created relations were justified by the original graph. Section~\ref{sec:complexity} discussed the complexity of the new operator, and Section~\ref{sec:influence} briefly discussed two alternative \jwbthree{approaches: making use of the $\influence$ operator and subdivision of the input set of nodes. } }
+%The first moves away from the $\guEA$  graphs we restricted ourselves to initially, by invoking the weaker generic relationship $\influence$. 
 
 \jwbtwo{The $\group$ operator preserves schema validity: the $\extend$ operator ensures that all the nodes to be replaced have the same type  and so the $\repl$ operator maintains type consistency.  This is true because of the restricted focus of this work: we are considering $\guEA$ graphs which contain only entities and activities.  
 %
@@ -608,21 +641,9 @@ This has implications for the use of this operator, especially given that hidden
 %
 \jwbtwo{This has the advantage that it allows us to ensure that the operator maintains the PROV-compliance of the new graph, but the disadvantage that the loss of information cannot be controlled.}
 
-\jwbtwo{An alternative} approach is to \jwbtwo{sub-divide} the initial set chosen by the user into multiple smaller sets, thereby reducing the amount of extra information hidden. \jwbtwo{This subdivision could be done manually, at the cost of a greater cognitive load for the user, but ideally would be done automatically, with the algorithm searching for an ``ideal" subdivision according to some optimisation function.} 
-\jwbtwo{Care would be required to develop this algorithm. For example the subdivision could be taken to its logical limit by abstracting individual nodes, but this  would have to be balanced  against the increasing revelation of the structure of the graph. Understanding these trade-offs to develop an automatic approach would require substantial testing and evaluation.}  The significance of this trade off would have to be considered in a particular context, and  a full investigation is beyond the scope of this paper.
-  
+The two alternative \jwbthree{approaches in Section~\ref{sec:influence} both present valuable further lines of enquiry. }
 
-
-%\jwbtwo{One approach to controlling the loss of information is to sub-divide the initial set of chosen nodes into groups, and to apply the operator to each of these groups in turn. 
-
-\jwbtwo{This approach would also require a measure of evaluating the ``damage'' to a graph caused by an application of an abstraction operator. }
-We address \jwbtwo{the issue of damage evaluation}  in~\citep{Missier2014} where we present a simple policy model and language for controlling abstraction, in the context where provenance owners want to control the disclosure of their provenance graphs. There, the owner defines a policy which results in a sensitivity value being associated with nodes, which gives us a means of evaluating the ``damage'' to a graph caused by the abstraction operator.
-In~\citep{Missier2014} we do this by means of defining a property \emph{utility} as a counterpart to sensitivity. It is used to indicate  the interest of the provenance owner in ensuring that a node be retained as part of the graph, as it represents important evidence which is not sensitive.   The utility values associated to different nodes are used to quantify any loss of utility as a result of the application of \emph{group} though a measure of \emph{residual utility}. If we write the utility of a node $n$ as $u(n)$, and  $V_{ret} = V / V_{gr}$ is the set of nodes \emph{not} intended to be hidden, and $V'_{ret} \subset V_{ret}$ the nodes which were in fact retained after grouping, the  residual utility is simply
-\begin{align}
-  RU_{V} = \frac{\Sigma_{n\in V'_{ret}} u(n)}{\Sigma_{n\in V_{ret}} u(n)}
-\end{align}
-  which is a measure of the proportion of the graph utility not selected by the grouping operator. 
-
+%\textit{influence}. 
 
 
 %\comment{Address: It is not evident what is the impact of hiding information which the user did not select, especially information that was obfuscated to maintain validity?  What if the non selected obfuscated content is actually the information that must be communicated between the two parties. }

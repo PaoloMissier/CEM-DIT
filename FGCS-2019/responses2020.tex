@@ -32,7 +32,7 @@ Dear Editor,
 \noindent
 %\hspace{55pt}
 \jwb{
-Thank you for the through and careful comments from both reviewers, and the opportunity to revise and resubmit our article to Future Generation Computer Systems. We have revised and modified the article in the light of these comments. 
+Thank you for the thorough and careful comments from both reviewers, and the opportunity to revise and resubmit our article to Future Generation Computer Systems. We have revised and modified the article in the light of these comments. 
 }
 
 
@@ -50,6 +50,11 @@ I think the paper is now in good shape, and I appreciate the effort that has gon
 1. In section 5 I wasn't sure of the reason for considering mappings from $G_A$ events to (sets of) $G_C$ events, as opposed to considering order-preserving maps from $G_C$ events to $G_A$ events, which seems a bit more natural.  I think it would clarify the section if this alternative was considered and it was explained why the chosen approach is appropriate.
 
 2. Perhaps part of the reason for my confusion is that I misunderstand what the intended properties are that the mappings should establish (which are not clearly stated).  Reading between the lines, I think the intention is to show that if $G_C$ has events and a preorder consistent with the constraints, then so does $G_A$.  But I am not sure how establishing that whenever grouping is performed, there exists a phi' having property (15) accomplishes this.  I would appreciate if the punch line of the section (e.g. a property clearly relating grouping and $\psi$') could be stated even if the proof is straightforward.
+\\
+
+\paolo{Acknowledging the substantial objections from the reviewer regarding the formalisation in Sec. 5, and taking their suggestions into account, this has now been overhauled again. 
+	The key finding, which is now supported by a new and hopefully simpler formalisation, is that for the abstract graph to be valid, specifically with respect to certain temporal constraints, additional constraints need to hold amongst abstract events, which do not necessarily hold on the ``corresponding'' concrete events. The notion of ``corresponding'' events is now made precise using a mapping $\psi()$ from concrete to abstract events (as the reviewer suggested), a derived mapping between concrete and abstract constraints, and by introducing the notion of \textit{support} for a constraint on the abstract graph, defined in terms of constraints on the original graph.
+	This construction makes it simple (Prop. 1) to compare the sets of constraints in the two graphs, and to conclude that our proposed abstraction operator may entail constraints that are not required  in the original graph.}
 
 \subsection*{Detailed comments}
 
@@ -87,6 +92,8 @@ p30. "The algorithmic specification... details are omitted": I would appreciate 
 p31. the text after the colon in the first sentence of the second paragraph is not a complete sentence; either remove the colon or rewrite the second part.
 
 p33. citation 13: "Dadvidson"
+
+\paolo{These have all been implemented, and we thank the reviewer for the going through the manuscript in great detail. Please note that the detailed comments regarding Sec. 5 have been superseded by entirely new text in the Section.}
 
 
 \section*{Reviewer 2}

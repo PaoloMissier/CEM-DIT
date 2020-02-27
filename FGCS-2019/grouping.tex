@@ -259,7 +259,7 @@ Under assumption of type homogeneity, the grouping operator is a functional comp
 
 \vspace*{10pt}
 \begin{definition}[Homogeneous Grouping]
-Let $G=(V,E) \in \guEA$, $V_{gr} \in V$ be a type-homogeneous set, and let $v_{new}$ be a new node with $\type(v_{new}) = \type(V_{gr})$.
+Let $G=(V,E) \in \guEA$, $V_{gr} \subseteq V$ be a type-homogeneous set, and let $v_{new}$ be a new node with $\type(v_{new}) = \type(V_{gr})$.
 \begin{align*}
 \group_{hom} &  (G, V_{gr}, v_{new}) = \\
  & \repl(  \\
@@ -510,7 +510,7 @@ the replacement relation is given by the definition of $\vartheta'_{in}(V^*)$ in
 }
 
 \jwbtwo{
-Case (iii) is exactly similar, except that $v^A_s$ is the new node $v_{new}$ and $v^A_d$ is unchanged, and follows from inspection of $\vartheta_{out}(V^*)$ and $\vartheta'_{out}(V^*)$. 
+Case (iii) is similar, except that $v^A_s$ is the new node $v_{new}$ and $v^A_d$ is unchanged, and follows from inspection of $\vartheta_{out}(V^*)$ and $\vartheta'_{out}(V^*)$. 
 } 
 
 \jwbtwo{To see that this reasoning applies across all group operators ($group_{hom}$, t-grouping, e-grouping and strict e-grouping), observe that the definitions called upon in the reasoning above are the definitions of $\vartheta_{in},  \vartheta_{out}, \vartheta_{int}, \vartheta'_{in}$, and $\vartheta'_{out}$ in  Definitions~\ref{def:in-out-int} and ~\ref{def:var-in-out}, and the definition of $\repl$ in Definition~\ref{def:group-replace}, and that these do not change across any of the grouping operators. 
@@ -573,7 +573,7 @@ This is a linear problem in the worst case, namely when the closure contains all
 For completeness, we mention here one alternative approach 
 \jwbthree{which replaces affected $\wgby$ and $\used$ relationships with a weaker generic relationship.  The PROV \textit{influence} relationship} is defined as \textit{An influence relation between two objects $o_2$ and $o_1$ is a generic dependency of $o_2$ on $o_1$ that signifies some form of influence of $o_1$ on $o_2$}\footnote{https://www.w3.org/TR/prov-dm/\#term-influence}.}
 
-\paolotwo{The generic nature of the influence relationship, denoted $\influence$, is captured formally in the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}, specifically Inference 15\footnote{https://www.w3.org/TR/2013/REC-prov-constraints-20130430/\#influence-inference}  which states that $\influence(id; e, a, attrs)$ follows from both $\used(id; a,e,_t,attrs)$ and from $\wgby(id; e,a,_t,attrs)$, and that $\influence(id; a2, a1, attrs)$ follows from $\wasInfBy(id; a2,a1,attrs)$.}
+\paolotwo{The generic nature of the influence relationship, denoted $\influence$, is captured formally in the PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}, specifically Inference 15\footnote{https://www.w3.org/TR/2013/REC-prov-constraints-20130430/\#influence-inference}  which states that $\influence(id; e, a, attrs)$ follows from both $\used(id; a,e,t,attrs)$ and from $\wgby(id; e,a,t,attrs)$, and that $\influence(id; a2, a1, attrs)$ follows from $\wasInfBy(id; a2,a1,attrs)$.}
 
 
 \paolotwo{This inference rule justifies replacing $\used$ and $\wgby$ relationships \jwbthree{with the weaker $\influence$} as needed. 

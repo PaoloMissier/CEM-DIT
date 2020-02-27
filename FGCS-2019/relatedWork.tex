@@ -39,7 +39,7 @@ In contrast, the formal schema and set of constraints that come with PROV~\citep
 \paolotwo{The concept of \textit{sound workflow views} proposed in \citep{Liu:2011:GSW:1929934.1929940} is closely related to our notion of \textit{justified relations} (cf. Section~\ref{sec:justifying}), by which we impose that only certain new relations can be added to a provenance graph as a consequence of abstraction by grouping.
 A view over a workflow that consists of multiple interconnected tasks, is obtained by forming groups of such tasks. The groups are connected based on the underlying original dependencies, to form a new, higher-level workflow. By doing so, however, one may create new paths between tasks that were previously not reachable from each other. As a result, lineage queries that operate on the workflow view, and essentially compute node reachability by transitive closure, return spurious results.
 A \textit{sound} view is one where the groupings do not produce any spurious lineage results.
-As the number of possible groupings is combinatiorial, the paper explores heuristics for detecting and generating sound views. }
+As the number of possible groupings is combinatorial, the paper explores heuristics for detecting and generating sound views. }
 
 \paolotwo{The problem does not directly apply to our approach to abstraction, essentially because in our case the abstraction is performed \textit{on the provenance graph itself}, rather than on the workflow whose execution the provenance graph represents.} 
 \paolotwo{It is computed over a graph using a user-chosen set of nodes, with the purpose of obscuring information.}

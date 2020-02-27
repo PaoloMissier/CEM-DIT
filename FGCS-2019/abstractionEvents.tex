@@ -76,6 +76,8 @@ Specifically, we will see that some constraints over events in $\EVc$ map direct
 Thus, intuitively, we aim to show that validity of $G^A$ follows from validity of $G^A$, but only in part.
 }
 
+\subsection{Constraint C3 (generation precedes usage}
+
 \paolothree{
 	For simplicity, consider initially the single temporal constraint C3 \jwbthree{(generation precedes usage)}, i.e., assume that the preorder on $\EVc$ satisfies C3.
 We observe that Def.~\ref{def:var-in-out} (pg~\pageref{def:var-in-out}) effectively defines a mapping between relationships (graph arcs) in $G^C$ that cross the boundaries of a ``convex'' subgraph $V^*$ of $G^C$ obtained by closure $\pclos()$ and expansion ($\extend()$, for type consistency), and the new arcs in $G^A$.
@@ -134,7 +136,7 @@ Firstly, observe that $\psi^{-1}(g') \in \vartheta_{out}(V^*) $ and $\psi^{-1}(u
 These both follow directly from our definition of $\psi()$.
 Also, $a_1 = a'_1$ and  $a_2 = a'_2$.
 Thus, the situation is as depicted in Fig.~\ref{fig:events-e-grouping}(a), showing the generation and usage events on the boundaries of $V^*$.
-If there is a path from $e_x$ to $e_y$, then this must form a chain of generation-usage relationships, and by transitivity of the preorder, this entails $g_{1z} = (a_1 \leftarrow e_y ) \preorder (e_x \leftarrow a_2) = u_{x2}$, which is the support of $g' \preorder a'$.
+If there is a path from $e_x$ to $e_y$, then this must form a chain of generation-usage relationships, and by transitivity of the preorder, this entails $g_{1y} = (a_1 \leftarrow e_y ) \preorder (e_x \leftarrow a_2) = u_{x2}$, which is the support of $g' \preorder a'$.
 }
 
 \paolothree{
@@ -155,11 +157,19 @@ Thus, we have shown that ensuring validity of $G^A$ may require constraints that
 Thus, we could say that $G^A$ represents only a fragment of the unfoldings of $G^C$. In the example, these are only the unfoldings where $g_{41} \preorder u_{54}$ is true.
 }
 
-\jwbthree{Constraint C2 (generation-generation ordering) }
+\subsection{Constraints C2, C4, C5}
+\paolothree{
+	%
+	Regarding C2 (generation-generation ordering), we have again that new constraints on abstract events need to hold on in $G^A$, even when those are mapped from concrete events that are unrelated.
+	For example, consider again Fig.~\ref{fig:e4-e5} where $g_{41}$ and $g_{53}$ are unrelated, yet in $G^A$, the corresponding abstract events must be simultaneous. because both are associated wth the generation of $e_N$:$\psi(g_{41}) \preorder \psi(g_{53})$ and $\psi(g_{53}) \preorder \psi(g_{41})$.
+	Generalising from the example, it is straighforward to see that for any pair of generation events $g, g' \in \vartheta_{out}(V^*) $, in $G^A$ the following must hold:
+	\[    \psi(g) \preorder \psi(g'), \quad \psi(g') \preorder \psi(g)\]
+}	
+
+
 
 \paolothree{
-	\paragraph{Note on start and end activity constraints (C4, C5)}
-So far  we have only considered constraint C3. Regarding C4 and C5, intuitively these constraints state that any entity generation and usage events must ``lie within''  the interval defined by the start and end events for the relevant activities. 
+Regarding C4 and C5, intuitively these constraints state that any entity generation and usage events must ``lie within''  the interval defined by the start and end events for the relevant activities. 
 %
 	Consider Fig.~\ref{fig:events-e-grouping}(b), with constraints:
 	\begin{align}

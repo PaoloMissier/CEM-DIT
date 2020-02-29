@@ -27,7 +27,7 @@ WasInformedBy~~(\wasInfBy) & \subseteq & \act \times \act
 \begin{figure}
 \centering
 \includegraphics[scale=.45]{figures/prov-essentials.pdf} 
-\caption{Core elements of the PROV model, adapted from~\citep{w3c-prov-dm}}
+\caption{Core elements of the PROV model, adapted from~\citep{w3c-prov-dm}.}
 \label{fig:prov-core}
 \end{figure}
 
@@ -35,23 +35,29 @@ WasInformedBy~~(\wasInfBy) & \subseteq & \act \times \act
 These are summarized in Fig.~\ref{fig:prov-core}.
 %
 
-\paolotwo{\sloppy In this paper we are going to restrict ourselves to an even simpler model, consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.
-We note that, when considering other commonly used relations including $\wasInfBy$ and $\wdf$, there is no loss of generality, because we can use inference rules as defined in the  PROV-CONSTRAINTS document~\citep{w3c-prov-constraints} to replace those relations with patterns involving only $\used$ and $\wgby$. These are Inference 5 (communication-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/#communication-generation-use-inference}} and Inference 11 (derivation-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/#derivation-generation-use-inference}}.
+\jwbthree{\sloppy In this paper we are going to restrict ourselves to an even simpler model consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.  An instance  of this model is  therefore a provenance document $D$ consisting of sets $en \in \en$ and $act \in \act$ of symbols, and sets of relation instances $\{ \wgby(e,a)  | e \in \en, a \in \act \} \cup   \{ \used(a,e)  | e \in \en, a \in \act\}$. 
+}
+
+
+%\paolotwo{\sloppy In this paper we are going to restrict ourselves to an even simpler model, consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.
+%We note that, when considering other commonly used relations including $\wasInfBy$ and $\wdf$, there is no loss of generality, because we can use inference rules as defined in the  PROV-CONSTRAINTS document~\citep{w3c-prov-constraints} to replace those relations with patterns involving only $\used$ and $\wgby$. These are Inference 5 (communication-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/#communication-generation-use-inference}} and Inference 11 (derivation-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/#derivation-generation-use-inference}}.
 %%
-Thus, in the rest of the paper we focus exclusively on $\used$ and $\wgby$.}
+%Thus, in the rest of the paper we focus exclusively on $\used$ and $\wgby$.}
+
+
 
 %
-An instance  of the model is a provenance document $D$, consisting of sets $en \in \en$ and $act \in \act$ of symbols, and sets of relation instances $\{ \wgby(e,a)  | e \in \en, a \in \act \} \cup   \{ \used(a,e)  | e \in \en, a \in \act\}$. 
+%An instance  of \jwbthree{this model  consists} of sets $en \in \en$ and $act \in \act$ of symbols, and sets of relation instances $\{ \wgby(e,a)  | e \in \en, a \in \act \} \cup   \{ \used(a,e)  | e \in \en, a \in \act\}$. 
 
 %
-As these relations are binary, we view $D$ as a bipartite digraph $G=(V,E)$, where $V= \en \cup \act$, and each relation instance maps to a labelled directed edge. By convention, we orient these edges from right to left, to denote that the relation ``points back to the past''. Thus:
+As these relations are binary, we \jwbthree{can view a provenance graph $D$} as a bipartite digraph $G=(V,E)$, where $V= \en \cup \act$, and each relation instance maps to a labelled directed edge. By convention, we orient these edges from right to left, to denote that the relation ``points back to the past''. Thus:
 $a \xleftarrow{\wgby} e \in E$ iff $\wgby(e,a) \in D$, and $e \xleftarrow{\used} a \in E$ iff $\used(a,e) \in D$.
 %
 We denote the label associated to edge $(v_i, v_j)$ as $\elabel(v_i,v_j)$. 
 
 %Note that $G$ is a bipartite graph.
-We denote a generic such graph by $\guEA$, to indicate that it only contains $\en$ and $\act$ nodes, and $\wgby$ and $\used$ edges.
-Fig.~\ref{fig:baseline-ug-ae} portrays a simple $\guEA$ graph that we will be using as a running example. %\comment{This sentence isn't true. Fig 5 isn't the same as fig 6. Fig 6 = Fig 7,  but then Fig 8 = Fig 5. }
+We denote a generic such graph by $\guEA$, to indicate that it only contains $\en$ and $\act$ nodes, and $\wgby$ and $\used$ edges. \jwbthree{In the rest of this paper we will equate provenance documents with their graphical models.}
+Fig.~\ref{fig:baseline-ug-ae} portrays a simple $\guEA$ graph that we will be using as a running example. 
 
  %In Sec.~\ref{sec:agents-abstraction} we are going to extend this set to include agents as well as additional relations.
 
@@ -103,14 +109,14 @@ write $ev(\wgby(e,a))$ and $ev(\used(a,e)$) to refer to events associated to ins
 For instance, Constraint 55 (``entity-activity-disjoint'') states that the Entities and Activities are disjoint: 
 \[\en \cap \act = \emptyset\]
 }
-Thus, a document $D$ that contains both statements (1) $a_1 \used~e_1$ and (2) $e_1 \used ~a_1$ cannot be valid, because by definition% of $\used$ given earlier,
+Thus, a \jwb{provenance graph $PG$ in which} both (1) $a_1 \xleftarrow{\used} e_1$ and (2) $e_1 \xleftarrow{\used} a_1$ cannot be valid, because by definition % of $\used$ given earlier,
  (1) entails  $e_1 \in \en$, $a_1 \in \act$, while (2) entails $a_1 \in \en$, $e_1 \in \act$, violating the constraint.
 %
 %Note that disjointness constraint 55 entails that $\guEA$ graphs are bipartite.
 
-\paolo{In this paper we are mainly concerned with temporal constraints. which apply to $\guEA$ instances and determine admissible partial orderings over events.
-More precisely, let $\preorder ~~\subset \Ev \times \Ev$ denote a pre-order relation\footnote{Recall that a pre-order is a binary relation with reflexivity and transitivity, but no symmetry or anti-symmetry.} on the set $\Ev$ of events associated to instances of activities and relations as defined above.
-}
+\paolo{In this paper we are mainly concerned with temporal constraints which apply to $\guEA$ instances and determine admissible partial orderings over events.
+More precisely, let $\preorder ~~\subset \Ev \times \Ev$ denote a pre-order relation\footnote{Recall that a pre-order is a binary relation with reflexivity and transitivity, but no symmetry or anti-symmetry.} on the set $\Ev$ of events associated to instances of activities and relations as defined above.}
+%
 \paolo{For a PROV document to be valid, $\preorder$ is required to satisfy the following set of constraints\footnote{For simplicity, \textit{entity invalidation constraints} are not considered.}(using the original numbering in~\citep{w3c-prov-constraints}):}
 \begin{itemize}
 	

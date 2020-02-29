@@ -248,7 +248,7 @@ Since the arcs have the same type as those they replace, it follows that $\repl(
 \centering
 %\includegraphics[scale=.5]{figures/convex-a-only-revision.pdf} 
 \includegraphics[scale=.45]{reworked-fig8.pdf} 
-\caption{Grouping on a set of Activity nodes} \label{fig:convex-a-only}
+\caption{Path closure and replacement with extension on a set of entity nodes.} \label{fig:convex-a-only}
 \end{figure*}
 
 \jwbtwo{We} now provide an initial definition of our $\group()$ operator, under the simplifying assumption that all nodes in $V_{gr}$ are of the same type \jwb{before closure.}  We denote this type by $\type(V_{gr})$ (with a slight abuse of notation), and denote the initial definition of $Group$ as $\group_{hom}$. Definitions~\ref{def:t-grouping} and~\ref{def:strict-t-grouping}  in Section~\ref{sec:generalisation} remove \jwbtwo{the assumption of type-homogeneity.}
@@ -578,7 +578,7 @@ For completeness, we mention here one alternative approach
 
 \paolotwo{This inference rule justifies replacing $\used$ and $\wgby$ relationships \jwbthree{with the weaker $\influence$} as needed. 
 Consider Fig.~\ref{fig:influence}, where the starting point is the same as in Fig.~\ref{fig:e2-a4} and the goal is to abstract the set $\{e_2, a_2\}$. As we have seen, this can be accomplished through either e-grouping or a-grouping. 
-Considering first a-grouping (left in the figure), first we generalise $e_4 ~ \wgby ~a_1$ to $e_4 ~\influence ~ a_1$ as shown on the left hand side. At this point, $a_2$ and $e_4$ are collapsed into the new $a_{new}$ node, but notice that there is no need to expand the grouping set, i.e., to include $a_1$, because the new PROV graph at the bottom left is already type-correct. In particular, $a_{new2} ~ \used ~ \jwbthree{e}_5$ is a legal relationship, and is justified according to the argument in the previous section.}
+Considering first a-grouping (\jwb{on the left hand side of Fig.~\ref{fig:influence}}), first we generalise $e_4 ~ \wgby ~a_1$ to $e_4 ~\influence ~ a_1$ as shown on the left hand side. At this point, $a_2$ and $e_4$ are collapsed into the new $a_{new}$ node, but notice that there is no need to expand the grouping set, i.e., to include $a_1$, because the new PROV graph at the bottom left is already type-correct. In particular, $a_{new2} ~ \used ~ \jwbthree{e}_5$ is a legal relationship, and is justified according to the argument in the previous section.}
 
 \paolotwo{Similarly, we can easily construct a valid abstract PROV graph for e-grouping without using $\extend()$, by first generalising $a_2~\used~e_5$ to $a_2~\influence~e_5$, then creating the abstract entity node $e_{new}$, and connecting the node to the rest of the graph as shown in the bottom right part of the figure.
 }

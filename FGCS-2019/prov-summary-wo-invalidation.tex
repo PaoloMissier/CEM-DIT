@@ -9,7 +9,7 @@
 
 We now introduce the core elements of the PROV model, which forms the basis for the grouping operator.
 %
-We maintain a dual view of provenance, both as a relational model (with binary relations) and as a graph model. Viewed as a relational model, PROV includes the three types of elements: Entities ($\en$), Activities ($\act$), \jwbthree{and Agents. However in this paper we restrict our attention to entities and activities } and \jwbthree{ the relations} between them. 
+We maintain a dual view of provenance, both as a relational model (with binary relations) and as a graph model. Viewed as a relational model, PROV includes the three types of elements: Entities ($\en$), Activities ($\act$), \jwbthree{and Agents. However in this paper we restrict our attention to entities and activities} and \jwbthree{the relations} between them. 
 In line with the description in~\citep{w3c-prov-dm} (Section 2), PROV is defined by the following core relations, with common abbreviations in brackets. 
 
 \begin{eqnarray*}
@@ -35,15 +35,14 @@ WasInformedBy~~(\wasInfBy) & \subseteq & \act \times \act
 These are summarized in Fig.~\ref{fig:prov-core}.
 %
 
-\jwbthree{\sloppy In this paper we are going to restrict ourselves to an even simpler model consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.  An instance  of this model is  therefore a provenance document $D$ consisting of sets $en \in \en$ and $act \in \act$ of symbols, and sets of relation instances $\{ \wgby(e,a)  | e \in \en, a \in \act \} \cup   \{ \used(a,e)  | e \in \en, a \in \act\}$. 
-}
+%\jwbthree{\sloppy In this paper we are going to restrict ourselves to an even simpler model consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.  An instance  of this model is  therefore a provenance document $D$ consisting of sets $en \in \en$ and $act \in \act$ of symbols, and sets of relation instances $\{ \wgby(e,a)  | e \in \en, a \in \act \} \cup   \{ \used(a,e)  | e \in \en, a \in \act\}$. }
 
 
-%\paolotwo{\sloppy In this paper we are going to restrict ourselves to an even simpler model, consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.
-%We note that, when considering other commonly used relations including $\wasInfBy$ and $\wdf$, there is no loss of generality, because we can use inference rules as defined in the  PROV-CONSTRAINTS document~\citep{w3c-prov-constraints} to replace those relations with patterns involving only $\used$ and $\wgby$. These are Inference 5 (communication-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/#communication-generation-use-inference}} and Inference 11 (derivation-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/#derivation-generation-use-inference}}.
-%%
-%Thus, in the rest of the paper we focus exclusively on $\used$ and $\wgby$.}
-
+\jwbthree{In this paper we are going to restrict ourselves to a model consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.}
+\jwbthree{
+We note that, when considering graphs containing the relations $\wasInfBy$ and $\wdf$, we can replace those relations with patterns involving only $\used$ and $\wgby$ using Inference 5 (communication-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/#communication-generation-use-inference}} and Inference 11 (derivation-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/#derivation-generation-use-inference}} in the  PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}.}
+\jwbthree{
+This replacement has to be handled with care, however. In the case of $\wasInfBy$ and Inference 5, PROV-CONSTRAINTS contains a corresponding inference (Inference 6, generation-communication-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/#generation-communication-use-inference}} that allows the reverse replacement, but there is no such reverse replacement for $\wdf$ and Inference 11, meaning that the original graph cannot be inferred back again, and in general the use of Inference 11 has  loses information. }
 
 
 %

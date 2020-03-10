@@ -1,0 +1,111 @@
+\section{Related Work}  \label{sec:related}
+
+%Work on provenance abstraction generally combines two elements, namely a technique or algorithm for graph editing, and a policy to drive the algorithm. As mentioned, in this paper we focus exclusively on the former, while the latter is described in a separate paper\jwb{~\citep{Missier2014}.}
+
+\paolotwo{Multiple  strands of research relate to our work.
+These include creating views over a provenance graph to reduce its complexity, redacting a graph (including non-provenance graphs, such as a social media network) to obscure or remove some its sensitive elements, and summarising a collection of graphs. 
+We also mention graph access control and anonymisation techniques, which are more peripheral to our work.
+A more comprehensive recent survey on approaches for \textit{provenance sanitisation} is available~\citep{cheneyetal2015}.}
+
+\paolotwo{\subsection{Provenance views and graph redaction}}
+
+\paolotwo{
+	Graph redaction is used in~\citep{Blaustein:2011:SPP:2002974.2002979} to rewrite a graph where particular nodes, node properties, or relationship instances are sensitive. The technique relies on the notion of \textit{surrogates}, which are less sensitive versions of the graph where some information has been either removed or replaced, depending on the clearance level of the user who has access to the graph. 
+If a measure of utility is associated with elements of the graph, removing or redacting graph elements may reduce the residual utility, and may also result in loss of connectivity. The 
+paper describes techniques for generating surrogates that achieve a desired protection level, while maximizing graph connectivity and minimising utility loss. 
+The technique applies to generic graphs, for instance a social media network, and is also demonstrated on a provenance graph.}
+
+\paolotwo{Similar elements, namely a technique for graph editing, a user clearance policy based on nodes sensitivity and user clearance levels, and a quantitative measure of utility, are indeed at the core of our own ProvAbs system~\citep{Missier2014}. 
+The current paper extends ProvAbs, but policies and utility maximisation are not discussed as the focus is on proving validity-preservation properties of the redaction operator (i.e., grouping). This is indeed the main distinctive feature that sets our work apart from~\citep{Blaustein:2011:SPP:2002974.2002979}, where there is no such notion of a \textit{valid} graph.}
+
+\paolotwo{Also close to our abstraction model, both in motivation and in its technical approach, is the ProPub system~\citep{springerlink:10.1007/978-3-642-22351-8_13}, which computes views over provenance graphs that are suitable for publication by meeting  certain privacy requirements. In ProPub, users specify edit operations on a graph, such as anonymizing, abstracting, and hiding certain parts of it.
+% (here the term ``abstracting'' is interpreted as ``zooming out'', much as in~\citep{DBLP:conf/icde/BitonBDH08} mentioned above).
+%
+The operations are specified as logic rules, and are interpreted natively by the Datalog-based prototype implementation. ProPub adopts an ``apply--detect--repair'' approach, whereby user rules are applied to the graph first, then consistency violations that may occur in the resulting new graph are detected, and a final set of edits are applied to the graph in order to repair such violations. In some cases, this causes nodes that the user wanted removed to be reintroduced, and it is not always possible to satisfy all rules. 
+%
+In contrast, our grouping involves more simply a set of nodes to be abstracted (but note that anonymization is a particular case, when the group contains a single element). In return for this simplicity in the specification of the nodes to be grouped, our method always produces a valid abstract graph while ensuring that the nodes specified in the policy are removed. 
+%, as described in detail in the next section. In order to further clarify the relationship between the two approaches, in Appendix~\ref{sec:appendix} we show how our algorithm computes an abstraction over the same example graph used in the ProPub paper.
+}
+
+\paolotwo{Techniques for \textit{provenance redaction} that are based on graph grammars in combination with a redaction policy language are discussed in~\citep{Cadenhead:2011:TPU:1998441.1998456}, where they are deployed to edit provenance that is expressed using the Open Provenance Model~\citep{Moreau2010a} (a precursor to PROV).
+%
+Although the authors claim that the redaction operators ensure that specific relationships are preserved, this critical issue is not addressed formally in the paper, i.e., with reference to the OPM semantics.
+%
+In contrast, the formal schema and set of constraints that come with PROV~\citep{w3c-prov-dm,w3c-prov-constraints} provide the necessary grounding for reasoning about the validity-preservation properties of the editing operations.
+%Cadenhead, Tyrone, Vaibhav Khadilkar, Murat Kantarcioglu, and Bhavani Thuraisingham. “Transforming Provenance Using Redaction.” In Proceedings of the 16th ACM Symposium on Access Control Models and Technologies, 93–102. New York, NY, USA: ACM, 2011. doi:10.1145/1998441.1998456.
+}
+
+
+\paolotwo{The concept of \textit{sound workflow views} proposed in \citep{Liu:2011:GSW:1929934.1929940} is closely related to our notion of \textit{justified relations} (cf. Section~\ref{sec:justifying}), by which we impose that only certain new relations can be added to a provenance graph as a consequence of abstraction by grouping.
+A view over a workflow that consists of multiple interconnected tasks, is obtained by forming groups of such tasks. The groups are connected based on the underlying original dependencies, to form a new, higher-level workflow. By doing so, however, one may create new paths between tasks that were previously not reachable from each other. As a result, lineage queries that operate on the workflow view, and essentially compute node reachability by transitive closure, return spurious results.
+A \textit{sound} view is one where the groupings do not produce any spurious lineage results.
+As the number of possible groupings is combinatorial, the paper explores heuristics for detecting and generating sound views. }
+
+\paolotwo{The problem does not directly apply to our approach to abstraction, essentially because in our case the abstraction is performed \textit{on the provenance graph itself}, rather than on the workflow whose execution the provenance graph represents.} 
+\paolotwo{It is computed over a graph using a user-chosen set of nodes, with the purpose of obscuring information.}
+\paolotwo{In particular, while it is true that new paths are created, it is easy to see that these always involve  both a concrete and an abstract node either at the source or at the destination, that is, they involve new relations (see for instance the example in Fig.~\ref{fig:e2-a4} on page \pageref{fig:e2-a4}). As these relations on the abstract graph are justified (see Section~\ref{sec:justifying}),  we conclude, intuitively, that the new paths encode dependencies that are similarly justified by the underlying graph.}
+
+
+Related to~\citep{Liu:2011:GSW:1929934.1929940} is Zoom~\citep{DBLP:conf/icde/BitonBDH08}, from some of the same authors. In Zoom, the main assumption is that  the graph is a trace that specifically represents the execution of a dataflow. This is a common occurrence in e-science, where workflows that follow the  dataflow model are a popular high level programming paradigm.
+%
+In this setting views over provenance are effectively a form of abstraction and are computed based on the user's indication of which workflow modules (tasks) are relevant, or perhaps based on which modules the user has access to. Thus, key to this approach is knowledge of the underlying workflow structure, which is used to specify the nodes in the graphs to be abstracted. This sets Zoom apart from our work, which instead investigates the properties of a grouping operator \textit{independently of the origins of the trace to which it is applied}. 
+
+Also specific to workflow-generated provenance, and thus too narrow in scope for our purposes, is a  strand of research that investigates the problem of preserving the privacy of functions used in workflows, when a large number of input/output pairs for those functions is revealed through the provenance traces of multiple workflow executions. This work on  \textit{module privacy}~\citep{Davidson:2011:PP:1938551.1938554,Davidson2010a,Davidson:2011:PVM:1989284.1989305} is concerned with protecting the semantics of workflow modules. 
+It applies anonymization techniques specifically to provenance graphs and is again centred around a workflow-specific form of provenance and  is thus also peripheral to our interest.
+
+% that contain traces of dataflow execution (a ``run''). . This is similar to our work in two ways. Firstly, a view is an answer to a provenance query, which accounts for users preferences and privileges. While provenance sharing policies are not a part of the model and thus are not mentioned explicitly, it is easy to imagine our policies providing input to the view generator.
+%Secondly, Zoom too has a notion of consistency, i.e., views must be valid provenance graphs. The main difference with our work is that in Zoom, provenance views are really a by-product of user views over the workflow whose execution the provenance graph represents, whereas our approach is based on a ``PROV-lite'' provenance model that makes no assumptions on the structure of the process that generates the graph.
+%
+
+
+
+\subsection{Provenance Access Control}
+
+Most of the work on protecting access to sensitive provenance includes policy models that extend traditional data Role-Based Access Control (\jwbthree{RBAC}), with a distinction made between PBAC (Provenance-Based Access Control) and PAC (Provenance Access Control).
+%
+PBAC is about policy to specify access rights to data objects based on their provenance.
+%
+An example, from~\citep{nguyen2012dependency}, is a rule of the form ``only the student submitter can access the graded homework object''. 
+%
+This rule can be enforced by looking for a dependency path in a provenance graph, whereby a given homework is attributed to a specific student (i.e., relation \textit{IsAuthoredBy} in the Open Provenance Model). This assumes that the object's attribution is explicit in the provenance graph. It is less clear how such a rule would be evaluated when the provenance is incomplete with respect to such attribution dependency, however.
+
+PAC, or how to enforce access control on parts of a provenance graph, is more directly relevant to our work. An analysis of some of the  challenges associated with secure provenance exchange can be found in  \citep{Braun:2008:SP:1496671.1496675}, where 
+%[2] U. Braun, A. Shinnar, and M. Seltzer. Secure provenance. In The 3rd USENIX Workshop on Hot Topics in Sec., pages 1–5, Berkeley, CA, USA, 2008.
+examples are presented that show how the provenance of data can be more sensitive than the data itself.
+%
+Another position paper \citep{Hasan:2007:ISP:1314313.1314318}
+% [9] R. Hasan, R. Sion, and M. Winslett. Introducing secure provenance: problems and challenges. StorageSS ’07, pages 13–18, 2007.
+describes the challenges associated with the exchange of provenance across multiple partners, in a setting where forgery of provenance by malicious users is a possibility, and where users may collude to reveal sensitive provenance to others. These are all common and complex security problems. Unfortunately, the paper stops short of providing any hints at technical solutions, and indeed it is not clear how these problems are specific to provenance, as opposed to data sharing in general.
+
+A concrete specification of an access control system or provenance~\citep{Cadenhead:2011:LPA:1943513.1943532} consists of a XACML-based policy language, in which path queries are used to specify target elements of the graph, as well as an implementation architecture and a prototype.
+%Cadenhead, Tyrone, Vaibhav Khadilkar, Murat Kantarcioglu, and Bhavani Thuraisingham. “A Language for Provenance Access Control.” In Proceedings of the First ACM Conference on Data and Application Security and Privacy, 133–144. New York, NY, USA: ACM, 2011. doi:10.1145/1943513.1943532.
+%
+%\item \citep{Sun:2013:EAC:2435349.2435390}
+%Sun, Lianshan, Jaehong Park, and Ravi Sandhu. “Engineering Access Control Policies for Provenance-aware Systems.” In Proceedings of the Third ACM Conference on Data and Application Security and Privacy, 285–292. New York, NY, USA: ACM, 2013. doi:10.1145/2435349.2435390.
+
+
+%\mnote{Cite as reference: \citep{Altintas2010a}}
+
+\subsection{Summarisation of provenance graphs}
+
+A loosely related strand of research in this area aims at summarising a collection of provenance graphs by constructing a ``super-graph'' that captures the common features across a collection of similar graphs, such as those that are produced by repeating execution of a process with different inputs and parameters. This has been addressed with an aim to improve provenance queries \citep{DBLP:journals/jidm/El-JaickML14}, as well as to provide a compact but approximate representation of provenance at the possible cost of information loss \citep{Ainy:2015:ASD:2806416.2806429}. This work is only peripherally relevant here, as our approach only operates on one graph at a time. 
+
+\paolo{In \citep{moreau2015aggregation} a mechanism is proposed to automatically construct aggregations from a single PROV graph.
+This relies on the concept of \textit{provenance types}, which are fixed-length paths in the graph that occur more than once. 
+The aggregation is defined as a mapping from provenance nodes to the provenance types, and there is a way to connect these types into a new PROV-like graph, by similarly mapping the graph edges to new weighted edges.
+The result is a new graph that is meant to capture the ``essence'' of a fine-grained set of provenance  statements by observing regularities in the original graph.
+This is substantially different from our approach, namely (i) the choice of nodes to aggregate is driven by the discovery of provenance types, which is entirely driven by graph topology and not by a user choice, and (ii) there is no intent to generate \textit{valid} PROV graphs, which is instead the main goal of our transformation.  
+Thus, the approach is not suitable to support policy-driven (or other user-oriented) selective disclosure, and the aggregation operation produces a graph that may violate PROV constraints.
+}
+
+\subsection{General graph anonymization}
+
+For completeness, we briefly mention more general techniques for graph editing, largely motivated by the need to preserve privacy in social network data. This body of work, which is not specific to provenance, extends the well-known data anynomization framework developed for relational data to graph data structures~\citep{springerlink:10.1007/978-3-540-78478-4_9,Bhagat:2009:CGA:1687627.1687714,Liu:2008:TIA:1376616.1376629}. The main idea is to randomly remove arcs between two nodes and replace them with new ones. As arcs in PROV graphs represent relationships with a given semantics, this approach generally results in false dependencies being created in the edited graph, and is therefore not viable. 
+%
+The main value of this body of work in this setting, as summarised in~\citep{Zhou:2008:BSA:1540276.1540279}, is to ensure that various forms of anonymization are provably robust to attacks from adversaries who can potentially leverage their partial information about fragments of the graph, to infer additional knowledge. In this paper we do not discuss the robustness of abstraction by grouping, indeed we do not consider any specific threats, and so the challenge of preventing the reconstruction of the abstracted fragments of provenance graphs is left for future work.
+%\citep{Bhagat:2009:CGA:1687627.1687714}  // anon social network graphs -- shrivastava
+
+%\citep{Liu:2008:TIA:1376616.1376629}  // Towards identity anonymization on graphs
+
+%\citep{Zhou:2008:BSA:1540276.1540279}  // survey of anon graph data for social network applications
+

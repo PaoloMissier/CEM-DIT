@@ -1,0 +1,245 @@
+\section{Multiple applications of $\repl$.}
+\label{app:multiple}
+
+We begin by recalling the definition of the function $\repl$.
+\begin{definition}[replace]
+\label{def:group-replace}
+
+\[ \repl (V^*, v_{new}, G) = (V', E'), \mbox{ where: } \]
+\begin{eqnarray*}
+V' & = & V  \setminus V^*  \cup \{v_{new}\}\\
+E' & = & E  \setminus (\vartheta_{out}(V^*) \cup \vartheta_{in}(V^*) \cup \vartheta_{int}(V^*))  \\
+   & & \qquad \cup\  \vartheta_{out}'(V^*)  \cup \vartheta_{in}'(V^*)
+\end{eqnarray*}
+\end{definition}
+
+
+We need to show that the order in which $\repl$ is carried out is irrelevant, i.e., if $v_n$ and $v_m$ are the new nodes, we need to show that
+\[
+\repl(V_b,v_m,\repl(V_a,v_n,G)) = \repl(V_a,v_n,\repl(V_b,v_m,G))
+  \]
+  
+
+
+  
+%\subsection{Proof}
+
+%To show that  the order of application of the two $\repl$ functions does not matter,   we need to show that given a graph $G=(V,E)$,    $\repl(V_b,v_m,\repl(V_a,v_n,G)) = \repl(V_a,v_n,\repl(V_b,v_m,G))$.
+  
+\vspace{10pt}
+{\bf Approach to proof}
+\vspace{10pt}
+
+We  calculate the edges and nodes of
+$\repl(V_b,v_m,\repl(V_a,v_n,G))$, then the edges and nodes of
+$\repl(V_a,v_n,\repl(V_b,v_m,G))$, 
+showing that they both result in the same final graph.
+%
+
+
+
+  
+ 
+\subsection*{Equality of nodes}
+
+We first show that for $ G=(V,E); V_a,V_b \subseteq V$; $I=V_a\inter V_b$  and $V_n,V_m \nin V$, the nodes resulting from 
+$\repl(V_b,v_m,\repl(V_a,v_n,G))$, and the nodes resulting from 
+$\repl(V_a,v_n,\repl(V_b,v_m,G))$ are equal.
+
+We begin by calculating the nodes of $\repl(V_a,v_n,G)$.
+%
+Following the definition of $\repl$ reproduced above, $\repl(V_a,v_n,G)$ results in the nodes $V_1$, where 
+
+\begin{eqnarray*}
+  V_1 & = & V\hide V_a \union \{v_n\}
+\end{eqnarray*}
+
+At this point, $V_b$ is modified, so let $V'_b = V_b$ after $\repl(V_a,v_n,G)$, ie $V'_b = V_b\hide I \union \{v_n\}$. The final set of nodes, which we denote $V_{12}$, is given by $V_{12} = V'_b\hide I \union \{v_f\}$. We use $v_f$ as the name for the final set of nodes to emphasise the fact that this will be different from $v_m$. Similarly, when we carry out the $\repl$ functions in the other order, we will use $v_g$ for the name of the final set of nodes. $v_f$ and $v_g$ are not in $V$. 
+
+\[
+V_{12} \\
+= \\
+V_1\hide V'_b \union \{v_f\}\\
+= (\rm{by~replacing~} V'_b) \\
+V_1\hide\ (V_b\hide I \union \{v_n\}) \union \{v_f\}\\
+= (\rm{by~replacing~} V_1) \\
+(V\hide V_a \union \{v_n\})~\hide\ (V_b\hide I \union \{v_n\}) \union \{v_f\}\\
+= (\rm{by~removing~} v_n)\\
+(V\hide V_a)~\hide\ (V_b\hide I) \union \{v_f\}\\
+= (\rm{since~} I=V_a \inter V_b)\\
+(V\hide V_a)~\hide\ (V_b) \union \{v_f\}\\
+=\\
+V\hide (V_a \union V_b) \union \{v_f\}
+\]
+
+A similar argument holds for $V_{21}$, showing $V_{21} = V\hide (V_a \union V_b) \union \{v_g\}$ and so $V_{21}=V_{12}$ (up to $\alpha$-equivalence).
+
+
+\subsection*{Equality of edges}
+
+
+To show that the edges remain unchanged in either order, we begin by calculating the edges of $\repl(V_a,v_n,G)$.
+%
+Following the definition of $\repl$ reproduced above, $\repl(V_a,v_n,G)$ results in graph $G_1=(V_1,E_1)$, where
+
+\begin{eqnarray*}
+  V_1 & = & V\hide V_a \union \{v_n\}\\
+  E_1 & = & E\hide ( \INN(V_a) \union \OUT(V_a) \union \INT(V_a)) \\
+  && \union\ \{(v',v_{n})|(v',v) \in \INN(V_a) \}\\
+  && \union\ \{(v_{n},v')|(v,v') \in \OUT(V_a) \}\\
+\end{eqnarray*}
+
+and we define
+\[
+\INN(v_n) = \{(v',v_n)|(v',v) \in \INN(V_a) \}\\
+\OUT(v_n) = \{(v_n,v')|(v,v') \in \OUT(V_a) \}
+\]
+
+\noindent  
+Let $I = V_a \inter V_b$.  We record the modification in $V_b$ \textbf{after} $\repl(V_a,v_n,G)$ has been carried out as $V'_b = (V_b\hide I)\union\{v_{n}\}$.
+If, following both applications of $\repl$,  $v_f$ is the final replacement abstract node, $V_{12}$ is the final set of nodes and $E_{12}$ is the final set of edges, then
+
+\begin{eqnarray*}
+  V_{12} & = & V_1 \hide V'_b \union \{v_m\} \\
+  E_{12} &  = & E_1\hide ( \INN(V'_b) \union \OUT(V'_b) \union \INT(V'_b) )\\
+  && \union\ \{(v',v_{f})|(v',v) \in \INN(V'_b) \}\\
+  && \union\ \{(v_{f},v')|(v,v') \in \OUT(V'_b) \}
+\end{eqnarray*}
+\noindent
+where we define 
+
+\[
+% in(P'_2) = \{(v',v,l)|(v',v,l) \in in(v), v\in P'_2\}\\
+% out(P'_2) = \{(v,v',l)|(v,v',l) \in out(v), v\in P'_2\}\\
+ \INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V'_b) \}\\
+ \OUT(v_f) = \{(v_f,v')|(v,v') \in \OUT(V'_b) \}
+ \]
+ \noindent
+ By substitution of the $E_1$, we get: 
+
+\[
+E_{12}  =  \left( \left(
+\begin{array}{l}  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a)) \\  \union \\ (\INN(v_n) \union \OUT(v_n) ) \\
+\end{array} \right)
+   \hide ( \INN(V'_b) \union \OUT(V'_b) \union \INT(V'_b) ) \right) \\
+\hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))
+\]
+\noindent
+and then, by substitution of the $V'_b$ (recall $V'_b$ is the modification made to $V'_b$ by the first $\repl$ operation: $V'_b = (V_b\hide I)\union\{v_{n}\}$):
+
+\[
+E_{12}  =  \left( \left(
+\begin{array}{l}  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a)) \\  \union \\ (\INN(v_n) \union \OUT(v_n) ) \\
+\end{array} \right)
+\hide    \left( \begin{array}{l}
+  ( \INN((V_b\hide I)\union\{v_{n}\})~ \union\ \\ \OUT((V_b\hide I)\union\{v_{n}\})~ \union\ \\ \INT((V_b\hide I)\union\{v_n\}) ) 
+         \end{array}
+         \right) \right) \\
+\hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
+\]
+
+\noindent
+then, since $(V_b\hide I) \inter \{v_{n}\} = \emptyset$, we can distribute $\INN$ and $\OUT$  over $\union$. Furthermore,  $\INT(v_n) = \emptyset$, since $v_n$ is a single node.
+
+\[
+E_{12}  =  \left( \left(
+\begin{array}{l}
+  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a)) \\  \union \\ (\INN(v_n) \union \OUT(v_n) ) \\
+\end{array} \right)
+   \hide
+   \left( \begin{array}{l}
+     \INN(V_b\hide I)\union \INN(v_n) ~\union\ \\
+     \OUT(V_b\hide I)\union \OUT(v_n)  \\
+     \INT(V_b\hide I)) 
+   \end{array}
+   \right) \right) \\
+   \hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
+\]
+
+\noindent
+We can therefore remove $\INN(\{v_n\})$ and $\OUT(\{v_n\})$ from both sides of the set hiding operator, leaving 
+
+\[
+E_{12}  =  \left( \left(
+  \begin{array}{l}
+  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a)) ) \\
+  \end{array} \right)
+   \hide
+   \left( \begin{array}{l}
+     \INN(V_b\hide I) ~\union\ \\
+     \OUT(V_b\hide I) ~\union\ \\
+          \INT(V_b\hide I)) 
+%     \INT(V_b\hide I)\union \INT(\{v_n\}) 
+   \end{array}
+   \right) \right) \\
+   \hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
+\]
+
+
+\noindent
+and, since $I = V_a \inter V_b$,  and therefore $I \subseteq V_a$, we can write
+
+\[
+E_{12}  = 
+  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a) \union    \INN(V_b) ~\union \OUT(V_b)   ~\union   \INT(V_b\hide I))  \\
+   \hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
+\]
+
+
+Next, observe that, since $I \subseteq V_b$, $V_b\hide I = V_b$, and so  $\INT(V_b\hide I) = \INT(V_b)$. 
+
+\[
+E_{12}  = 
+  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a) \union    \INN(V_b) ~\union \OUT(V_b)   ~\union   \INT(V_b))  \\
+   \hphantom{E_{12}  = \;\; }   \union\ \\
+\hphantom{E_{12}  = \;\;}   (\INN(v_f) \union \OUT(v_f))\\ 
+\]
+
+
+A similar chain of reasoning to the above demonstrates that
+
+
+\[
+E_{21}  = 
+  E\hide(\INN(V_a) \union \OUT(V_a) \union \INT(V_a) \union    \INN(V_b) ~\union \OUT(V_b)   ~\union   \INT(V_b))  \\
+   \hphantom{E_{21}  = \;\; }   \union\ \\
+\hphantom{E_{21}  = \;\;}   (\INN(v_g) \union \OUT(v_g))\\ 
+\]
+
+
+It now remains to show that the edges associated with $v_f$ and $v_g$ are teh same: ie that $\INN(v_f) = \INN(v_g)$ and $\OUT(v_f) = \OUT(v_g)$.
+
+Consider $\INN(v_f)$. We know that $ \INN(v_f) = \{(v',v_f)|(v',v) \in \INN(V'_b) \}$, and by expansion of the definition of $V'_b$ we get
+\[
+\INN(v_f) \\
+=\\
+\{(v',v_f)|(v',v) \in \INN(V_b\hide I \union \{v_n\}) \}\\
+=\\
+\{(v',v_f)|(v',v) \in \INN(V_b\hide I) \union \INN(\{v_n\}) \}\\
+=\\
+\{(v',v_f)|(v',v) \in \INN(V_b\hide I)\} \union \{(v',v_f)|(v',v)\in \INN(\{v_n\}) \}\\
+=(\rm{by~~definition~~of~~}\INN(\{v_n\})\\
+\{(v',v_f)|(v',v) \in \INN(V_b\hide I)\} \union \{(v',v_f)|(v',v)\in \{(v',v_n)|(v',v) \in \INN(V_a)\} \}\\
+=(\rm{by~~simplication})\\
+\{(v',v_f)|(v',v) \in \INN(V_b\hide I)\} \union \{(v',v_f)|(v',v) \in \INN(V_a)\} \}\\
+=(\rm{since~~} I=V_a\inter V_b)\\
+\{(v',v_f)|(v',v) \in \INN(V_b)\} \union \{(v',v_f)|(v',v) \in \INN(V_a)\} \}\\
+=\\
+\{(v',v_f)|(v',v) \in \INN(V_b) \union \INN(V_a) \}\\
+\]
+
+
+Similar reasoning shows that $\INN(v_g)$ also is equal to $\{(v',v_g)|(v',v) \in \INN(V_a)\union \INN(V_b) \}$, and thus the $\INN(v_f) = \INN(v_g)$.
+
+The demonstration that $\OUT(v_f) = \OUT(v_g)$ follows similar lines.
+
+
+  
+ 
+
+

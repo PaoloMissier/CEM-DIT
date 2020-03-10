@@ -1,0 +1,79 @@
+%%-*- mode: LaTeX; mode: FlySpell; -*-
+
+\documentclass{elsarticle}
+
+\input{preamble}
+
+\begin{document}
+
+\title{Abstracting PROV provenance graphs: a validity-preserving approach}
+
+ 
+\author[ncl]{P. ~Missier \corref{cor1}}
+\ead{Paolo.Missier@newcastle.ac.uk}
+
+\author[cov]{J. ~Bryans\corref{cor1}}
+\ead{Jeremy.Bryans@coventry.ac.uk}
+
+\author[ncl]{C. ~Gamble}
+\ead{Carl.Gamble@newcastle.ac.uk}
+    
+\author[kcl]{V. ~Curcin}
+\ead{Vasa.Curcin@kcl.ac.uk}
+
+\address[ncl]{School of Computing, Newcastle University, UK}
+\address[cov]{Institute for Future Transport and Cities, Coventry University, UK}
+\address[kcl]{Kings College, London, UK}
+
+\cortext[cor1]{Corresponding Author}
+
+
+\markboth{IEEE Transaction on Knowledge and Data Engineering,~Vol.~X, No.~Y, DATE}%
+{Shell \MakeLowercase{\textit{et al.}}: happy}
+
+
+\begin{abstract}
+  Data provenance is a structured form of metadata designed to record the activities and datasets involved in data production, as well as their dependency relationships. The PROV data model, released by the W3C in 2013, defines a schema and constraints that together provide a structural and semantic foundation for provenance. This enables the interoperable exchange of provenance between data producers and consumers. When the provenance content is sensitive and subject to disclosure restrictions, however, \jwbtwo{a way of hiding parts of the} provenance in a principled way before communicating it to certain parties is required. In this paper we present a provenance abstraction operator that achieves this goal. It maps a \jwbthree{graphical representation of a PROV document $PG_1$  to a new abstract version $PG_2$}, ensuring that (i) \jwbthree{$PG_2$ is a valid PROV graph, and}  (ii) the dependencies that appear in \jwbthree{$PG_2$} are \textit{justified} by those \jwbtwo{that appear} in \jwbthree{$PG_1$}. \jwbtwo{These two properties ensure that further abstraction of abstract PROV \jwbthree{graphs  is} possible.} \jwbtwo{A guiding principle of the work is that of minimum damage: the resultant graph is altered as little as possible, while ensuring that the two properties are maintained. }  The operator developed is implemented as part of a user tool, described in a separate paper, that lets owners of sensitive provenance information control the abstraction by specifying an abstraction policy.
+\end{abstract}
+
+\begin{keyword}
+Provenance \sep Provenance metadata \sep provenance abstraction 
+\end{keyword}
+
+\maketitle
+
+\input{Introduction}
+ 
+\input{relatedWork}
+
+%\input{prov-summary}
+\input{prov-summary-wo-invalidation}
+
+\input{grouping}
+
+%\input{abstractionEvents_jwb}
+
+\input{abstractionEvents}
+
+%\input{agents}
+
+%\input{tool}
+
+\input{summary}
+
+\section*{Acknowledgements}
+
+The support of the ONRG and the EPSRC in funding this research is gratefully acknowledged. We are also grateful to the anonymous reviewers for the insightful suggestions that helped us improve the paper.
+
+\section*{References}
+
+\bibliographystyle{plain}
+\bibliography{prov-abstraction-foundations}
+
+%\appendix
+
+%\section{Proofs}
+%\include{proof}
+%\include{multiple-apps-order-irrelevant-proof}
+
+\end{document}

@@ -1,7 +1,8 @@
-* Development of an operator to carry out privacy-focused partial obfuscation of provenance
+* Development of an operator for privacy-focused partial obfuscation of provenance.
 
-* Our work maps a PROV document P1 to a new abstract version P2, ensuring that (i) P2 is a valid PROV document and that the dependencies that appear in P2 are justified by those that appear in P1. 
+* Abstraction ensures a valid PROV document while causing minimum damage.
 
-* These two properties ensure that further abstraction of abstract PROV documents possible. 
+* Dependencies in abstraction are justified by those in original document. 
 
-* A guiding principle of the work is that of minimum damage: the resultant graph is altered as little as possible, while ensuring that the two properties are maintained.
+* Properties ensure that further abstraction of abstract PROV documents possible. 
+

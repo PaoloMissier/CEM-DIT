@@ -9,7 +9,7 @@
 
 We now introduce the core elements of the PROV model, which forms the basis for the grouping operator.
 %
-We maintain a dual view of provenance, both as a relational model (with binary relations) and as a graph model. Viewed as a relational model, PROV includes the three types of elements: Entities ($\en$), Activities ($\act$), \jwbthree{and Agents. However in this paper we restrict our attention to entities and activities} and \jwbthree{the relations} between them. 
+We maintain a dual view of provenance, both as a relational model (with binary relations) and as a graph model. Viewed as a relational model, PROV includes the three types of elements: Entities ($\en$), Activities ($\act$), \jwbthree{and Agents. However in this paper we restrict our attention to entities and activities} and \jwbthree{the relations} between them. Agents have proved difficult to incorporate into our framework, but the results we have with entities and activities are worth recording.  
 In line with the description in~\citep{w3c-prov-dm} (Section 2), PROV is defined by the following core relations, with common abbreviations in brackets. 
 
 \begin{eqnarray*}
@@ -38,7 +38,7 @@ These are summarized in Fig.~\ref{fig:prov-core}.
 %\jwbthree{\sloppy In this paper we are going to restrict ourselves to an even simpler model consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.  An instance  of this model is  therefore a provenance document $D$ consisting of sets $en \in \en$ and $act \in \act$ of symbols, and sets of relation instances $\{ \wgby(e,a)  | e \in \en, a \in \act \} \cup   \{ \used(a,e)  | e \in \en, a \in \act\}$. }
 
 
-\jwbthree{In this paper we  restrict ourselves to a model consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.}
+%\jwbthree{In this paper we  restrict ourselves to a model consisting only of $\en$, $\act$, and relations $\used$ and $\wgby$.}
 
 \jwbthree{
 We note that, when considering graphs containing the relations $\wasInfBy$ and $\wdf$, we can replace those relations with patterns involving only $\used$ and $\wgby$ using Inference 5 (communication-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/#communication-generation-use-inference}} and Inference 11 (derivation-generation-use-inference)\footnote{\url{https://www.w3.org/TR/prov-constraints/#derivation-generation-use-inference}} in the  PROV-CONSTRAINTS document~\citep{w3c-prov-constraints}.}
@@ -110,7 +110,7 @@ For instance, Constraint 55 (``entity-activity-disjoint'') states that the Entit
 \[\en \cap \act = \emptyset\]
 }
 Thus, a \jwb{provenance graph $PG$ in which} both (1) $a_1 \xleftarrow{\used} e_1$ and (2) $e_1 \xleftarrow{\used} a_1$ cannot be valid, because by definition % of $\used$ given earlier,
- (1) entails  $e_1 \in \en$, $a_1 \in \act$, while (2) entails $a_1 \in \en$, $e_1 \in \act$, violating the constraint.
+ (1) entails  $e_1 \in \en$, $a_1 \in \act$, while (2) entails $a_1 \in \en$, $e_1 \in \act$, violating the constraint. We refer to this constraint in the sequel as C1. 
 %
 %Note that disjointness constraint 55 entails that $\guEA$ graphs are bipartite.
 

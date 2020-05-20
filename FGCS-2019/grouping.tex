@@ -34,7 +34,7 @@ As the operator is closed under composition, further abstraction can be achieved
 \jwbtwo{In Section~\ref{sec:closure} we make the simplifying assumption that the set of nodes to be removed are all of the same type (either all $\en$ or all $\act$). We refer to this as \emph{homogeneous grouping} and the replacement node is implicitly of the same type as the nodes selected to be removed.}
 \jwbtwo{In Section~\ref{sec:generalisation} we remove this assumption, so the group of nodes initially selected to be removed can contain both entities and activities. A consequence of this is that the type of the replacement node is no longer implicit, and  must be  explicitly given. This leads to two variants of the operator,  depending on which type ($\en$ or $\act$) is chosen for the final replacement node.  In Section~\ref{sec:generalisation} we also identify an issue arising from simultaneous generation, and show how it may be circumvented, leading to a further variant of $\group$.  }
 
-\jwbtwo{In Section~\ref{sec:justifying} we show that the relations in the abstract graph produced by any of the $\group$ operators are \emph{justified} by the original graph. In Section~\ref{sec:complexity} we discuss the complexity of the operator, and in Section~\ref{sec:influence} we explore an alternative approach to abstraction using the \textsf{influence} relation. 
+\jwbtwo{In Section~\ref{sec:justifying} we show that the relations in the abstract graph produced by any of the $\group$ operators are \emph{justified} by the original graph. In Section~\ref{sec:complexity} we discuss the complexity of the operator, and in Section~\ref{sec:influence} we explore alternative approaches to abstraction. 
 }
 
 %
@@ -81,7 +81,7 @@ The Path Closure of $V_{gr}$ in $G$ is
 %\includegraphics[scale=.5]{figures/convex-ex-1-revision.pdf} 
 %\includegraphics[scale=.27]{reworked-fig7.png} 
 \includegraphics[scale=.45]{reworked-fig7.pdf} 
-\caption{Path closure and replacement with extension on a set of entity nodes.} \label{fig:convex-ex-1}
+\caption{Path closure and replacement with extension to a set of entity nodes.} \label{fig:convex-ex-1}
 \end{figure*}
 
 However, \jwbtwo{ while the application of $\pclos()$ ensures that the group to be abstracted is free from cycles, simply replacing the shaded nodes in Fig.~\ref{fig:convex-ex-1}(b) with a single node $e'$ is not sufficient. This is because the resulting graph would no longer be bipartite, since the new edges $e' \rightarrow e_2$ and $e' \rightarrow e_6$ would connect nodes of the same type.}
@@ -248,7 +248,7 @@ Since the arcs have the same type as those they replace, it follows that $\repl(
 \centering
 %\includegraphics[scale=.5]{figures/convex-a-only-revision.pdf} 
 \includegraphics[scale=.45]{reworked-fig8.pdf} 
-\caption{Path closure and replacement with extension on a set of entity nodes.} \label{fig:convex-a-only}
+\caption{Path closure and replacement with extension to a set of activity nodes.} \label{fig:convex-a-only}
 \end{figure*}
 
 \jwbtwo{We} now provide an initial definition of our $\group()$ operator, under the simplifying assumption that all nodes in $V_{gr}$ are of the same type \jwb{before closure.}  We denote this type by $\type(V_{gr})$ (with a slight abuse of notation), and denote the initial definition of $Group$ as $\group_{hom}$. Definitions~\ref{def:t-grouping} and~\ref{def:strict-t-grouping}  in Section~\ref{sec:generalisation} remove \jwbtwo{the assumption of type-homogeneity.}
